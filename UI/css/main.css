@@ -1,6 +1,39 @@
+/* ****Colors***** 
+Blueish : rgb(29, 66, 66);
+Teal : teal
+dropdown :  ul li ul {
+        visibility: visible;
+        opacity: 1;
+        position: relative;
+        margin-top: 1rem;
+        display: block;
+        background: black;
+        text-align: left;
+        padding: 0px;
+    }
+*/
+
+html {
+    height: 100%;
+}
+
 body {
     margin: 0px;
     background: linear-gradient(to right, rgba(112, 120, 133, 0.8), rgba(96, 105, 121, 0.5), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url(../img/sign.jpg) no-repeat;
+}
+
+.home-img {
+    min-height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    background: url(../img/automart.jpg) no-repeat;
+}
+
+.home-img::after {
+    content: '';
+    display: block;
+    height: 60px;
 }
 
 main {
@@ -91,4 +124,228 @@ main {
     text-decoration: none;
     float: left;
     padding-right: 10%;
+}
+
+
+/* The navigation Bar */
+
+nav {
+    width: 100%;
+    background: black;
+    display: inline-flex;
+    height: 50px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+}
+
+.nav-links {
+    width: 100%;
+    min-width: 360px;
+    text-align: center;
+}
+
+.nav-links li a {
+    margin-left: 3em;
+}
+
+nav a {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    color: teal;
+    /* margin-left: 20px; */
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 10px;
+}
+
+nav a:hover {
+    color: white;
+}
+
+.about {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    font-size: 1.2em;
+    float: right;
+}
+
+nav button {
+    width: 100px;
+    height: 30px;
+    border-style: ridge;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: teal;
+    color: teal;
+    font-size: 0.8em;
+    float: right;
+    margin-left: 5px;
+}
+
+.nav-btns {
+    min-width: 250px;
+    padding-top: 10px;
+}
+
+.logo {
+    border-radius: 50%;
+    margin-left: 20px;
+    border-style: ridge;
+    border-color: teal;
+    border-width: 1px;
+}
+
+
+/* The Home page */
+
+footer {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    background: black;
+    bottom: 0;
+    margin: 0px;
+}
+
+.call {
+    float: left;
+    transform: rotate(90deg);
+    transition: 2s;
+    position: fixed;
+    margin-top: 120px;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin-left: -60px;
+    background: black;
+    color: teal;
+    font-size: 0.75em;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: block;
+    float: left;
+    transition-duration: 0.5s;
+}
+
+ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    margin-left: 50px;
+    display: none;
+    background: black;
+    text-align: left;
+    padding: 0px;
+}
+
+ul li:hover ul,
+ul li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+ul li ul li {
+    clear: both;
+    width: 100%;
+    padding: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-transform: uppercase;
+}
+
+ul li ul li:hover {
+    background: rgb(29, 66, 66);
+}
+
+ul li ul>li {
+    padding-top: 0px;
+}
+
+.dropdown li a {
+    margin-left: 0px;
+}
+
+@media only screen and (max-width: 878px) {
+    .nav-links li a {
+        margin-left: 1em;
+    }
+    .nav-links li>a {
+        margin-left: 0px;
+    }
+    .nav-links {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    ul li ul {
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .call {
+        display: none;
+    }
+    ul li ul {
+        visibility: invisible;
+        opacity: 0;
+        position: relative;
+        transition: all 0.5s ease;
+        margin-top: 1rem;
+        background: black;
+        text-align: left;
+        padding: 0px;
+        display: none;
+    }
+    .dropdown li {
+        text-transform: capitalize;
+    }
+    nav {
+        height: 100%;
+        display: block;
+        width: 100%;
+    }
+    .nav-links {
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        min-width: 100%;
+    }
+    li {
+        float: none;
+    }
+    ul li ul li {
+        background: rgb(29, 66, 66);
+        border-bottom-style: solid;
+        border-bottom-color: black;
+        border-bottom-width: 1px;
+        padding-top: 5px;
+        margin-left: 10px;
+    }
+    ul li ul li a {
+        color: white;
+    }
+    .menus {
+        border-bottom: rgb(29, 66, 66) solid 1px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .nav-links>li:first-of-type {
+        border-top: rgb(29, 66, 66) solid 1px;
+    }
+    .nav-btns {
+        text-align: center;
+    }
+    nav button {
+        float: none;
+    }
 }
