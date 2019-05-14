@@ -11,13 +11,21 @@ dropdown :  ul li ul {
         text-align: left;
         padding: 0px;
     }
+Whitish : rgb(221, 220, 220);
 */
 
 html {
     height: 100%;
 }
 
+*,
+* :before,
+* :after {
+    box-sizing: inherit;
+}
+
 body {
+    font-family: Helvetica, Arial, sans-serif;
     margin: 0px;
     background: linear-gradient(to right, rgba(112, 120, 133, 0.8), rgba(96, 105, 121, 0.5), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url(../img/sign.jpg) no-repeat;
 }
@@ -28,6 +36,14 @@ body {
     padding: 0px;
     position: relative;
     background: url(../img/automart.jpg) no-repeat;
+}
+
+.body {
+    position: relative;
+    background: none;
+    margin: 0px;
+    min-height: 100%;
+    min-width: 100%;
 }
 
 .home-img::after {
@@ -42,6 +58,11 @@ main {
 
 .main {
     margin-top: 13%;
+}
+
+.main-vehicles {
+    margin-top: 0px;
+    padding-bottom: 45px;
 }
 
 .form {
@@ -141,9 +162,8 @@ nav {
 }
 
 .nav-links {
-    width: 100%;
-    min-width: 360px;
     text-align: center;
+    width: 100%;
 }
 
 .nav-links li a {
@@ -154,7 +174,6 @@ nav a {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-decoration: none;
     color: teal;
-    /* margin-left: 20px; */
     font-size: 0.8em;
     font-weight: 600;
     padding: 10px;
@@ -162,14 +181,6 @@ nav a {
 
 nav a:hover {
     color: white;
-}
-
-.about {
-    width: 100%;
-    text-align: center;
-    padding: 5px;
-    font-size: 1.2em;
-    float: right;
 }
 
 nav button {
@@ -188,6 +199,7 @@ nav button {
 .nav-btns {
     min-width: 250px;
     padding-top: 10px;
+    /* float: right; */
 }
 
 .logo {
@@ -203,10 +215,10 @@ nav button {
 
 footer {
     position: absolute;
+    bottom: 0;
     width: 100%;
     height: 60px;
     background: black;
-    bottom: 0;
     margin: 0px;
 }
 
@@ -275,6 +287,102 @@ ul li ul>li {
     margin-left: 0px;
 }
 
+
+/* View all vehicles page */
+
+.title {
+    width: 100%;
+    height: 40px;
+    border-bottom: rgb(221, 220, 220) solid 1px;
+    text-align: center;
+    font-size: 1.6em;
+    padding-top: 10px;
+    font-weight: 500;
+}
+
+.wrapper {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: inline-flex;
+    width: 45%;
+    border: rgb(221, 220, 220) solid thin;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 2%;
+    position: inherit;
+    margin-top: 10px;
+}
+
+.wrapper img {
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.wrapper:hover {
+    cursor: pointer;
+}
+
+.col1 {
+    width: 50%;
+}
+
+.col1 img {
+    width: 100%;
+    height: 200px;
+    height: 90%;
+}
+
+.col2 {
+    display: block;
+    float: left;
+    margin-left: 10px;
+}
+
+.col2 div:first-of-type {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.col2 div:nth-child(2),
+.col2 div:nth-child(3),
+.col2 div:nth-child(4),
+.col2 div:nth-child(5) {
+    margin-top: 7%;
+    margin-bottom: 7%;
+    font-size: 0.8em;
+}
+
+.col2>span:first-of-type {
+    float: left;
+    font-size: 0.9em;
+}
+
+.col2>span:last-of-type {
+    float: right;
+    font-size: 0.9em;
+    color: chocolate;
+}
+
+@media only screen and (max-width: 941px) {
+    .col2 div:nth-child(2),
+    .col2 div:nth-child(3),
+    .col2 div:nth-child(4),
+    .col2 div:nth-child(5) {
+        /* margin-top: 10%;
+        margin-bottom: 10%; */
+        font-size: 0.7em;
+    }
+    .col2 div:first-of-type {
+        font-size: 1em;
+    }
+    .col2>span:first-of-type {
+        font-size: 0.8em;
+    }
+    .col2>span:last-of-type {
+        font-size: 0.8em;
+    }
+}
+
 @media only screen and (max-width: 878px) {
     .nav-links li a {
         margin-left: 1em;
@@ -291,7 +399,37 @@ ul li ul>li {
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 683px) {
+    nav {
+        font-size: 0.8em;
+    }
+    nav button {
+        width: 38px;
+    }
+    .nav-btns {
+        min-width: 150px;
+    }
+}
+
+@media only screen and (max-width: 571px) {
+    .main-vehicles {
+        font-size: 0.8em;
+    }
+    .col1 {
+        width: 60%;
+    }
+    .menus {
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .wrapper {
+        width: 93%;
+    }
+    .col1 {
+        width: 50%;
+    }
     .call {
         display: none;
     }
@@ -338,11 +476,13 @@ ul li ul>li {
         border-bottom: rgb(29, 66, 66) solid 1px;
         padding-top: 10px;
         padding-bottom: 10px;
+        font-size: 1em;
     }
     .nav-links>li:first-of-type {
         border-top: rgb(29, 66, 66) solid 1px;
     }
     .nav-btns {
+        /* float: left; */
         text-align: center;
     }
     nav button {
