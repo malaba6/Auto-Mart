@@ -441,6 +441,52 @@ ul li ul>li {
     margin-right: 20%;
 }
 
+
+/* Admin view all vehicles page */
+
+.col2-admin div {
+    margin-top: 3%;
+    margin-bottom: 3%;
+    font-size: 0.8em;
+}
+
+.col2-admin div span {
+    margin-left: 5%;
+}
+
+.col2-admin div:first-of-type {
+    font-size: 1.2em;
+}
+
+.col2-admin {
+    display: block;
+    float: left;
+    margin-left: 10px;
+    width: 50%;
+}
+
+.col2-admin div:nth-of-type(2) span {
+    color: chocolate;
+}
+
+.col2-admin button {
+    float: right;
+    background: white;
+    border-style: none;
+    margin: 0px;
+    padding: 0px;
+    color: rgb(194, 43, 43);
+}
+
+.col2-admin button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.wrapper-admin:hover {
+    cursor: default;
+}
+
 @media only screen and (max-width: 941px) {
     .col2 div:nth-child(2),
     .col2 div:nth-child(3),
@@ -448,7 +494,11 @@ ul li ul>li {
     .col2 div:nth-child(5) {
         font-size: 0.7em;
     }
-    .col2 div:first-of-type {
+    .col2-admin div {
+        font-size: 0.7em;
+    }
+    .col2 div:first-of-type,
+    .col2-admin div:first-of-type {
         font-size: 1em;
     }
     .col2>span:first-of-type {
