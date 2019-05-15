@@ -487,6 +487,89 @@ ul li ul>li {
     cursor: default;
 }
 
+
+/* View a specif car */
+
+.car-details {
+    text-align: center;
+}
+
+.col2-car {
+    display: block;
+    float: left;
+    margin-left: 3%;
+    width: 50%;
+    text-align: left;
+    margin-right: 2%;
+}
+
+.col2-car div {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.col2-car div span {
+    margin-left: 5%;
+}
+
+.col2-car div:first-of-type {
+    font-size: 1.4em;
+}
+
+.col2-car div:first-of-type span {
+    margin-top: 4px;
+    font-size: 0.5em;
+    font-weight: lighter;
+    float: right;
+    color: rgba(155, 53, 67, 0.986);
+}
+
+.col2-car div:first-of-type span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.col2-car div:last-of-type span {
+    color: chocolate;
+}
+
+.wrapper-car-details {
+    width: 70%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: inline-flex;
+    border: rgb(221, 220, 220) solid thin;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 2%;
+    position: inherit;
+    margin-top: 5%;
+}
+
+.col1-details {
+    width: 50%;
+}
+
+.col1-details img {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.col2-car button {
+    width: 100px;
+    color: teal;
+    height: 30px;
+    background: white;
+    border: teal solid thin;
+    border-radius: 10px;
+    float: right;
+}
+
+@media only screen and (max-width: 983px) {
+    .wrapper-car-details {
+        width: 90%;
+    }
+}
+
 @media only screen and (max-width: 941px) {
     .col2 div:nth-child(2),
     .col2 div:nth-child(3),
@@ -522,6 +605,23 @@ ul li ul>li {
     }
     ul li ul {
         margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width: 747px) {
+    .wrapper-car-details {
+        border: none;
+        display: block;
+        overflow: auto;
+        margin-top: 1%;
+    }
+    .col1-details {
+        text-align: center;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .col2-car {
+        width: 97%;
     }
 }
 
@@ -630,5 +730,18 @@ ul li ul>li {
     .post-center {
         margin-left: 10px;
         margin-right: 10px;
+    }
+    .col2 div:nth-child(2),
+    .col2 div:nth-child(3),
+    .col2 div:nth-child(4),
+    .col2 div:nth-child(5) {
+        font-size: 0.8em;
+    }
+    .col2-admin div {
+        font-size: 0.8em;
+    }
+    .col2-car {
+        margin-right: 0%;
+        padding-right: 0px;
     }
 }
