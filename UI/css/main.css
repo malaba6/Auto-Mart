@@ -125,7 +125,7 @@ main {
     float: right;
     border-style: solid;
     border-width: 1px;
-    border-radius: 5px;
+    border-radius: 20px;
     border-color: teal;
     width: 120px;
     min-height: 40px;
@@ -196,7 +196,7 @@ nav button {
     height: 30px;
     border-style: ridge;
     border-width: 1px;
-    border-radius: 10px;
+    border-radius: 15px;
     border-color: teal;
     color: teal;
     font-size: 0.8em;
@@ -238,7 +238,7 @@ footer {
     margin-top: 200px;
     padding: 10px;
     padding-bottom: 20px;
-    margin-left: -60px;
+    margin-left: -75px;
     background: black;
     color: teal;
     font-size: 0.75em;
@@ -423,7 +423,7 @@ ul li ul>li {
     height: 30px;
     border-style: ridge;
     border-width: 1px;
-    border-radius: 10px;
+    border-radius: 15px;
     border-color: teal;
     color: teal;
     font-size: 0.8em;
@@ -560,25 +560,23 @@ ul li ul>li {
     height: 30px;
     background: white;
     border: teal solid thin;
-    border-radius: 10px;
+    border-radius: 15px;
     float: right;
+}
+
+.col2-car button:hover {
+    cursor: pointer;
 }
 
 
 /* Flag fraudulent add page */
 
 .flag {
-    /* margin: 0 auto; */
-    /* border: red solid 1px; */
-    /* width: 100%; */
-    /* height: 100%; */
     margin-left: 20%;
     margin-right: 20%;
-    /* text-align: center; */
 }
 
 .reason {
-    /* border: blue solid 1px; */
     padding: 5px;
     padding-left: 0px;
     border-bottom: rgb(221, 220, 220) solid thin;
@@ -598,7 +596,6 @@ ul li ul>li {
 
 .flag div:last-of-type textarea {
     padding: 10px;
-    /* padding-left: 0px; */
     width: 95%;
     border: none;
     margin-top: 10px;
@@ -618,6 +615,17 @@ ul li ul>li {
 
 .flag button:hover {
     cursor: pointer;
+}
+
+
+/* Make purchase order page */
+
+.col2-car input[type="text"] {
+    padding: 5px;
+    padding-left: 10px;
+    color: chocolate;
+    border: chocolate solid thin;
+    border-radius: 15px;
 }
 
 @media only screen and (max-width: 983px) {
