@@ -1,0 +1,837 @@
+/* ****Colors***** 
+Blueish : rgb(29, 66, 66);
+Teal : teal
+dropdown :  ul li ul {
+        visibility: visible;
+        opacity: 1;
+        position: relative;
+        margin-top: 1rem;
+        display: block;
+        background: black;
+        text-align: left;
+        padding: 0px;
+    }
+Whitish : rgb(221, 220, 220);
+*/
+
+html {
+    height: 100%;
+}
+
+*,
+* :before,
+* :after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0px;
+    background: linear-gradient(to right, rgba(112, 120, 133, 0.8), rgba(96, 105, 121, 0.5), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url(../img/sign.jpg) no-repeat;
+}
+
+.home-img {
+    min-height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    background: url(../img/automart.jpg) no-repeat;
+}
+
+.body {
+    position: relative;
+    background: none;
+    margin: 0px;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.body-post {
+    background: linear-gradient(to right, rgba(112, 120, 133, 0.8), rgba(96, 105, 121, 0.5), rgba(225, 226, 228, 0.8), rgba(254, 255, 255, 0.5)), url(../img/sign.jpg) no-repeat;
+}
+
+.home-img::after {
+    content: '';
+    display: block;
+    height: 60px;
+}
+
+main {
+    margin-top: 5%;
+}
+
+.main {
+    margin-top: 13%;
+}
+
+.main-vehicles {
+    margin-top: 0px;
+    padding-bottom: 45px;
+}
+
+.main-post {
+    margin: 0 auto;
+}
+
+.form {
+    width: 60%;
+    max-width: 400px;
+    margin: 0 auto;
+    font-size: 1em;
+    font-weight: lighter;
+    color: white;
+    background: black;
+    margin-top: 5%;
+}
+
+.sign-msg {
+    font-weight: lighter;
+    font-size: 1.1em;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.sign-msg .mart-label {
+    color: teal;
+    font-size: 1.3em;
+}
+
+.sign-msg label {
+    font-style: italic;
+}
+
+.forgot-pass {
+    font-size: 0.7em;
+    color: teal;
+    text-decoration: none;
+    float: right;
+    padding-right: 10%;
+}
+
+.signup-btn {
+    float: right;
+    border-style: 1px;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: teal;
+    width: 150px;
+    min-height: 40px;
+    margin: 5px 1px;
+    background-color: black;
+    color: teal;
+}
+
+.submit-btn {
+    float: right;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: teal;
+    width: 120px;
+    min-height: 40px;
+    margin: 5px 1px;
+    background-color: black;
+    color: teal;
+}
+
+.login-input {
+    display: block;
+    min-height: 40px;
+    width: 90%;
+    font-size: 0.8em;
+    margin: 10px 0;
+    border-style: ridge;
+    border-width: 1px;
+    background: black;
+    color: white;
+    padding: 2px;
+}
+
+.sign-option {
+    font-size: 0.8em;
+    color: teal;
+    text-decoration: none;
+    float: left;
+    padding-right: 10%;
+}
+
+
+/* The navigation Bar */
+
+nav {
+    width: 100%;
+    background: black;
+    display: inline-flex;
+    height: 50px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+}
+
+.nav-links {
+    text-align: center;
+    width: 100%;
+}
+
+.nav-links li a {
+    margin-left: 3em;
+}
+
+nav a {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    color: teal;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 10px;
+}
+
+nav a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+nav button {
+    width: 100px;
+    height: 30px;
+    border-style: ridge;
+    border-width: 1px;
+    border-radius: 15px;
+    border-color: teal;
+    color: teal;
+    font-size: 0.8em;
+    float: right;
+    margin-left: 5px;
+}
+
+nav button:hover {
+    cursor: pointer;
+}
+
+.nav-btns {
+    min-width: 250px;
+    padding-top: 10px;
+    /* float: right; */
+}
+
+.logo {
+    border-radius: 50%;
+    margin-left: 20px;
+    border-style: ridge;
+    border-color: teal;
+    border-width: 1px;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+
+/* The Home page */
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: black;
+    margin: 0px;
+}
+
+.call {
+    float: left;
+    transform: rotate(90deg);
+    transition: 2s;
+    position: fixed;
+    margin-top: 200px;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin-left: -75px;
+    background: black;
+    color: teal;
+    font-size: 0.75em;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: block;
+    float: left;
+    transition-duration: 0.5s;
+}
+
+ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    margin-left: 50px;
+    display: none;
+    background: black;
+    text-align: left;
+    padding: 0px;
+}
+
+ul li:hover ul,
+ul li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+ul li ul li {
+    clear: both;
+    width: 100%;
+    padding: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-transform: uppercase;
+}
+
+ul li ul li:hover {
+    background: rgb(29, 66, 66);
+}
+
+ul li ul>li {
+    padding-top: 0px;
+}
+
+.dropdown li a {
+    margin-left: 0px;
+}
+
+
+/* View all vehicles page */
+
+.title {
+    width: 100%;
+    height: 40px;
+    border-bottom: rgb(221, 220, 220) solid 1px;
+    text-align: center;
+    font-size: 1.6em;
+    padding-top: 10px;
+    font-weight: 500;
+}
+
+.wrapper {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: inline-flex;
+    width: 45%;
+    border: rgb(221, 220, 220) solid thin;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 2%;
+    position: inherit;
+    margin-top: 10px;
+}
+
+.wrapper img {
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.wrapper:hover {
+    cursor: pointer;
+}
+
+.col1 {
+    width: 50%;
+}
+
+.col1 img {
+    width: 100%;
+    height: 200px;
+    height: 90%;
+}
+
+.col2 {
+    display: block;
+    float: left;
+    margin-left: 10px;
+}
+
+.col2 div:first-of-type {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.col2 div:nth-child(2),
+.col2 div:nth-child(3),
+.col2 div:nth-child(4),
+.col2 div:nth-child(5) {
+    margin-top: 7%;
+    margin-bottom: 7%;
+    font-size: 0.8em;
+}
+
+.col2>span:first-of-type {
+    float: left;
+    font-size: 0.9em;
+}
+
+.col2>span:last-of-type {
+    float: right;
+    font-size: 0.9em;
+    color: chocolate;
+}
+
+
+/* Post car sale advertisement page */
+
+.post-img input {
+    margin: 0px;
+    height: 150px;
+    width: auto;
+    border: gray solid thin;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.post-img input:hover {
+    cursor: pointer;
+}
+
+.post-img {
+    text-align: center;
+}
+
+.post-div {
+    margin: 0 auto;
+    width: 60%;
+    height: 100vh;
+    background-color: white;
+    padding-top: 10px;
+}
+
+.post-label {
+    margin: 20px;
+    font-size: 1.2em;
+}
+
+.post-label input {
+    width: 100%;
+    height: 30px;
+    border: rgb(173, 172, 172) solid thin;
+    margin-top: 10px;
+    border-radius: 15px;
+    padding-left: 10px;
+}
+
+.post-label select {
+    height: 30px;
+    width: auto;
+}
+
+.post-div button {
+    width: 100px;
+    height: 30px;
+    border-style: ridge;
+    border-width: 1px;
+    border-radius: 15px;
+    border-color: teal;
+    color: teal;
+    font-size: 0.8em;
+    float: right;
+    margin-left: 5px;
+    position: relative;
+}
+
+.post-div button:hover {
+    cursor: pointer;
+}
+
+.post-center {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+
+/* Admin view all vehicles page */
+
+.col2-admin div {
+    margin-top: 3%;
+    margin-bottom: 3%;
+    font-size: 0.8em;
+}
+
+.col2-admin div span {
+    margin-left: 5%;
+}
+
+.col2-admin div:first-of-type {
+    font-size: 1.2em;
+}
+
+.col2-admin {
+    display: block;
+    float: left;
+    margin-left: 10px;
+    width: 50%;
+}
+
+.col2-admin div:nth-of-type(2) span {
+    color: chocolate;
+}
+
+.col2-admin button {
+    float: right;
+    background: white;
+    border-style: none;
+    margin: 0px;
+    padding: 0px;
+    color: rgb(194, 43, 43);
+}
+
+.col2-admin button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.wrapper-admin:hover {
+    cursor: default;
+}
+
+
+/* View a specif car */
+
+.car-details {
+    text-align: center;
+}
+
+.col2-car {
+    display: block;
+    float: left;
+    margin-left: 3%;
+    width: 50%;
+    text-align: left;
+    margin-right: 2%;
+}
+
+.col2-car div {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.col2-car div span {
+    margin-left: 5%;
+}
+
+.col2-car div:first-of-type {
+    font-size: 1.4em;
+}
+
+.col2-car div:first-of-type .fraud {
+    margin-top: 4px;
+    font-size: 0.5em;
+    font-weight: lighter;
+    float: right;
+    color: rgba(155, 53, 67, 0.986);
+}
+
+.col2-car div:first-of-type span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.col2-car div:last-of-type span {
+    color: chocolate;
+}
+
+.col2-car select {
+    height: 30px;
+    width: auto;
+}
+
+.col2-car select option {
+    padding: 10px;
+}
+
+.wrapper-car-details {
+    width: 70%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: inline-flex;
+    border: rgb(221, 220, 220) solid thin;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left: 2%;
+    position: inherit;
+    margin-top: 5%;
+}
+
+.col1-details {
+    width: 50%;
+}
+
+.col1-details img {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.col2-car button {
+    width: 100px;
+    color: teal;
+    height: 30px;
+    background: white;
+    border: teal solid thin;
+    border-radius: 15px;
+    float: right;
+}
+
+.col2-car button:hover {
+    cursor: pointer;
+}
+
+
+/* Flag fraudulent add page */
+
+.flag {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.reason {
+    padding: 5px;
+    padding-left: 0px;
+    border-bottom: rgb(221, 220, 220) solid thin;
+}
+
+.flag div:last-child {
+    margin-top: 10px;
+}
+
+.flag div input {
+    border: none;
+    font-size: 1.1em;
+    height: 30px;
+    width: 80%;
+    padding-left: 5px;
+}
+
+.flag div:last-of-type textarea {
+    padding: 10px;
+    width: 95%;
+    border: none;
+    margin-top: 10px;
+    border-top: rgb(221, 220, 220) solid thin;
+    border-left: rgb(221, 220, 220) solid thin;
+}
+
+.flag button {
+    float: right;
+    border: rgb(155, 12, 12) solid thin;
+    color: rgb(155, 12, 12);
+    background: white;
+    border-radius: 15px;
+    height: 30px;
+    width: 60px;
+}
+
+.flag button:hover {
+    cursor: pointer;
+}
+
+
+/* Make purchase order page */
+
+.col2-car input[type="text"] {
+    padding: 5px;
+    padding-left: 10px;
+    color: chocolate;
+    border: chocolate solid thin;
+    border-radius: 15px;
+}
+
+@media only screen and (max-width: 983px) {
+    .wrapper-car-details {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 941px) {
+    .col2 div:nth-child(2),
+    .col2 div:nth-child(3),
+    .col2 div:nth-child(4),
+    .col2 div:nth-child(5) {
+        font-size: 0.7em;
+    }
+    .col2-admin div {
+        font-size: 0.7em;
+    }
+    .col2 div:first-of-type,
+    .col2-admin div:first-of-type {
+        font-size: 1em;
+    }
+    .col2>span:first-of-type {
+        font-size: 0.8em;
+    }
+    .col2>span:last-of-type {
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (max-width: 878px) {
+    .nav-links li a {
+        margin-left: 1em;
+    }
+    .nav-links li>a {
+        margin-left: 0px;
+    }
+    .nav-links {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    ul li ul {
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width: 747px) {
+    .wrapper-car-details {
+        border: none;
+        display: block;
+        overflow: auto;
+        margin-top: 1%;
+    }
+    .col1-details {
+        text-align: center;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .col2-car {
+        width: 97%;
+    }
+}
+
+@media only screen and (max-width: 683px) {
+    nav {
+        font-size: 0.8em;
+    }
+    nav button {
+        width: 38px;
+    }
+    .nav-btns {
+        min-width: 150px;
+    }
+    .post-center {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .flag {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media only screen and (max-width: 571px) {
+    .main-vehicles {
+        font-size: 0.8em;
+    }
+    .col1 {
+        width: 60%;
+    }
+    .menus {
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .wrapper {
+        width: 93%;
+    }
+    .col1 {
+        width: 50%;
+    }
+    .call {
+        display: none;
+    }
+    ul li ul {
+        visibility: invisible;
+        opacity: 0;
+        position: relative;
+        transition: all 0.5s ease;
+        margin-top: 1rem;
+        background: black;
+        text-align: left;
+        padding: 0px;
+        display: none;
+    }
+    .dropdown li {
+        text-transform: capitalize;
+    }
+    nav {
+        height: 100%;
+        display: block;
+        width: 100%;
+    }
+    .nav-links {
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        min-width: 100%;
+    }
+    li {
+        float: none;
+    }
+    ul li ul li {
+        background: rgb(29, 66, 66);
+        border-bottom-style: solid;
+        border-bottom-color: black;
+        border-bottom-width: 1px;
+        padding-top: 5px;
+        margin-left: 10px;
+    }
+    ul li ul li a {
+        color: white;
+    }
+    .menus {
+        border-bottom: rgb(29, 66, 66) solid 1px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 1em;
+    }
+    .nav-links>li:first-of-type {
+        border-top: rgb(29, 66, 66) solid 1px;
+    }
+    .nav-btns {
+        text-align: center;
+    }
+    nav button {
+        float: none;
+    }
+    .post-img input {
+        height: 70px;
+        width: 50%;
+    }
+    .title {
+        font-size: 1em;
+    }
+    .post-div {
+        width: 100%;
+    }
+    .post-center {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .col2 div:nth-child(2),
+    .col2 div:nth-child(3),
+    .col2 div:nth-child(4),
+    .col2 div:nth-child(5) {
+        font-size: 0.8em;
+    }
+    .col2-admin div {
+        font-size: 0.8em;
+    }
+    .col2-car {
+        margin-right: 0%;
+        padding-right: 0px;
+    }
+    .flag {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+}

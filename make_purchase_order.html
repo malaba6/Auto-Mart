@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Auto Mart</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/ico" href="img/automart-logo.png" />
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="body">
+    <header role="banner">
+        <nav role="navigation">
+            <img class="logo" src="img/automart-logo.png" alt="Auto Mart logo" width="45px" height="45px" onclick="home()">
+            <ul class="nav-links">
+                <li class="menus"><a>VEHICLES<i></i></a>
+                    <ul class="dropdown">
+                        <li onclick="viewAll()"><a>View all vehicles</a></li>
+                        <li onclick="viewAll()"><a>New vehicles</a></li>
+                        <li onclick="viewAll()"><a>Used vehicles</a></li>
+                        <li onclick="viewAll()"><a>Toyota</a></li>
+                        <li onclick="viewAll()"><a>Chevrolet</a></li>
+                        <li onclick="viewAll()"><a>Jeep</a></li>
+                        <li onclick="viewAll()"><a>Ford</a></li>
+                        <li onclick="viewAll()"><a>Car</a></li>
+                        <li onclick="viewAll()"><a>Track</a></li>
+                        <li onclick="viewAll()"><a>Trailler</a></li>
+                        <li onclick="viewAll()"><a>Van</a></li>
+                    </ul>
+                </li>
+                <li class="menus"><a>BY PRICE</a>
+                    <ul class="dropdown">
+                        <li onclick="viewAll()"><a>Under 1000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 1000 $ - 5000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 2000 $ - 10000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 10000 $ - 20000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 20000 $ - 50000 $</a></li>
+                        <li onclick="viewAll()"><a>Above 50000 $</a></li>
+                        <li onclick="viewAll()"><a>Luxury cars</a></li>
+                    </ul>
+                </li>
+                <li class="menus "><a onclick="yourAds()">YOUR ADS</a></li>
+                <li class="menus "><a onclick="postSaleAd()">POST A VEHICLE</a></li>
+            </ul>
+            <div class="nav-btns ">
+                <button onclick="login()">Login</button>
+                <button onclick="signup()">Sign up</button>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="main-vehicles">
+        <div class="call">Call us on +250784007323</div>
+        <div class="title">2015 Toyota Corolla s</div>
+        <div class="car-details">
+            <div class="wrapper-car-details">
+                <div class="col1-details">
+                    <img src="img/sign.jpg" alt="Vehicle">
+                </div>
+                <div class="col2-car">
+                    <div>2015 Toyota Corolla s</div>
+                    <div>State : <span>Used</span></div>
+                    <div>Body Type : <span>Car</span></div>
+                    <div>Make : <span>Toyota</span></div>
+                    <div>Model : <span>Corolla s 2015</span></div>
+                    <div>Proposed price : <input type="text" placeholder="Place your bid" required id="bid"></div>
+                    <button onclick="bid()">Bid </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    <footer>
+        <div class="footer"></div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
