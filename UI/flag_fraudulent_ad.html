@@ -14,40 +14,40 @@
 <body class="body">
     <header role="banner">
         <nav role="navigation">
-            <img class="logo" src="img/automart-logo.png" alt="Auto Mart logo" width="45px" height="45px">
+            <img class="logo" src="img/automart-logo.png" alt="Auto Mart logo" width="45px" height="45px" onclick="home()">
             <ul class="nav-links">
-                <li class="menus"><a href="#">VEHICLES<i></i></a>
+                <li class="menus"><a>VEHICLES<i></i></a>
                     <ul class="dropdown">
-                        <li><a href="#">View all vehicles</a></li>
-                        <li><a href="#">New vehicles</a></li>
-                        <li><a href="#">Used vehicles</a></li>
-                        <li><a href="#">Toyota</a></li>
-                        <li><a href="#">Chevrolet</a></li>
-                        <li><a href="#">Jeep</a></li>
-                        <li><a href="#">Ford</a></li>
-                        <li><a href="#">Car</a></li>
-                        <li><a href="#">Track</a></li>
-                        <li><a href="#">Trailler</a></li>
-                        <li><a href="#">Van</a></li>
+                        <li onclick="viewAll()"><a>View all vehicles</a></li>
+                        <li onclick="viewAll()"><a>New vehicles</a></li>
+                        <li onclick="viewAll()"><a>Used vehicles</a></li>
+                        <li onclick="viewAll()"><a>Toyota</a></li>
+                        <li onclick="viewAll()"><a>Chevrolet</a></li>
+                        <li onclick="viewAll()"><a>Jeep</a></li>
+                        <li onclick="viewAll()"><a>Ford</a></li>
+                        <li onclick="viewAll()"><a>Car</a></li>
+                        <li onclick="viewAll()"><a>Track</a></li>
+                        <li onclick="viewAll()"><a>Trailler</a></li>
+                        <li onclick="viewAll()"><a>Van</a></li>
                     </ul>
                 </li>
-                <li class="menus"><a href="#">BY PRICE</a>
+                <li class="menus"><a>BY PRICE</a>
                     <ul class="dropdown">
-                        <li><a href="#">Under 1000 $</a></li>
-                        <li><a href="#">Between 1000 $ - 5000 $</a></li>
-                        <li><a href="#">Between 2000 $ - 10000 $</a></li>
-                        <li><a href="#">Between 10000 $ - 20000 $</a></li>
-                        <li><a href="#">Between 20000 $ - 50000 $</a></li>
-                        <li><a href="#">Above 50000 $</a></li>
-                        <li><a href="#">Luxury cars</a></li>
+                        <li onclick="viewAll()"><a>Under 1000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 1000 $ - 5000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 2000 $ - 10000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 10000 $ - 20000 $</a></li>
+                        <li onclick="viewAll()"><a>Between 20000 $ - 50000 $</a></li>
+                        <li onclick="viewAll()"><a>Above 50000 $</a></li>
+                        <li onclick="viewAll()"><a>Luxury cars</a></li>
                     </ul>
                 </li>
-                <li class="menus"><a href="#">YOUR ADS</a></li>
-                <li class="menus"><a href="#">POST A VEHICLE</a></li>
+                <li class="menus "><a onclick="yourAds()">YOUR ADS</a></li>
+                <li class="menus "><a onclick="postSaleAd()">POST A VEHICLE</a></li>
             </ul>
-            <div class="nav-btns">
-                <button>Login</button>
-                <button>Sign up</button>
+            <div class="nav-btns ">
+                <button onclick="login()">Login</button>
+                <button onclick="signup()">Sign up</button>
             </div>
         </nav>
     </header>
@@ -57,20 +57,18 @@
         <div class="flag">
             <div class="reason">
                 Reason
-                <input type="text" placeholder="e.g. pricing, wierd demand, ...">
+                <input type="text" placeholder="e.g. pricing, wierd demand, ..." id="reason">
             </div>
             <div>
-                <div>Description<button>Flag</button></div>
-                <textarea name="description" placeholder="Description goes here" rows="20" cols="50"></textarea>
+                <div>Description<button onclick="flag()">Flag</button></div>
+                <textarea name="description" id="description" placeholder="Description goes here" rows="20" cols="50"></textarea>
             </div>
-
         </div>
-
     </main>
     <footer>
         <div class="footer"></div>
     </footer>
-    <script src="js/balance.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
