@@ -189,6 +189,7 @@ nav a {
 
 nav a:hover {
     color: white;
+    cursor: pointer;
 }
 
 nav button {
@@ -204,6 +205,10 @@ nav button {
     margin-left: 5px;
 }
 
+nav button:hover {
+    cursor: pointer;
+}
+
 .nav-btns {
     min-width: 250px;
     padding-top: 10px;
@@ -216,6 +221,10 @@ nav button {
     border-style: ridge;
     border-color: teal;
     border-width: 1px;
+}
+
+.logo:hover {
+    cursor: pointer;
 }
 
 
@@ -409,7 +418,7 @@ ul li ul>li {
     height: 30px;
     border: rgb(173, 172, 172) solid thin;
     margin-top: 10px;
-    border-radius: 5px;
+    border-radius: 15px;
     padding-left: 10px;
 }
 
@@ -516,7 +525,7 @@ ul li ul>li {
     font-size: 1.4em;
 }
 
-.col2-car div:first-of-type span {
+.col2-car div:first-of-type .fraud {
     margin-top: 4px;
     font-size: 0.5em;
     font-weight: lighter;
@@ -531,6 +540,15 @@ ul li ul>li {
 
 .col2-car div:last-of-type span {
     color: chocolate;
+}
+
+.col2-car select {
+    height: 30px;
+    width: auto;
+}
+
+.col2-car select option {
+    padding: 10px;
 }
 
 .wrapper-car-details {

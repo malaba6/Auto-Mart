@@ -17,7 +17,7 @@
             <img class="logo" src="img/automart-logo.png" alt="Auto Mart logo" width="45px" height="45px" onclick="home()">
             <ul class="nav-links">
                 <li class="menus"><a>VEHICLES<i></i></a>
-                    <ul class="dropdown">
+                    <ul class="dropdown" id="vehicle-menu">
                         <li onclick="viewAll()"><a>View all vehicles</a></li>
                         <li onclick="viewAll()"><a>New vehicles</a></li>
                         <li onclick="viewAll()"><a>Used vehicles</a></li>
@@ -53,7 +53,7 @@
     </header>
     <main role="main" class="main-vehicles">
         <div class="call">Call us on +250784007323</div>
-        <div class="title">All vehicles</div>
+        <div class="title">Your sale Advertisements</div>
         <div>
             <div class="wrapper wrapper-admin">
                 <div class="col1">
@@ -66,9 +66,8 @@
                     <div>Body Type : <span>Car</span></div>
                     <div>Make : <span>Toyota</span></div>
                     <div>Model : <span>Corolla s 2015</span></div>
-                    <div>Status : <span>Available</span></div>
                     <div>Price : <span>$10000</span></div>
-                    <button onclick="removeAd()">Remove Ad</button>
+                    <button onclick="updateAd()">Update Ad</button>
                 </div>
             </div>
             <div class="wrapper wrapper-admin">
@@ -82,77 +81,11 @@
                     <div>Body Type : <span>Car</span></div>
                     <div>Make : <span>Jeep</span></div>
                     <div>Model : <span>Wrangler JL Sport</span></div>
-                    <div>Status : <span>Available</span></div>
                     <div>Price : <span>$63000</span></div>
-                    <button onclick="removeAd()">Remove Ad</button>
-                </div>
-            </div>
-            <div class="wrapper wrapper-admin">
-                <div class="col1">
-                    <img src="img/ford.jpg" width="300px" height="200px" alt="Vehicle">
-                </div>
-                <div class="col2-admin">
-                    <div>2019 Ford Explorer</div>
-                    <div>Fraudulent? : <span>False</span></div>
-                    <div>State : <span>New</span></div>
-                    <div>Body Type : <span>Car</span></div>
-                    <div>Make : <span>Ford</span></div>
-                    <div>Model : <span>Explorer</span></div>
-                    <div>Status : <span>Available</span></div>
-                    <div>Price : <span>$33000</span></div>
-                    <button onclick="removeAd()">Remove Ad</button>
-                </div>
-            </div>
-            <div class="wrapper wrapper-admin">
-                <div class="col1">
-                    <img src="img/ford.jpg" width="300px" height="200px" alt="Vehicle">
-                </div>
-                <div class="col2-admin">
-                    <div>2019 Ford Explorer</div>
-                    <div>Fraudulent? : <span>False</span></div>
-                    <div>State : <span>New</span></div>
-                    <div>Body Type : <span>Car</span></div>
-                    <div>Status : <span>Sold</span></div>
-                    <div>Make : <span>Ford</span></div>
-                    <div>Model : <span>Explorer</span></div>
-                    <div>Price : <span>$33000</span></div>
-                    <button onclick="removeAd()">Remove Ad</button>
-                </div>
-            </div>
-            <div class="wrapper wrapper-admin">
-                <div class="col1">
-                    <img src="img/van.jpg" width="300px" height="200px" alt="Vehicle">
-                </div>
-                <div class="col2-admin">
-                    <div>Hiace ZL Glass</div>
-                    <div>State : <span>Used</span></div>
-                    <div>Body Type : <span>Van</span></div>
-                    <div>Make : <span>Toyota</span></div>
-                    <div>Model : <span>Hiace ZL Glass</span></div>
-                    <div>Status : <span>Available</span></div>
-                    <div>Price : <span>$10000</span></div>
-                    <div>Fraudulent? : <span>True</span></div>
-                    <button onclick="removeAd()">Remove Ad</button>
-                </div>
-            </div>
-            <div class="wrapper wrapper-admin">
-                <div class="col1">
-                    <img src="img/volkswagen.jpg" width="300px" height="200px" alt="Vehicle">
-                </div>
-                <div class="col2-admin">
-                    <div>2016 Volkswagen Amarok</div>
-                    <div>Fraudulent? : <span>False</span></div>
-                    <div>State : <span>Used</span></div>
-                    <div>Body Type : <span>Pickup Track</span></div>
-                    <div>Make : <span>Volkswagen</span></div>
-                    <div>Model : <span>2016 Amorok</span></div>
-                    <div>Status : <span>Available</span></div>
-                    <div>Price : <span>$20000</span></div>
-                    <button onclick="removeAd()">Remove Ad</button>
+                    <button onclick="updateAd()">Update Ad</button>
                 </div>
             </div>
         </div>
-
     </main>
     <footer>
         <div class="footer"></div>

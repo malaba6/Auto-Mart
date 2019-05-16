@@ -15,21 +15,21 @@
     <main role="main" class="main">
         <div class="form">
             <h2 class="sign-msg">Login to Auto <label class="mart-label">Mart</label></h2>
-            <form method="GET" name="form" action="index.html" method="GET">
+            <form method="GET" name="formLogin" action="admin_view_all_vehicles.html" method="GET" onsubmit="return loginValidation()">
                 <fieldset>
                     <label for="email">Email</label>
                     <input type="email" name="email" placeholder="e.g. eubule321@gmail.com" class="login-input" required>
                     <label for="password">Password</label>
                     <input type="password" placeholder="Your Password" name="password" class="login-input" required>
-                    <a href="reset.html" class="sign-option">Create account?</a>
-                    <a href="reset.html" class="forgot-pass">Forgot password?</a>
+                    <a href="signup.html" class="sign-option">Create account?</a>
+                    <a href="#" class="forgot-pass">Forgot password?</a>
                 </fieldset>
                 <input type="submit" value="Login" name="submit" class="submit-btn">
             </form>
         </div>
     </main>
 
-    <script src="js/"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
