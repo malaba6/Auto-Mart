@@ -23,4 +23,9 @@ route.post('/api/v1/auth/signup', (req, res) => {
     return res.status(userController.status).send(user);
 });
 
+route.post('/api/v1/auth/signin', (req, res) => {
+    const user = userController.login(req.body);
+    return res.status(userController.status).send(user);
+});
+
 export default route;
