@@ -1,0 +1,44 @@
+{
+    "name": "auto-mart",
+    "version": "1.0.0",
+    "description": "API for auto-mart using datastructures",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev-start": "nodemon --exec babel-node --presets @babel/preset-env app.js",
+        "start": "babel-node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Malaba6/Auto-Mart.git"
+    },
+    "keywords": [
+        "auto-mart",
+        "cars",
+        "sale",
+        "car-market",
+        "auto",
+        "api"
+    ],
+    "author": "Eric Malaba",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Malaba6/Auto-Mart/issues"
+    },
+    "homepage": "https://github.com/Malaba6/Auto-Mart#readme",
+    "dependencies": {
+        "@babel/cli": "^7.4.4",
+        "@babel/core": "^7.4.5",
+        "@babel/node": "^7.4.5",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/register": "^7.4.4",
+        "express": "^4.17.0",
+        "moment": "^2.24.0",
+        "nodemon": "^1.19.0",
+        "uuid": "^3.3.2"
+    },
+    "devDependencies": {
+        "body-parser": "^1.19.0",
+        "mocha": "^6.1.4"
+    }
+}
