@@ -1,3 +1,6 @@
+import url from "url";
+
+
 const Validator = {
     isValidName(name) {
         if (typeof name !== "string" || name.trim().length < 3) {
@@ -67,6 +70,19 @@ const Validator = {
     isValidType(type) {
         if (typeof type !== "string" || type.length === 0) {
             return "Type must be a string of characters not null";
+        }
+        return "valid";
+    },
+
+    isValidImageUrl(photo) {
+        if (typeof photo !== "string" || photo.length === 0) {
+            return "The Photo Url must be a string of characters not null";
+        }
+        if (!photo.match(/(.jpg|.png|.jpeg)$/g)) {
+            return "Image must be one of these formats .jpg .jpn .jpeg";
+        }
+        if (!photo.includes("https://res.cloudinary.com")) {
+            return `Couldn't find image ${photo}`;
         }
         return "valid";
     }
