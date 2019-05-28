@@ -1,5 +1,6 @@
 import express from "express";
 import CarController from "../controller/carController";
+import OrderController from "../controller/orderController";
 import userController from "../controller/userController";
 import { imageUploader } from "../middleware/middlewares";
 
@@ -26,6 +27,11 @@ route.post('/api/v1/auth/signin', (req, res) => {
 route.post('/api/v1/car', imageUploader, (req, res) => {
     const car = CarController.postCar(req.body);
     return res.status(CarController.status).send(car);
+});
+
+route.post('/api/v1/order', (req, res) => {
+    const order = OrderController.createOrder(req.body);
+    return res.status(OrderController.status).send(order);
 });
 
 export default route;

@@ -71,39 +71,9 @@ const CarController = {
                 "error": Validator.isValidImageUrl(data.photo)
             };
         }
-        // if (!data.photo) => {
-        //     const rightFile = req.files[0]
-        //     .originalname
-        //     .match(/(.jpg|.png|.jpeg)$/g);
-
-        //     return rightFile
-        //     ? next()
-        //     : errorMessage(res, 422, 'unsupported image type');
-        //     }
-
-        //     ];
-
-        //     export const validateIdParam = (req, res, next) => {
-        //     const { carId } = req.params;
-        //     const message = isNotSpecified(carId, 'car id')
-        //     || pureNumber.isInvalid(carId, 'car id');
-        //     req.params.carId = +carId;
-        //     return message
-        //     ? errorMessage(res, 422, message)
-        //     : next();
-        //     };
-        // let pic = Validator.image(data.photo);
-        // console.log("Here " + pic);
-        // if (!pic) {
-        //     this.status = 417;
-        //     return {
-        //         "status": this.status,
-        //         "error": "Couldn't upload image!"
-        //     }
-        // }
-        // console.log(this.cloud);
 
 
+        // const c = new Car()
         const car = Car.postCar(data);
         this.status = 201;
         return {
