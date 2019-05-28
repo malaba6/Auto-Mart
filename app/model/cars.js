@@ -1,11 +1,5 @@
 import moment from "moment";
 import uuid from "uuid";
-import Validator from "../validation/validation";
-import cloudinary from "cloudinary";
-import { timingSafeEqual } from "crypto";
-
-
-
 
 
 class Car {
@@ -14,35 +8,37 @@ class Car {
      * class constructor
      * */
     constructor() {
-            // this.cars = [{
-            //         id: uuid.v4(),
-            //         createdOn: moment().format('llll'),
-            //         state: "new",
-            //         status: "available",
-            //         price: 10000,
-            //         manufacturer: "Toyota",
-            //         model: "Corolla S 2015",
-            //         type: "Car"
-            //     },
-            //     {
-            //         id: uuid.v4(),
-            //         createdOn: moment().format('llll'),
-            //         state:: "available",
-            //         price: 20000,
-            //         manufa "used",
-            //         statuscturer: "WolksWagon",
-            //         model: "2016 Amarok",
-            //         type: "Pickup Truck"
-            //     }
-            // ];
-            this.cars = [];
-            // this.newCar;
-        }
-        /**
-         * 
-         * @param {object} data
-         * @returns {object} car object
-         */
+        this.cars = [{
+                id: "b8aa4d11-baa4-4d6a",
+                createdOn: moment().format('llll'),
+                state: "new",
+                status: "available",
+                price: 63000,
+                manufacturer: "Jeep",
+                model: " Wrangler JL Sport",
+                type: "Car",
+                photo: "https://malaba6.github.io/Auto-Mart/img/jeep.jpg"
+            },
+            {
+                id: "b8aa4d11-baa4-4d6b",
+                createdOn: moment().format('llll'),
+                state: "available",
+                price: 20000,
+                manufacturer: "used",
+                statuscturer: "WolksWagon",
+                model: "2016 Amarok",
+                type: "Pickup Truck",
+                photo: "https://malaba6.github.io/Auto-Mart/img/volkswagen.jpg"
+            }
+        ];
+        // this.cars = [];
+    }
+
+    /**
+     * 
+     * @param {object} data
+     * @returns {object} car object
+     */
     postCar(data) {
         const newCar = {
             id: uuid.v4(),
@@ -58,7 +54,6 @@ class Car {
         this.cars.push(newCar);
         return newCar;
     }
-
 
     /**
      * 
@@ -78,5 +73,6 @@ class Car {
     }
 
 }
+
 
 export default new Car();
