@@ -169,6 +169,28 @@ const CarController = {
             "status": this.status,
             "data": Car.updatePrice(id, data)
         }
+    },
+
+    /**
+     * 
+     * @param {uuid} id
+     * @returns {object} car object
+     */
+    viewSpecificCar(id) {
+        const car = Car.viewSpecificCar(id);
+        if (!car) {
+            this.status = 404;
+            return {
+                "status": this.status,
+                "error": `Car with id ${id} not found`
+            }
+        }
+
+        this.status = 200;
+        return {
+            "status": this.status,
+            "data": car
+        }
     }
 }
 
