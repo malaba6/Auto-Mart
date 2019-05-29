@@ -85,6 +85,16 @@ const Validator = {
             return `Couldn't find image ${photo}`;
         }
         return "valid";
+    },
+
+    isValidStatus(status) {
+        if (typeof status !== "string" || status.length === 0) {
+            return "Status must be a string of characters not null";
+        }
+        if (status !== "sold" && status !== "available") {
+            return "Status must be either available or sold";
+        }
+        return "valid";
     }
 }
 

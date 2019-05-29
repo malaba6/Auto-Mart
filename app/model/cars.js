@@ -22,10 +22,10 @@ class Car {
             {
                 id: "b8aa4d11-baa4-4d6b",
                 createdOn: moment().format('llll'),
-                state: "available",
+                state: "used",
+                status: "available",
                 price: 20000,
-                manufacturer: "used",
-                statuscturer: "WolksWagon",
+                manufacturer: "VolksWagon",
                 model: "2016 Amarok",
                 type: "Pickup Truck",
                 photo: "https://malaba6.github.io/Auto-Mart/img/volkswagen.jpg"
@@ -70,6 +70,27 @@ class Car {
      */
     viewAllCars() {
         return this.cars;
+    }
+
+    /**
+     * 
+     * @params {uuid} id
+     * @returns {object} car object
+     */
+    updateStatus(id, data) {
+        let car = this.viewSpecificCar(id);
+        car.status = data.status;
+        return {
+            id: car.id,
+            createdOn: car.createdOn,
+            state: car.state,
+            status: car.status,
+            price: car.price,
+            manufacturer: car.manufacturer,
+            model: car.model,
+            type: car.type,
+            photo: data.photo
+        }
     }
 
 }

@@ -72,8 +72,6 @@ const CarController = {
             };
         }
 
-
-        // const c = new Car()
         const car = Car.postCar(data);
         this.status = 201;
         return {
@@ -99,6 +97,42 @@ const CarController = {
             "status": this.status,
             "data": cars
         };
+    },
+
+    /**
+     * 
+     * @param {uuid} id
+     * @returns {oblect} update car status
+     */
+    updateStatus(id, data) {
+        if (data.status === undefined && data.status !== 0) {
+            this.status = 400;
+            return {
+                "status": this.status,
+                "error": "status is required in the request"
+            }
+        }
+        if (Validator.isValidStatus(data.status) !== "valid") {
+            this.status = 417;
+            return {
+                "status": this.status,
+                "error": Validator.isValidStatus(data.status)
+            }
+
+        }
+        if (!Car.viewSpecificCar(id)) {
+            this.status = 404;
+            return {
+                "status": this.status,
+                "error": `Car with id ${id} not found`
+            }
+        }
+
+        this.status = 200;
+        return {
+            "status": this.status,
+            "data": Car.updateStatus(id, data)
+        }
     }
 }
 

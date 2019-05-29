@@ -45,7 +45,7 @@ const OrderController = {
     /**
      * 
      * @param {uuid} id
-     * @returns {oblect} update order object
+     * @returns {object} update order price
      */
     updatePrice(id, data) {
         if (data.offered_price === undefined && data.offered_price !== 0) {
