@@ -12,26 +12,78 @@ const OrderController = {
      */
     createOrder(data) {
         if ((data.car_id === undefined && data.car_id !== 0) ||
-            (data.proposed_price === undefined && data.proposed_price !== 0)) {
+            (data.offered_price === undefined && data.offered_price !== 0)) {
             this.status = 400;
             return {
                 "status": this.status,
-                "error": "Car_id and proposed_price are required"
+                "error": "Car_id and offered_price are required"
             }
         }
-        if (Validator.isValidPrice(data.proposed_price) !== "valid") {
+        if (Validator.isValidPrice(data.offered_price) !== "valid") {
             this.status = 417;
             return {
                 "status": this.status,
-                "error": Validator.isValidPrice(data.proposed_price)
+                "error": Validator.isValidPrice(data.offered_price)
             }
 
         }
-        const order = new Order()
-            // const order = o.createOrder(data);
-        return order.createOrder(data)
-    }
+        if (!Order.isExistingCar(data.car_id)) {
+            this.status = 404;
+            return {
+                "status": this.status,
+                "error": `id ${data.car_id} not found`
+            };
+        }
 
+        this.status = 201;
+        return {
+            "status": this.status,
+            "data": Order.createOrder(data)
+        }
+    },
+
+    /**
+     * 
+     * @param {uuid} id
+     * @returns {oblect} update order object
+     */
+    updatePrice(id, data) {
+        if (data.offered_price === undefined && data.offered_price !== 0) {
+            this.status = 400;
+            return {
+                "status": this.status,
+                "error": "offered_price is required in the request"
+            }
+        }
+        if (Validator.isValidPrice(data.offered_price) !== "valid") {
+            this.status = 417;
+            return {
+                "status": this.status,
+                "error": Validator.isValidPrice(data.offered_price)
+            }
+
+        }
+        if (!Order.isExistingOrder(id)) {
+            this.status = 404;
+            return {
+                "status": this.status,
+                "error": `id ${id} not found`
+            }
+        }
+        if (Order.isExistingOrder(id).status === "sold") {
+            this.status = 301;
+            return {
+                "status": this.status,
+                "message": `This car Ad is no longer available`
+            }
+        }
+
+        this.status = 200;
+        return {
+            "status": this.status,
+            "data": Order.updatePrice(id, data)
+        }
+    }
 
 }
 
