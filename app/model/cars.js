@@ -75,11 +75,32 @@ class Car {
     /**
      * 
      * @params {uuid} id
-     * @returns {object} car object
+     * @returns {object} update car status
      */
     updateStatus(id, data) {
         let car = this.viewSpecificCar(id);
         car.status = data.status;
+        return {
+            id: car.id,
+            createdOn: car.createdOn,
+            state: car.state,
+            status: car.status,
+            price: car.price,
+            manufacturer: car.manufacturer,
+            model: car.model,
+            type: car.type,
+            photo: data.photo
+        }
+    }
+
+    /**
+     * 
+     * @params {uuid} id
+     * @returns {object} update car price
+     */
+    updatePrice(id, data) {
+        let car = this.viewSpecificCar(id);
+        car.price = data.price;
         return {
             id: car.id,
             createdOn: car.createdOn,
