@@ -50,7 +50,9 @@ route.get('/api/v1/car/:id', (req, res) => {
 });
 
 route.get('/api/v1/car', (req, res) => {
-    return res.status(CarController.status).send(CarController.viewUnsoldCars(req.query.status));
+    return res.status(CarController.status).send(CarController.viewCars(req.query));
 });
+
+
 
 export default route;

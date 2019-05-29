@@ -1,5 +1,6 @@
 import moment from "moment";
 import uuid from "uuid";
+import { brotliDecompressSync } from "zlib";
 
 
 class Car {
@@ -78,6 +79,15 @@ class Car {
      */
     viewUnsoldCars(status) {
         return this.cars.filter(car => car.status == status);
+    }
+
+    /**
+     * 
+     * @param {object} data object
+     * @returns {object} unsold cars within a price range
+     */
+    viewUnsoldWithinPriceRange(data) {
+        return data;
     }
 
     /**

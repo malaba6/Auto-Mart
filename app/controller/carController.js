@@ -82,49 +82,79 @@ const CarController = {
 
     /**
      * 
+     * @param {status} unsold cars
      * @returns {object} cars array
      */
-    viewAllCars() {
-        const cars = Car.viewAllCars();
-        if (!cars) {
-            this.status = 200;
+    viewCars(query) {
+        const length = Object.entries(query).length;
+
+        // If no query parameters, fetch all cars
+        if (length === 0) {
+            const cars = Car.viewAllCars();
+            this.status = 200
+
+            if (!cars) {
+                return {
+                    "status": this.status,
+                    "message": "Oops! It is lonely here!"
+                }
+            }
             return {
                 "status": this.status,
-                "message": "Oh oh! No cars Posted here yet!"
+                "data": cars
             }
         }
-        return {
-            "status": this.status,
-            "data": cars
+
+        if (query.status && length == 1) {
+            if (query.status !== "available" && query.status === "sold") {
+                this.status = 403;
+                return {
+                    "status": this.status,
+                    "error": `You have no authorization to view this`
+                }
+            }
+
+            const cars = Car.viewUnsoldCars(query.status);
+            this.status = 200;
+            if (!cars) {
+                return {
+                    "status": this.status,
+                    "message": "Oh oh! No cars Posted here yet!"
+                }
+            }
+            return {
+                "status": this.status,
+                "data": cars
+            }
         }
+        if (query.status && query.min_price &&
+            query.max_price && length == 3) {
+            console.log("Status, min and max");
+        }
+        if (data.status && data.state && length == 2) {
+            console.log("Status and state");
+        }
+        if (data.status && data.manufacturer && length == 2) {
+            console.log("Status and manufaturer");
+        }
+        if (data.status && data.body_type && length == 2) {
+            console.log("Status and body_type");
+        }
+        console.log("Invalid query. ")
+
     },
 
     /**
      * 
-     * @param {status} unsold cars
-     * @returns {object} cars array
+     * @param {object} data object
+     * @returns {object} unsold cars within a price range
      */
-    viewUnsoldCars(status) {
-        if (status !== "available") {
-            this.status = 404;
-            return {
-                "status": this.status,
-                "error": `Resource with status ${status} not found`
-            }
-        }
-        const cars = Car.viewUnsoldCars(status);
-        this.status = 200;
-        if (!cars) {
-            return {
-                "status": this.status,
-                "message": "Oh oh! No cars Posted here yet!"
-            }
-        }
+    viewUnsoldWithinPriceRange(data) {
         return {
-            "status": this.status,
-            "data": cars
+            "data": data
         }
     },
+
 
     /**
      * 
