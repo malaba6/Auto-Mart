@@ -69,7 +69,7 @@ const CarController = {
             return {
                 "status": 417,
                 "error": Validator.isValidImageUrl(data.photo)
-            };
+            }
         }
 
         const car = Car.postCar(data);
@@ -77,7 +77,7 @@ const CarController = {
         return {
             "status": this.status,
             "data": car
-        };
+        }
     },
 
     /**
@@ -90,13 +90,40 @@ const CarController = {
             this.status = 200;
             return {
                 "status": this.status,
-                "message": "Oh oh! No cars Posted here yet!",
-            };
+                "message": "Oh oh! No cars Posted here yet!"
+            }
         }
         return {
             "status": this.status,
             "data": cars
-        };
+        }
+    },
+
+    /**
+     * 
+     * @param {status} unsold cars
+     * @returns {object} cars array
+     */
+    viewUnsoldCars(status) {
+        if (status !== "available") {
+            this.status = 404;
+            return {
+                "status": this.status,
+                "error": `Resource with status ${status} not found`
+            }
+        }
+        const cars = Car.viewUnsoldCars(status);
+        this.status = 200;
+        if (!cars) {
+            return {
+                "status": this.status,
+                "message": "Oh oh! No cars Posted here yet!"
+            }
+        }
+        return {
+            "status": this.status,
+            "data": cars
+        }
     },
 
     /**
