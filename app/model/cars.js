@@ -31,7 +31,6 @@ class Car {
                 photo: "https://malaba6.github.io/Auto-Mart/img/volkswagen.jpg"
             }
         ];
-        // this.cars = [];
     }
 
     /**
@@ -66,10 +65,19 @@ class Car {
 
     /**
      * 
-     * @returns {object} returns all cars
+     * @returns {object} all cars
      */
     viewAllCars() {
         return this.cars;
+    }
+
+    /**
+     * 
+     * @param {status} car object status
+     * @returns {object} all unsold cars
+     */
+    viewUnsoldCars(status) {
+        return this.cars.filter(car => car.status == status);
     }
 
     /**
