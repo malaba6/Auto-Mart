@@ -34,4 +34,8 @@ route.post('/api/v1/order', (req, res) => {
     return res.status(OrderController.status).send(order);
 });
 
+route.patch('/api/v1/order/:id/price', (req, res) => {
+    const patchedOrder = OrderController.updatePrice(req.params.id, req.body);
+    return res.status(OrderController.status).send(patchedOrder);
+});
 export default route;
