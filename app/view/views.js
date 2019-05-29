@@ -38,4 +38,10 @@ route.patch('/api/v1/order/:id/price', (req, res) => {
     const patchedOrder = OrderController.updatePrice(req.params.id, req.body);
     return res.status(OrderController.status).send(patchedOrder);
 });
+
+route.patch('/api/v1/car/:id/status', (req, res) => {
+    const sold = CarController.updateStatus(req.params.id, req.body);
+    return res.status(CarController.status).send(sold);
+});
+
 export default route;
