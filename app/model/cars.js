@@ -48,7 +48,8 @@ class Car {
             manufacturer: data.manufacturer,
             model: data.model,
             type: data.type,
-            photo: data.photo
+            photo: data.photo,
+            is_fraudulent: false
         };
         this.cars.push(newCar);
         return newCar;
