@@ -104,6 +104,26 @@ class Car {
 
     /**
      * 
+     * @param {object} object
+     * @returns {object} unsold cars with specific manufacturer
+     */
+    viewCarsWithManufacturer(query) {
+        return this.cars.filter(car => car.status === query.status &&
+            car.manufacturer.toLowerCase() === query.manufacturer.toLowerCase());
+    }
+
+    /**
+     * 
+     * @param {object} object
+     * @returns {object} unsold cars with specific type
+     */
+    viewCarsWithType(query) {
+        return this.cars.filter(car => car.status === query.status &&
+            car.type.toLowerCase().includes(query.type.toLowerCase()));
+    }
+
+    /**
+     * 
      * @params {uuid} id
      * @returns {object} update car status
      */

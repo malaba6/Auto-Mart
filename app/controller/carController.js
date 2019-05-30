@@ -106,6 +106,7 @@ const CarController = {
             const cars = Car.viewUnsoldCars(query.status);
             this.status = 200;
             if (cars.length === 0) {
+                this.status = 404;
                 return {
                     "status": this.status,
                     "message": "Oh oh! No cars Posted here yet!"
@@ -154,6 +155,7 @@ const CarController = {
             const cars = Car.viewCarsWithinRange(query);
             this.status = 200;
             if (cars.length === 0) {
+                this.status = 404;
                 return {
                     "status": this.status,
                     "message": "Oh oh! No cars within that range"
@@ -187,6 +189,7 @@ const CarController = {
             const cars = Car.viewCarsWithState(query);
             this.status = 200;
             if (cars.length === 0) {
+                this.status = 404;
                 return {
                     "status": this.status,
                     "message": `Oh oh! No ${query.state} cars here yet`
@@ -198,13 +201,77 @@ const CarController = {
             }
         }
 
-        if (data.status && data.manufacturer && length == 2) {
-            console.log("Status and manufaturer");
+        // Check if status and manufacturer are included in the query
+        if (query.status && query.manufacturer && length == 2) {
+            if (Validator.isValidStatusQuery(query.status) !== "valid") {
+                this.status = 404;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidStatusQuery(query.status)
+                }
+            }
+
+            if (Validator.isValidManufacturer(query.manufacturer) !== "valid") {
+                this.status = 417;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidManufacturer(query.manufacturer)
+                }
+            }
+
+            const cars = Car.viewCarsWithManufacturer(query);
+            this.status = 200;
+            if (cars.length === 0) {
+                this.status = 404;
+                return {
+                    "status": this.status,
+                    "message": `Oh oh! No ${query.manufacturer} cars here yet`
+                }
+            }
+            return {
+                "status": this.status,
+                "data": cars
+            }
         }
-        if (data.status && data.body_type && length == 2) {
-            console.log("Status and body_type");
+
+        // Check if status and type are included the query param
+        if (query.status && query.type && length == 2) {
+            if (Validator.isValidStatusQuery(query.status) !== "valid") {
+                this.status = 404;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidStatusQuery(query.status)
+                }
+            }
+
+            if (Validator.isValidType(query.type) !== "valid") {
+                this.status = 417;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidType(query.type)
+                }
+            }
+
+            const cars = Car.viewCarsWithType(query);
+            this.status = 200;
+            if (cars.length === 0) {
+                this.status = 404;
+                return {
+                    "status": this.status,
+                    "message": `Oh oh! No ${query.type} cars here yet`
+                }
+            }
+            return {
+                "status": this.status,
+                "data": cars
+            }
         }
-        console.log("Invalid query. ")
+
+        this.status = 400;
+        return {
+            "status": this.status,
+            "error": "Invalid query. We could not find what you are looking for"
+        }
 
     },
 
