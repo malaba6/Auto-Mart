@@ -95,6 +95,13 @@ const Validator = {
             return "Status must be either available or sold";
         }
         return "valid";
+    },
+
+    isValidMaxMInPrice(price) {
+        if (isNaN(price) || price < 0) {
+            return "Max and Min price must be positive numbers";
+        }
+        return "valid";
     }
 }
 
