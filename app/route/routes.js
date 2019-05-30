@@ -2,7 +2,7 @@ import express from "express";
 import CarController from "../controller/carController";
 import OrderController from "../controller/orderController";
 import userController from "../controller/userController";
-import { imageUploader } from "../middleware/middlewares";
+import { imageUploader, postCarValidator, deleteImage } from "../middleware/middlewares";
 
 const route = express.Router();
 
@@ -20,7 +20,7 @@ route.post('/api/v1/auth/signin', (req, res) => {
     return res.status(userController.status).send(user);
 });
 
-route.post('/api/v1/car', imageUploader, (req, res) => {
+route.post('/api/v1/car', postCarValidator, imageUploader, (req, res) => {
     const car = CarController.postCar(req.body);
     return res.status(CarController.status).send(car);
 });
@@ -53,6 +53,8 @@ route.get('/api/v1/car', (req, res) => {
     return res.status(CarController.status).send(CarController.viewCars(req.query));
 });
 
-
+route.delete('/api/v1/car/:id', deleteImage, (req, res) => {
+    return res.status(CarController.status).send(CarController.deleteCar(req.params.id));
+});
 
 export default route;

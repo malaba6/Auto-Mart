@@ -11,18 +11,6 @@ const CarController = {
      * @returns {object} car object
      */
     postCar(data) {
-        if ((data.state === undefined && data.state !== "") ||
-            (data.price === undefined && data.price !== 0) ||
-            (data.manufacturer === undefined && data.manufacturer !== "") ||
-            (data.model === undefined && data.model !== "") ||
-            (data.type === undefined && data.type !== "") ||
-            (data.photo === undefined && data.photo !== "")) {
-            this.status = 400;
-            return {
-                "error": "state, price, manufactuere, model, type and photo are required",
-                "status": this.status
-            }
-        }
         if (Validator.isValidPrice(data.price) !== "valid") {
             this.status = 417;
             return {
@@ -293,6 +281,23 @@ const CarController = {
         return {
             "status": this.status,
             "data": car
+        }
+    },
+
+    /**
+     * 
+     * @param {uuid} id
+     * @returns {object} delete message
+     */
+    deleteCar(id) {
+        const car = Car.viewSpecificCar(id);
+        const index = Car.cars.indexOf(car);
+        Car.cars.splice(index, 1)
+
+        this.status = 200;
+        return {
+            "status": this.status,
+            "data": "Car Ad successfully deleted"
         }
     }
 }
