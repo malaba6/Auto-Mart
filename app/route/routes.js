@@ -1,6 +1,7 @@
 import express from "express";
 import CarController from "../controller/carController";
 import OrderController from "../controller/orderController";
+import FlagController from "../controller/flagController";
 import userController from "../controller/userController";
 import { imageUploader, postCarValidator, deleteImage } from "../middleware/middlewares";
 
@@ -28,6 +29,11 @@ route.post('/api/v1/car', postCarValidator, imageUploader, (req, res) => {
 route.post('/api/v1/order', (req, res) => {
     const order = OrderController.createOrder(req.body);
     return res.status(OrderController.status).send(order);
+});
+
+route.post('/api/v1/flag', (req, res) => {
+    const flag = FlagController.createFlag(req.body);
+    return res.status(FlagController.status).send(flag);
 });
 
 route.patch('/api/v1/order/:id/price', (req, res) => {

@@ -102,6 +102,27 @@ const Validator = {
             return "Max and Min price must be positive numbers";
         }
         return "valid";
+    },
+
+    isValidReason(reason) {
+        if (typeof reason !== "string" || reason.length < 3) {
+            return "Reason must be a string of at least 3 characters";
+        }
+        return "valid";
+    },
+
+    isValidDescription(desc) {
+        if (typeof desc !== "string" || desc.length < 10) {
+            return "Description must be a string of at least 10 characters";
+        }
+        return "valid";
+    },
+
+    isValidId(id) {
+        if (typeof id === "string" && id.length === 0) {
+            return "Id cannot be an empty string";
+        }
+        return "valid";
     }
 }
 
