@@ -1,6 +1,5 @@
 import moment from "moment";
 import uuid from "uuid";
-import { brotliDecompressSync } from "zlib";
 
 
 class Car {
@@ -13,7 +12,7 @@ class Car {
                 id: "b8aa4d11-baa4-4d6a",
                 createdOn: moment().format('llll'),
                 state: "new",
-                status: "available",
+                status: "sold",
                 price: 63000,
                 manufacturer: "Jeep",
                 model: " Wrangler JL Sport",
@@ -83,11 +82,13 @@ class Car {
 
     /**
      * 
-     * @param {object} data object
+     * @param {object} object
      * @returns {object} unsold cars within a price range
      */
-    viewUnsoldWithinPriceRange(data) {
-        return data;
+    viewCarsWithinRange(query) {
+        return this.cars.filter(car => car.status === query.status &&
+            car.price >= query.min_price &&
+            car.price <= query.max_price);
     }
 
     /**

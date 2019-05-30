@@ -1,12 +1,8 @@
 import express from "express";
 import bodyParser from 'body-parser';
 import router from "./app/route/routes";
-import path from "path";
 
 const app = express();
-
-let filePath = path.join(__dirname, "pics");
-app.use(express.static(filePath));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));

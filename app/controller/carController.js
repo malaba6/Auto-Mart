@@ -116,7 +116,7 @@ const CarController = {
 
             const cars = Car.viewUnsoldCars(query.status);
             this.status = 200;
-            if (!cars) {
+            if (cars.length === 0) {
                 return {
                     "status": this.status,
                     "message": "Oh oh! No cars Posted here yet!"
@@ -127,10 +127,56 @@ const CarController = {
                 "data": cars
             }
         }
-        if (query.status && query.min_price &&
-            query.max_price && length == 3) {
-            console.log("Status, min and max");
+
+        // Check if status min_price and max_price are icluded in the query params
+        if (query.status && (query.min_price || query.min_price === 0) &&
+            (query.max_price || query.max_price === 0) && length == 3) {
+
+            if (query.status !== "available") {
+                this.status = 404;
+                return {
+                    "status": this.status,
+                    "error": `Invalid query for status`
+                }
+            }
+            if (query.min_price > query.max_price) {
+                this.status = 417;
+                return {
+                    "status": this.status,
+                    "error": "Min price must be less than Max price"
+                }
+            }
+            if (Validator.isValidMaxMInPrice(query.min_price) !== "valid") {
+                this.status = 417;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidMaxMInPrice(query.min_price)
+                }
+            }
+
+            if (Validator.isValidMaxMInPrice(query.max_price) !== "valid") {
+                this.status = 417;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidMaxMInPrice(query.max_price)
+                }
+            }
+
+            const cars = Car.viewCarsWithinRange(query);
+            this.status = 200;
+            if (cars.length === 0) {
+                return {
+                    "status": this.status,
+                    "message": "Oh oh! No cars within that range"
+                }
+            }
+            return {
+                "status": this.status,
+                "data": cars
+            }
+
         }
+
         if (data.status && data.state && length == 2) {
             console.log("Status and state");
         }
