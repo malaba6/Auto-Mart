@@ -93,6 +93,7 @@ const CarController = {
             }
         }
 
+        // Check if status is the query parameter
         if (query.status && length == 1) {
             if (query.status !== "available" && query.status === "sold") {
                 this.status = 403;
@@ -165,9 +166,38 @@ const CarController = {
 
         }
 
-        if (data.status && data.state && length == 2) {
-            console.log("Status and state");
+        // Check if status and state (new/used) are included in the query
+        if (query.status && query.state && length == 2) {
+            if (Validator.isValidStatusQuery(query.status) !== "valid") {
+                this.status = 404;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidStatusQuery(query.status)
+                }
+            }
+
+            if (Validator.isValidState(query.state) !== "valid") {
+                this.status = 417;
+                return {
+                    "status": this.status,
+                    "error": Validator.isValidState(query.state)
+                }
+            }
+
+            const cars = Car.viewCarsWithState(query);
+            this.status = 200;
+            if (cars.length === 0) {
+                return {
+                    "status": this.status,
+                    "message": `Oh oh! No ${query.state} cars here yet`
+                }
+            }
+            return {
+                "status": this.status,
+                "data": cars
+            }
         }
+
         if (data.status && data.manufacturer && length == 2) {
             console.log("Status and manufaturer");
         }
