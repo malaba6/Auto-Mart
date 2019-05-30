@@ -94,6 +94,16 @@ class Car {
 
     /**
      * 
+     * @param {object} object
+     * @returns {object} unsold cars with specific state
+     */
+    viewCarsWithState(query) {
+        return this.cars.filter(car => car.status === query.status &&
+            car.state === query.state);
+    }
+
+    /**
+     * 
      * @params {uuid} id
      * @returns {object} update car status
      */

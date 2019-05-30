@@ -123,6 +123,13 @@ const Validator = {
             return "Id cannot be an empty string";
         }
         return "valid";
+    },
+
+    isValidStatusQuery(status) {
+        if (status !== "available") {
+            return "Invalid query for status";
+        }
+        return "valid";
     }
 }
 
