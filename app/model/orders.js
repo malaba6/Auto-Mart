@@ -10,13 +10,22 @@ class Order {
      */
     constructor() {
         this.orders = [{
-            id: uuid.v4(),
-            createdOn: moment().format('llll'),
-            car_id: "b8aa4d11-baa4-4d6a",
-            status: "available",
-            price: 63000,
-            offered_price: 60000
-        }]
+                id: "b8aa4d11",
+                createdOn: moment().format('llll'),
+                car_id: Car.cars[0].id,
+                status: "available",
+                price: 63000,
+                offered_price: 60000
+            },
+            {
+                id: "b8aa4d22",
+                createdOn: moment().format('llll'),
+                car_id: Car.cars[0].id,
+                status: "sold",
+                price: 63000,
+                offered_price: 60000
+            }
+        ]
     }
 
     /**

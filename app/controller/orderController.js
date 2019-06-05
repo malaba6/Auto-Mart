@@ -31,7 +31,7 @@ const OrderController = {
             this.status = 404;
             return {
                 "status": this.status,
-                "error": `id ${data.car_id} not found`
+                "error": `Car with id ${data.car_id} not found`
             };
         }
 
@@ -67,11 +67,11 @@ const OrderController = {
             this.status = 404;
             return {
                 "status": this.status,
-                "error": `id ${id} not found`
+                "error": `Order with id ${id} not found`
             }
         }
         if (Order.isExistingOrder(id).status === "sold") {
-            this.status = 301;
+            this.status = 404;
             return {
                 "status": this.status,
                 "message": `This car Ad is no longer available`

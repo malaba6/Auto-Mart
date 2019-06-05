@@ -8,6 +8,7 @@ class User {
      */
     constructor() {
         this.users = [{
+                id: "7854ghtes-teyrrii",
                 firstName: "Eric",
                 lastName: "Malaba",
                 address: "Biryogo",
@@ -16,6 +17,7 @@ class User {
                 isAdmin: true
             },
             {
+                id: "7854ghtes-teyrrie",
                 firstName: "Rick",
                 lastName: "Oburu",
                 address: "Kampala",
@@ -38,7 +40,8 @@ class User {
             lastName: data.lastName,
             address: data.address || "",
             email: data.email,
-            password: data.password
+            password: data.password,
+            isAdmin: false
         };
         this.users.push(newUser);
 

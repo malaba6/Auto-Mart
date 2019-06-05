@@ -7,10 +7,6 @@ import { imageUploader, postCarValidator, deleteImage } from "../middleware/midd
 
 const route = express.Router();
 
-route.get('/', (req, res) => {
-    return res.status(200).send(({ "message": "Welcome to Auto-Mart" }));
-});
-
 route.post('/api/v1/auth/signup', (req, res) => {
     const user = userController.signup(req.body);
     return res.status(userController.status).send(user);

@@ -120,7 +120,7 @@ const UserController = {
             this.status = 401;
             return {
                 "status": this.status,
-                "error": "Email or password Incorrect"
+                "message": "Email or password Incorrect"
             };
         }
         this.status = 200;
