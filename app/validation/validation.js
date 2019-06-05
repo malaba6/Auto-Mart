@@ -47,7 +47,7 @@ const Validator = {
     },
 
     isValidPrice(price) {
-        if (+price !== price || price <= 1) {
+        if (+price !== price || price < 1) {
             return "Price must be a number greater than 0";
         }
         return "valid";
@@ -74,15 +74,19 @@ const Validator = {
         return "valid";
     },
 
+    isImageFound(photo) {
+        if (!photo.includes("https://res.cloudinary.com")) {
+            return `Could not find image ${photo}`;
+        }
+        return "found";
+    },
+
     isValidImageUrl(photo) {
         if (typeof photo !== "string" || photo.length === 0) {
             return "The Photo Url must be a string of characters not null";
         }
         if (!photo.match(/(.jpg|.png|.jpeg)$/g)) {
             return "Image must be one of these formats .jpg .jpn .jpeg";
-        }
-        if (!photo.includes("https://res.cloudinary.com")) {
-            return `Couldn't find image ${photo}`;
         }
         return "valid";
     },
@@ -121,13 +125,6 @@ const Validator = {
     isValidId(id) {
         if (typeof id === "string" && id.length === 0) {
             return "Id cannot be an empty string";
-        }
-        return "valid";
-    },
-
-    isValidStatusQuery(status) {
-        if (status !== "available") {
-            return "Invalid query for status";
         }
         return "valid";
     }

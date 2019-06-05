@@ -17,7 +17,7 @@ class Car {
                 manufacturer: "Jeep",
                 model: " Wrangler JL Sport",
                 type: "Car",
-                photo: "https://malaba6.github.io/Auto-Mart/img/jeep.jpg"
+                photo: "https://res.cloudinary.com/eubule/image/upload/v1559245298/ford.jpg"
             },
             {
                 id: "b8aa4d11-baa4-4d6b",
@@ -28,7 +28,7 @@ class Car {
                 manufacturer: "VolksWagon",
                 model: "2016 Amarok",
                 type: "Pickup Truck",
-                photo: "https://malaba6.github.io/Auto-Mart/img/volkswagen.jpg"
+                photo: "https://res.cloudinary.com/eubule/image/upload/v1559245298/ford.jpg"
             }
         ];
     }
@@ -48,8 +48,7 @@ class Car {
             manufacturer: data.manufacturer,
             model: data.model,
             type: data.type,
-            photo: data.photo,
-            is_fraudulent: false
+            photo: data.photo
         };
         this.cars.push(newCar);
         return newCar;
@@ -138,8 +137,7 @@ class Car {
             price: car.price,
             manufacturer: car.manufacturer,
             model: car.model,
-            type: car.type,
-            photo: data.photo
+            type: car.type
         }
     }
 
@@ -162,6 +160,14 @@ class Car {
             type: car.type,
             photo: data.photo
         }
+    }
+
+    /**
+     * 
+     * clears the cars list
+     */
+    clearCars() {
+        this.cars = [];
     }
 
 }

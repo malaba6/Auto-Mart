@@ -1,5 +1,6 @@
 import cloudinary from 'cloudinary';
 import Car from "../model/cars";
+import Validator from "../validation/validation";
 
 cloudinary.config({
     cloud_name: 'eubule',
@@ -8,11 +9,18 @@ cloudinary.config({
 });
 
 export const imageUploader = (req, res, next) => {
+    if (Validator.isValidImageUrl(req.body.photo) !== "valid") {
+        return res.status(417).send({
+            "error": Validator.isValidImageUrl(req.body.photo),
+            "status": 417
+        });
+    }
     let name = req.body.photo.split("/");
     name = name[name.length - 1].split(".")[0];
     cloudinary.v2.uploader.upload(req.body.photo, { public_id: name }, (error, result) => {
         if (result) {
             req.body.photo = result.secure_url;
+            console.log(req.body.photo);
         }
         return next();
     });
