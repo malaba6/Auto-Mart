@@ -1,0 +1,883 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Auto-Mart",
+        "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "malaba-auto-mart.herokuapp.com",
+    "basePath": "/api/v1",
+    "tags": [{
+            "name": "Users",
+            "description": "API for users in the system"
+        },
+        {
+            "name": "Cars",
+            "description": "API for Car sale Ads in the system"
+        },
+        {
+            "name": "Orders",
+            "description": "API for purchase orders in the system"
+        },
+        {
+            "name": "Flags",
+            "description": "API for fraudulent flags in the system"
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Create new user in system",
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "User that we want to create",
+                    "schema": {
+                        "required": [
+                            "firstName",
+                            "lastName",
+                            "email",
+                            "password"
+                        ],
+                        "properties": {
+                            "firstName": {
+                                "type": "string"
+                            },
+                            "lastName": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+                            "password": {
+                                "type": "string"
+                            },
+                            "address": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "New user is created",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "409": {
+                        "description": "User already exist",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Sign user in the system",
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Sign in the user",
+                    "schema": {
+                        "required": [
+                            "email",
+                            "password"
+                        ],
+                        "properties": {
+                            "email": {
+                                "type": "string"
+                            },
+                            "password": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User successfully logged in",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Email or password incorect",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/car": {
+            "post": {
+                "tags": [
+                    "Cars"
+                ],
+                "description": "Creates a new car sale Ad",
+                "parameters": [{
+                    "name": "car",
+                    "in": "body",
+                    "description": "Creates a new car sale Ad",
+                    "schema": {
+                        "required": [
+                            "manufacturer",
+                            "model",
+                            "type",
+                            "state",
+                            "price",
+                            "photo"
+                        ],
+                        "properties": {
+                            "manufacturer": {
+                                "type": "string"
+                            },
+                            "model": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "price": {
+                                "type": "number"
+                            },
+                            "photo": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User successfully Create Car Ad",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Car"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "parameters": [{
+                        "name": "status",
+                        "in": "query",
+                        "description": "The car status",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "description": "The minimum price range",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "max_price",
+                        "in": "query",
+                        "description": "The maximum price range",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "The car state, new or used",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "The vehicle body type",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "manufacturer",
+                        "in": "query",
+                        "description": "The car manufacturer",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Fetch cars depending on query parameters",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "$ref": "#/definitions/Car"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid query",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not authorized to view content",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid query value",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Specified Car not found",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/car/{carId}": {
+            "parameters": [{
+                "name": "carId",
+                "in": "path",
+                "required": true,
+                "description": "ID of the car sale Ad that we want to find",
+                "type": "string"
+            }],
+            "get": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get car sale Ad with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Car Ad is found",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "$ref": "#/definitions/Car"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Car ID not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete car ad with given ID",
+                "tags": [
+                    "Cars"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Car Ad is deleted",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Car ID is not found",
+                        "schema": {
+                            "$ref": "#definitions/Error"
+                        }
+                    }
+                }
+            }
+
+        },
+        "/car/{carId}/price": {
+            "parameters": [{
+                "name": "carId",
+                "in": "path",
+                "required": true,
+                "description": "ID of the car sale Ad that we want to update",
+                "type": "string"
+            }],
+            "patch": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Update price of car Ad with given ID",
+                "parameters": [{
+                    "name": "car",
+                    "in": "body",
+                    "description": "Update price of car Ad with given ID",
+                    "schema": {
+                        "required": [
+                            "price"
+                        ],
+                        "properties": {
+                            "price": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Car"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Car Ad ID not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/car/{carId}/status": {
+            "parameters": [{
+                "name": "carId",
+                "in": "path",
+                "required": true,
+                "description": "ID of the car sale Ad that we want to update",
+                "type": "string"
+            }],
+            "patch": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Update status of the car Ad with given ID",
+                "parameters": [{
+                    "name": "car",
+                    "in": "body",
+                    "description": "Update status of car Ad with given ID",
+                    "schema": {
+                        "required": [
+                            "status"
+                        ],
+                        "properties": {
+                            "status": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Car"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Car Ad ID not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/order": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "Creates a new car sale Ad",
+                "parameters": [{
+                    "name": "order",
+                    "in": "body",
+                    "description": "Creates a purchase order",
+                    "schema": {
+                        "required": [
+                            "car_id",
+                            "offered_price"
+                        ],
+                        "properties": {
+                            "car_id": {
+                                "type": "string"
+                            },
+                            "offered_price": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Purchase order successfully made",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Order"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Car ID not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/{orderId}/price": {
+            "parameters": [{
+                "name": "orderId",
+                "in": "path",
+                "required": true,
+                "description": "ID of the purchase order that we want to find",
+                "type": "string"
+            }],
+            "patch": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "Update offered price of purchase order given the ID",
+                "parameters": [{
+                    "name": "order",
+                    "in": "body",
+                    "description": "Update offered price of purchase order given the ID",
+                    "schema": {
+                        "required": [
+                            "offered_price"
+                        ],
+                        "properties": {
+                            "offered_price": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Purchase order price successfully updated",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Order"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Car ID not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/flag": {
+            "post": {
+                "tags": [
+                    "Flags"
+                ],
+                "description": "Flag a car Ad as fraudulent",
+                "parameters": [{
+                    "name": "flag",
+                    "in": "body",
+                    "description": "Flag a car Ad as fraudulent",
+                    "schema": {
+                        "required": [
+                            "car_id",
+                            "reason",
+                            "description"
+                        ],
+                        "properties": {
+                            "car_id": {
+                                "type": "string"
+                            },
+                            "reason": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successfully report car as fraudulent",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Flag"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Did not provide a required fiels",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "417": {
+                        "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Car ID not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "isAdmin": {
+                    "type": "boolean"
+                }
+
+            }
+        },
+        "Car": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "createdOn": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "manufacturer": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "Order": {
+            "required": [
+                "car_id",
+                "offered_price"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "createdOn": {
+                    "type": "string"
+                },
+                "car_id": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "offered_price": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "Flag": {
+            "required": [
+                "car_id",
+                "reason",
+                "description"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "createdOn": {
+                    "type": "string"
+                },
+                "car_id": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "Error": {
+            "properties": {
+                "status": {
+                    "type": "integer"
+                },
+                "error": {
+                    "type": "string"
+                }
+
+            }
+        }
+    }
+}

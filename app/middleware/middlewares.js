@@ -20,7 +20,7 @@ export const imageUploader = (req, res, next) => {
     cloudinary.v2.uploader.upload(req.body.photo, { public_id: name }, (error, result) => {
         if (result) {
             req.body.photo = result.secure_url;
-            console.log(req.body.photo);
+            // console.log(result);
         }
         return next();
     });
