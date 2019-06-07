@@ -48,15 +48,18 @@ route.patch('/api/v1/car/:id/price', (req, res) => {
 });
 
 route.get('/api/v1/car/:id', (req, res) => {
-    return res.status(CarController.status).send(CarController.viewSpecificCar(req.params.id));
+    const car = CarController.viewSpecificCar(req.params.id);
+    return res.status(CarController.status).send(car);
 });
 
 route.get('/api/v1/car', (req, res) => {
-    return res.status(CarController.status).send(CarController.viewCars(req.query));
+    const car = CarController.viewCars(req.query);
+    return res.status(CarController.status).send(car);
 });
 
 route.delete('/api/v1/car/:id', deleteImage, (req, res) => {
-    return res.status(CarController.status).send(CarController.deleteCar(req.params.id));
+    const car = CarController.deleteCar(req.params.id);
+    return res.status(CarController.status).send(car);
 });
 
 export default route;
