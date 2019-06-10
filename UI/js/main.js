@@ -35,7 +35,13 @@ let loginValidation = () => {
     }
 }
 
-let removeAd = () => alert("Add successfully removed");
+let removeAd = () => {
+    const remove = confirm("Are you sure you wnat to delete this Ad?");
+    if (remove) {
+        alert("Add successfully removed");
+    }
+
+}
 
 let flag = () => {
     let reasonVal = document.getElementById('reason').value;
