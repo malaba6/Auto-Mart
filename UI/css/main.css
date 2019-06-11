@@ -79,14 +79,15 @@ main {
     margin: 0 auto;
     font-size: 1em;
     font-weight: lighter;
-    color: white;
-    background: black;
+    color: black;
+    background: white;
     margin-top: 5%;
 }
 
 .sign-msg {
     font-weight: lighter;
     font-size: 1.1em;
+    padding: 15px;
     margin-left: 15px;
     text-align: center;
 }
@@ -130,7 +131,7 @@ main {
     width: 120px;
     min-height: 40px;
     margin: 5px 1px;
-    background-color: black;
+    background-color: white;
     color: teal;
 }
 
@@ -139,12 +140,14 @@ main {
     min-height: 40px;
     width: 90%;
     font-size: 0.8em;
-    margin: 10px 0;
+    margin: 8px 0;
+    margin-bottom: 25px;
     border-style: ridge;
     border-width: 1px;
-    background: black;
-    color: white;
+    background: white;
+    color: black;
     padding: 2px;
+    padding-left: 5px;
 }
 
 .sign-option {
@@ -153,6 +156,10 @@ main {
     text-decoration: none;
     float: left;
     padding-right: 10%;
+}
+
+fieldset {
+    border: 0;
 }
 
 
@@ -212,7 +219,6 @@ nav button:hover {
 .nav-btns {
     min-width: 250px;
     padding-top: 10px;
-    /* float: right; */
 }
 
 .logo {
@@ -225,6 +231,12 @@ nav button:hover {
 
 .logo:hover {
     cursor: pointer;
+}
+
+a:focus,
+a:active,
+select::-moz-focus-inner {
+    outline: none !important;
 }
 
 

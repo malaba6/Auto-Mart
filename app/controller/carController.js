@@ -1,106 +1,101 @@
-import Car from "../model/cars";
-import Validator from "../validation/validation";
+import Car from '../model/cars';
+import Validator from '../validation/validation';
 
 
 const CarController = {
     status: 200,
 
     /**
-     * 
+     *
      * @params {object} data
      * @returns {object} car object
      */
     postCar(data) {
-        if (Validator.isValidPrice(data.price) !== "valid") {
+        if (Validator.isValidPrice(data.price) !== 'valid') {
             this.status = 417;
             return {
-                "error": Validator.isValidPrice(data.price),
-                "status": this.status
-            }
-
+                error: Validator.isValidPrice(data.price),
+                status: this.status,
+            };
         }
-        if (Validator.isValidState(data.state) !== "valid") {
+        if (Validator.isValidState(data.state) !== 'valid') {
             this.status = 417;
             return {
-                "error": Validator.isValidState(data.state),
-                "status": this.status
-            }
-
+                error: Validator.isValidState(data.state),
+                status: this.status,
+            };
         }
-        if (Validator.isValidManufacturer(data.manufacturer) !== "valid") {
+        if (Validator.isValidManufacturer(data.manufacturer) !== 'valid') {
             this.status = 417;
             return {
-                "error": Validator.isValidManufacturer(data.manufacturer),
-                "status": this.status
-            }
-
+                error: Validator.isValidManufacturer(data.manufacturer),
+                status: this.status,
+            };
         }
-        if (Validator.isValidModel(data.model) !== "valid") {
+        if (Validator.isValidModel(data.model) !== 'valid') {
             this.status = 417;
             return {
-                "error": Validator.isValidModel(data.model),
-                "status": this.status
-            }
-
+                error: Validator.isValidModel(data.model),
+                status: this.status,
+            };
         }
-        if (Validator.isValidType(data.type) !== "valid") {
+        if (Validator.isValidType(data.type) !== 'valid') {
             this.status = 417;
             return {
-                "error": Validator.isValidType(data.type),
-                "status": this.status
-            }
-
+                error: Validator.isValidType(data.type),
+                status: this.status,
+            };
         }
 
-        if (Validator.isImageFound(data.photo) !== "found") {
+        if (Validator.isImageFound(data.photo) !== 'found') {
             this.status = 417;
             return {
-                "error": Validator.isImageFound(data.photo),
-                "status": this.status
-            }
+                error: Validator.isImageFound(data.photo),
+                status: this.status,
+            };
         }
 
         const car = Car.postCar(data);
         this.status = 201;
         return {
-            "status": this.status,
-            "data": car
-        }
+            status: this.status,
+            data: car,
+        };
     },
 
     /**
-     * 
+     *
      * @param {status} unsold cars
      * @returns {object} cars array
      */
     viewCars(query) {
-        const length = Object.entries(query).length;
+        const { length } = Object.entries(query);
 
         // If no query parameters, fetch all cars
         if (length === 0) {
             const cars = Car.viewAllCars();
-            this.status = 200
+            this.status = 200;
 
             if (cars.length === 0) {
                 return {
-                    "status": this.status,
-                    "message": "Oops! It is lonely here!"
-                }
+                    status: this.status,
+                    message: 'Oops! It is lonely here!',
+                };
             }
             return {
-                "status": this.status,
-                "data": cars
-            }
+                status: this.status,
+                data: cars,
+            };
         }
 
         // Check if status is the query parameter
-        if (query.status && length == 1) {
-            if (query.status !== "available" && query.status === "sold") {
+        if (query.status && length === 1) {
+            if (query.status !== 'available' && query.status === 'sold') {
                 this.status = 403;
                 return {
-                    "status": this.status,
-                    "error": `You have no authorization to view this`
-                }
+                    status: this.status,
+                    error: 'You have no authorization to view this',
+                };
             }
 
             const cars = Car.viewUnsoldCars(query.status);
@@ -108,34 +103,33 @@ const CarController = {
             if (cars.length === 0) {
                 this.status = 404;
                 return {
-                    "status": this.status,
-                    "message": "Oh oh! No cars Posted here yet!"
-                }
+                    status: this.status,
+                    message: 'Oh oh! No cars Posted here yet!',
+                };
             }
             return {
-                "status": this.status,
-                "data": cars
-            }
+                status: this.status,
+                data: cars,
+            };
         }
 
         // Check if status min_price and max_price are icluded in the query params
         if (query.status === 'available' && (query.min_price || query.min_price === 0) &&
-            (query.max_price || query.max_price === 0) && length == 3) {
-
-            if (Validator.isValidMaxMInPrice(query.min_price) !== "valid") {
+            (query.max_price || query.max_price === 0) && length === 3) {
+            if (Validator.isValidMaxMInPrice(query.min_price) !== 'valid') {
                 this.status = 417;
                 return {
-                    "status": this.status,
-                    "error": Validator.isValidMaxMInPrice(query.min_price)
-                }
+                    status: this.status,
+                    error: Validator.isValidMaxMInPrice(query.min_price),
+                };
             }
 
-            if (Validator.isValidMaxMInPrice(query.max_price) !== "valid") {
+            if (Validator.isValidMaxMInPrice(query.max_price) !== 'valid') {
                 this.status = 417;
                 return {
-                    "status": this.status,
-                    "error": Validator.isValidMaxMInPrice(query.max_price)
-                }
+                    status: this.status,
+                    error: Validator.isValidMaxMInPrice(query.max_price),
+                };
             }
             const min_price = +query.min_price;
             const max_price = +query.max_price;
@@ -143,9 +137,9 @@ const CarController = {
             if (min_price > max_price) {
                 this.status = 417;
                 return {
-                    "status": this.status,
-                    "error": "Min price must be less than Max price"
-                }
+                    status: this.status,
+                    error: 'Min price must be less than Max price',
+                };
             }
 
             const cars = Car.viewCarsWithinRange(query);
@@ -153,26 +147,24 @@ const CarController = {
             if (cars.length === 0) {
                 this.status = 404;
                 return {
-                    "status": this.status,
-                    "message": "Oh oh! No cars within that range"
-                }
+                    status: this.status,
+                    message: 'Oh oh! No cars within that range',
+                };
             }
             return {
-                "status": this.status,
-                "data": cars
-            }
-
+                status: this.status,
+                data: cars,
+            };
         }
 
         // Check if status and state (new/used) are included in the query
-        if (query.status === 'available' && query.state && length == 2) {
-
-            if (Validator.isValidState(query.state) !== "valid") {
+        if (query.status === 'available' && query.state && length === 2) {
+            if (Validator.isValidState(query.state) !== 'valid') {
                 this.status = 417;
                 return {
-                    "status": this.status,
-                    "error": Validator.isValidState(query.state)
-                }
+                    status: this.status,
+                    error: Validator.isValidState(query.state),
+                };
             }
 
             const cars = Car.viewCarsWithState(query);
@@ -180,64 +172,61 @@ const CarController = {
             if (cars.length === 0) {
                 this.status = 404;
                 return {
-                    "status": this.status,
-                    "message": `Oh oh! No ${query.state} cars here yet`
-                }
+                    status: this.status,
+                    message: `Oh oh! No ${query.state} cars here yet`,
+                };
             }
             return {
-                "status": this.status,
-                "data": cars
-            }
+                status: this.status,
+                data: cars,
+            };
         }
 
         // Check if status and manufacturer are included in the query
-        if (query.status === 'available' && query.manufacturer && length == 2) {
-
+        if (query.status === 'available' && query.manufacturer && length === 2) {
             const cars = Car.viewCarsWithManufacturer(query);
             this.status = 200;
 
             if (cars.length === 0) {
                 this.status = 404;
                 return {
-                    "status": this.status,
-                    "message": `Oh oh! No ${query.manufacturer} cars here yet`
-                }
+                    status: this.status,
+                    message: `Oh oh! No ${query.manufacturer} cars here yet`,
+                };
             }
             return {
-                "status": this.status,
-                "data": cars
-            }
+                status: this.status,
+                data: cars,
+            };
         }
 
         // Check if status and type are included the query param
-        if (query.status && query.type && length == 2) {
-
+        if (query.status && query.type && length === 2) {
             const cars = Car.viewCarsWithType(query);
             this.status = 200;
 
             if (cars.length === 0) {
                 this.status = 404;
                 return {
-                    "status": this.status,
-                    "message": `Oh oh! No ${query.type} cars here yet`
-                }
+                    status: this.status,
+                    message: `Oh oh! No ${query.type} cars here yet`,
+                };
             }
             return {
-                "status": this.status,
-                "data": cars
-            }
+                status: this.status,
+                data: cars,
+            };
         }
 
         this.status = 400;
         return {
-            "status": this.status,
-            "error": "Invalid query. We could not find what you are looking for"
-        }
-
+            status: this.status,
+            error: 'Invalid query. We could not find what you are looking for',
+        };
     },
 
     /**
-     * 
+     *
      * @param {uuid} id
      * @returns {oblect} update car status
      */
@@ -245,35 +234,34 @@ const CarController = {
         if (data.status === undefined && data.status !== 0) {
             this.status = 400;
             return {
-                "status": this.status,
-                "error": "status is required in the request"
-            }
+                status: this.status,
+                error: 'status is required in the request',
+            };
         }
-        if (Validator.isValidStatus(data.status) !== "valid") {
+        if (Validator.isValidStatus(data.status) !== 'valid') {
             this.status = 417;
             return {
-                "status": this.status,
-                "error": Validator.isValidStatus(data.status)
-            }
-
+                status: this.status,
+                error: Validator.isValidStatus(data.status),
+            };
         }
         if (!Car.viewSpecificCar(id)) {
             this.status = 404;
             return {
-                "status": this.status,
-                "error": `Car with id ${id} not found`
-            }
+                status: this.status,
+                error: `Car with id ${id} not found`,
+            };
         }
 
         this.status = 200;
         return {
-            "status": this.status,
-            "data": Car.updateStatus(id, data)
-        }
+            status: this.status,
+            data: Car.updateStatus(id, data),
+        };
     },
 
     /**
-     * 
+     *
      * @param {uuid} id
      * @returns {oblect} update car price
      */
@@ -281,35 +269,34 @@ const CarController = {
         if (data.price === undefined && data.price !== 0) {
             this.status = 400;
             return {
-                "status": this.status,
-                "error": "price is required in the request"
-            }
+                status: this.status,
+                error: 'price is required in the request',
+            };
         }
-        if (Validator.isValidPrice(data.price) !== "valid") {
+        if (Validator.isValidPrice(data.price) !== 'valid') {
             this.status = 417;
             return {
-                "status": this.status,
-                "error": Validator.isValidPrice(data.price)
-            }
-
+                status: this.status,
+                error: Validator.isValidPrice(data.price),
+            };
         }
         if (!Car.viewSpecificCar(id)) {
             this.status = 404;
             return {
-                "status": this.status,
-                "error": `Car with id ${id} not found`
-            }
+                status: this.status,
+                error: `Car with id ${id} not found`,
+            };
         }
 
         this.status = 200;
         return {
-            "status": this.status,
-            "data": Car.updatePrice(id, data)
-        }
+            status: this.status,
+            data: Car.updatePrice(id, data),
+        };
     },
 
     /**
-     * 
+     *
      * @param {uuid} id
      * @returns {object} car object
      */
@@ -318,20 +305,20 @@ const CarController = {
         if (!car) {
             this.status = 404;
             return {
-                "status": this.status,
-                "error": `Car with id ${id} not found`
-            }
+                status: this.status,
+                error: `Car with id ${id} not found`,
+            };
         }
 
         this.status = 200;
         return {
-            "status": this.status,
-            "data": car
-        }
+            status: this.status,
+            data: car,
+        };
     },
 
     /**
-     * 
+     *
      * @param {uuid} id
      * @returns {object} delete message
      */
@@ -341,20 +328,20 @@ const CarController = {
         if (!car) {
             this.status = 404;
             return {
-                "status": this.status,
-                "error": `Car with id ${id} not found`
-            }
+                status: this.status,
+                error: `Car with id ${id} not found`,
+            };
         }
 
         const index = Car.cars.indexOf(car);
-        Car.cars.splice(index, 1)
+        Car.cars.splice(index, 1);
 
         this.status = 200;
         return {
-            "status": this.status,
-            "message": "Car Ad successfully deleted"
-        }
-    }
-}
+            status: this.status,
+            message: 'Car Ad successfully deleted',
+        };
+    },
+};
 
 export default CarController;
