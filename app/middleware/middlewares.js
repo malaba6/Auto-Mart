@@ -4,16 +4,8 @@ import Car from '../model/cars';
 import Validator from '../validation/validation';
 import URL from 'url';
 
-// cloudinary.config({
-//   cloud_name: 'eubule',
-//   api_key: '585313199331742',
-//   api_secret: 'QoSXwvXHNuQJ2AHDpvA-25nXCNk',
-// });
+
 dotenv.config();
-// cloudinary.config();
-
-
-
 const cloudinary_url = URL.parse(process.env.CLOUDINARY_URL)
 
 cloudinary.config({
@@ -24,9 +16,9 @@ cloudinary.config({
 
 export const imageUploader = (req, res, next) => {
     if (Validator.isValidImageUrl(req.body.photo) !== 'valid') {
-        return res.status(417).send({
+        return res.status(422).send({
             error: Validator.isValidImageUrl(req.body.photo),
-            status: 417,
+            status: 422,
         });
     }
     let name = req.body.photo.split('/');
@@ -34,7 +26,6 @@ export const imageUploader = (req, res, next) => {
     cloudinary.v2.uploader.upload(req.body.photo, { public_id: name }, (error, result) => {
         if (result) {
             req.body.photo = result.secure_url;
-            // console.log(result);
         }
         return next();
     });

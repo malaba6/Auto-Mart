@@ -164,7 +164,7 @@ describe('POST /api/v1/car', () => {
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for state', (done) => {
+    it('Should return a 422 error message if user provides wrong value for state', (done) => {
         const car = {
             state: 'California',
             model: 'cs',
@@ -179,18 +179,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('State must be either new or used');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for model', (done) => {
+    it('Should return a 422 error message if user provides wrong value for model', (done) => {
         const car = {
             state: 'new',
             model: '',
@@ -205,18 +205,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Model must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for manufacturer', (done) => {
+    it('Should return a 422 error message if user provides wrong value for manufacturer', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -231,18 +231,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Manufacturer must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for manufacturer', (done) => {
+    it('Should return a 422 error message if user provides wrong value for manufacturer', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -257,18 +257,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Manufacturer must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for type', (done) => {
+    it('Should return a 422 error message if user provides wrong value for type', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -283,18 +283,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Type must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for Type', (done) => {
+    it('Should return a 422 error message if user provides wrong value for Type', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -309,18 +309,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Type must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for price', (done) => {
+    it('Should return a 422 error message if user provides wrong value for price', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -335,18 +335,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Price must be a number greater than 0');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong value for price', (done) => {
+    it('Should return a 422 error message if user provides wrong value for price', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -361,18 +361,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Price must be a number greater than 0');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong url for photo', (done) => {
+    it('Should return a 422 error message if user provides wrong url for photo', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -387,18 +387,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('The Photo Url must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong url for photo', (done) => {
+    it('Should return a 422 error message if user provides wrong url for photo', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -413,18 +413,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('The Photo Url must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides wrong url for photo', (done) => {
+    it('Should return a 422 error message if user provides wrong url for photo', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -439,18 +439,18 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Image must be one of these formats .jpg .png .jpeg');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('POST /api/v1/car', () => {
-    it('Should return a 417 error message if user provides url of image that does not exist', (done) => {
+    it('Should return a 422 error message if user provides url of image that does not exist', (done) => {
         const car = {
             state: 'new',
             model: 'Corolla S',
@@ -465,12 +465,12 @@ describe('POST /api/v1/car', () => {
             .send(car)
             .end((err, res) => {
                 if (err) done(err);
-                expect(res).to.have.status(417);
+                expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep
                     .equal('Could not find image https://malaba6.github.io/Auto-Mart/img/for.jpg');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -532,7 +532,7 @@ describe('GET /api/v1/car?status=available&min_price=9000&max_price=8000', () =>
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Min price must be less than Max price');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -547,7 +547,7 @@ describe('GET /api/v1/car?status=available&min_price=-1&max_price=8000', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Max and Min price must be positive numbers');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -562,7 +562,7 @@ describe('GET /api/v1/car?status=available&min_price=one&max_price=8000', () => 
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Max and Min price must be positive numbers');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -577,7 +577,7 @@ describe('GET /api/v1/car?status=available&min_price=9000&max_price=one', () => 
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Max and Min price must be positive numbers');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -592,7 +592,7 @@ describe('GET /api/v1/car?status=available&min_price=9000&max_price=-1', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Max and Min price must be positive numbers');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -630,7 +630,7 @@ describe('GET /api/v1/car?status=available&min_price=5000&max_price=100000', () 
 });
 
 describe('GET /api/v1/car?status=available&state=use', () => {
-    it('Should return 417 error if user queries with inalid state', (done) => {
+    it('Should return 422 error if user queries with inalid state', (done) => {
         chai.request(app)
             .get('/api/v1/car?status=available&state=use')
             .end((err, res) => {
@@ -638,7 +638,7 @@ describe('GET /api/v1/car?status=available&state=use', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('State must be either new or used');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -756,7 +756,7 @@ describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/status', () => {
 });
 
 describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/status', () => {
-    it('Should return 417 error if user tries to update status with invalid status', (done) => {
+    it('Should return 422 error if user tries to update status with invalid status', (done) => {
         const car = { status: 89999 };
 
         chai.request(app)
@@ -767,14 +767,14 @@ describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/status', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Status must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/status', () => {
-    it('Should return 417 error if user tries to update status with invalid status', (done) => {
+    it('Should return 422 error if user tries to update status with invalid status', (done) => {
         const car = { status: '' };
 
         chai.request(app)
@@ -785,14 +785,14 @@ describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/status', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Status must be a string of characters not null');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('PATCH /api/v1/car/b8aa4d11-baa4-4d6a/status', () => {
-    it('Should return 417 error if user tries to update status with invalid status', (done) => {
+    it('Should return 422 error if user tries to update status with invalid status', (done) => {
         const car = { status: 'beautiful' };
 
         chai.request(app)
@@ -803,7 +803,7 @@ describe('PATCH /api/v1/car/b8aa4d11-baa4-4d6a/status', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Status must be either available or sold');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -867,7 +867,7 @@ describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/price', () => {
 });
 
 describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/price', () => {
-    it('Should return 417 error if user tries to update status with invalid price', (done) => {
+    it('Should return 422 error if user tries to update status with invalid price', (done) => {
         const car = { price: 'one hundred thousand' };
 
         chai.request(app)
@@ -878,14 +878,14 @@ describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/price', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Price must be a number greater than 0');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
 });
 
 describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/price', () => {
-    it('Should return 417 error if user tries to update status with invalid price', (done) => {
+    it('Should return 422 error if user tries to update status with invalid price', (done) => {
         const car = { price: -54000 };
 
         chai.request(app)
@@ -896,7 +896,7 @@ describe('PATCH /api/v1/car/:b8aa4d11-baa4-4d6a/price', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
                 expect(res.body.error).to.deep.equal('Price must be a number greater than 0');
-                expect(res.body.status).to.deep.equal(417);
+                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });

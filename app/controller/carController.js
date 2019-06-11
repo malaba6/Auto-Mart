@@ -12,35 +12,35 @@ const CarController = {
      */
     postCar(data) {
         if (Validator.isValidPrice(data.price) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 error: Validator.isValidPrice(data.price),
                 status: this.status,
             };
         }
         if (Validator.isValidState(data.state) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 error: Validator.isValidState(data.state),
                 status: this.status,
             };
         }
         if (Validator.isValidManufacturer(data.manufacturer) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 error: Validator.isValidManufacturer(data.manufacturer),
                 status: this.status,
             };
         }
         if (Validator.isValidModel(data.model) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 error: Validator.isValidModel(data.model),
                 status: this.status,
             };
         }
         if (Validator.isValidType(data.type) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 error: Validator.isValidType(data.type),
                 status: this.status,
@@ -48,7 +48,7 @@ const CarController = {
         }
 
         if (Validator.isImageFound(data.photo) !== 'found') {
-            this.status = 417;
+            this.status = 422;
             return {
                 error: Validator.isImageFound(data.photo),
                 status: this.status,
@@ -117,7 +117,7 @@ const CarController = {
         if (query.status === 'available' && (query.min_price || query.min_price === 0) &&
             (query.max_price || query.max_price === 0) && length === 3) {
             if (Validator.isValidMaxMInPrice(query.min_price) !== 'valid') {
-                this.status = 417;
+                this.status = 422;
                 return {
                     status: this.status,
                     error: Validator.isValidMaxMInPrice(query.min_price),
@@ -125,7 +125,7 @@ const CarController = {
             }
 
             if (Validator.isValidMaxMInPrice(query.max_price) !== 'valid') {
-                this.status = 417;
+                this.status = 422;
                 return {
                     status: this.status,
                     error: Validator.isValidMaxMInPrice(query.max_price),
@@ -135,7 +135,7 @@ const CarController = {
             const max_price = +query.max_price;
 
             if (min_price > max_price) {
-                this.status = 417;
+                this.status = 422;
                 return {
                     status: this.status,
                     error: 'Min price must be less than Max price',
@@ -160,7 +160,7 @@ const CarController = {
         // Check if status and state (new/used) are included in the query
         if (query.status === 'available' && query.state && length === 2) {
             if (Validator.isValidState(query.state) !== 'valid') {
-                this.status = 417;
+                this.status = 422;
                 return {
                     status: this.status,
                     error: Validator.isValidState(query.state),
@@ -239,7 +239,7 @@ const CarController = {
             };
         }
         if (Validator.isValidStatus(data.status) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 status: this.status,
                 error: Validator.isValidStatus(data.status),
@@ -274,7 +274,7 @@ const CarController = {
             };
         }
         if (Validator.isValidPrice(data.price) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 status: this.status,
                 error: Validator.isValidPrice(data.price),
