@@ -3,6 +3,9 @@ import bodyParser from 'body-parser';
 import router from "./app/route/routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 

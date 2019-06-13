@@ -22,21 +22,21 @@ const FlagController = {
             };
         }
         if (Validator.isValidReason(data.reason) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 status: this.status,
                 error: Validator.isValidReason(data.reason),
             };
         }
         if (Validator.isValidDescription(data.description) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 status: this.status,
                 error: Validator.isValidDescription(data.description),
             };
         }
         if (Validator.isValidId(data.car_id) !== 'valid') {
-            this.status = 417;
+            this.status = 422;
             return {
                 status: this.status,
                 error: Validator.isValidId(data.car_id),
