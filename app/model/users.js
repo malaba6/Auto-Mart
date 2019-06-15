@@ -39,9 +39,22 @@ class User {
      * @params {object} data
      * @returns {object} the logged in user object
      */
-    // login(data) {
-    //     return this.users.find(user => user.email === data.email && user.password === data.password);
-    // }
+    async login(data) {
+        const text = `SELECT * FROM users WHERE email = $1 AND password = $2`;
+        const values = [
+            data.email,
+            data.password
+        ];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows[0];
+            }
+            return;
+        } catch (error) {
+            return err;
+        }
+    }
 
     /**
      *
@@ -56,7 +69,7 @@ class User {
             if (result) {
                 return result.rows[0];
             }
-            retutn;
+            return;
         } catch (err) {
             return err;
         }

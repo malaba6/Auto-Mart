@@ -8,15 +8,15 @@ import asyncWrapper from "../middleware/asyncMiddleware";
 
 const route = express.Router();
 
-route.post('/api/v1/auth/signup', asyncWrapper(async(req, res, next) => {
+route.post('/api/v2/auth/signup', asyncWrapper(async(req, res, next) => {
     const user = await userController.signup(req.body);
     return res.status(userController.status).send(user);
 }));
 
-// route.post('/api/v1/auth/signin', (req, res) => {
-//   const user = userController.login(req.body);
-//   return res.status(userController.status).send(user);
-// });
+route.post('/api/v2/auth/signin', asyncWrapper(async(req, res, next) => {
+    const user = await userController.login(req.body);
+    return res.status(userController.status).send(user);
+}));
 
 // route.post('/api/v1/car', postCarValidator, imageUploader, (req, res) => {
 //   const car = CarController.postCar(req.body);

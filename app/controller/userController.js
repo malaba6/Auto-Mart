@@ -100,44 +100,55 @@ const UserController = {
      * @param {data} object
      * @returns {object} user object
      */
-    // login(data) {
-    //     if ((data.email === undefined && data.email !== '') ||
-    //         (data.password === undefined && data.password !== '')) {
-    //         this.status = 400;
-    //         return {
-    //             status: this.status,
-    //             error: 'email and password are required',
-    //         };
-    //     }
-    //     if (Validator.isValidEmail(data.email) !== 'valid') {
-    //         this.status = 422;
-    //         return {
-    //             status: this.status,
-    //             error: Validator.isValidEmail(data.email),
-    //         };
-    //     }
-    //     if (Validator.isValidPassword(data.password) !== 'valid') {
-    //         this.status = 422;
-    //         return {
-    //             status: this.status,
-    //             error: Validator.isValidPassword(data.password),
-    //         };
-    //     }
+    async login(data) {
+        if ((data.email === undefined && data.email !== '') ||
+            (data.password === undefined && data.password !== '')) {
+            this.status = 400;
+            return {
+                status: this.status,
+                error: 'email and password are required',
+            };
+        }
+        if (Validator.isValidEmail(data.email) !== 'valid') {
+            this.status = 422;
+            return {
+                status: this.status,
+                error: Validator.isValidEmail(data.email),
+            };
+        }
+        if (Validator.isValidPassword(data.password) !== 'valid') {
+            this.status = 422;
+            return {
+                status: this.status,
+                error: Validator.isValidPassword(data.password),
+            };
+        }
 
-    //     const user = User.login(data);
-    //     if (!user) {
-    //         this.status = 401;
-    //         return {
-    //             status: this.status,
-    //             error: 'Email or password Incorrect',
-    //         };
-    //     }
-    //     this.status = 200;
-    //     return {
-    //         status: this.status,
-    //         data: user,
-    //     };
-    // },
+        const user = await User.login(data);
+        if (!user) {
+            this.status = 401;
+            return {
+                status: this.status,
+                error: 'Email or password Incorrect'
+            };
+        }
+        this.status = 200;
+        const token = jwt.sign(user, secret, {
+            expiresIn: '24h', //expires in 24 Hrs
+        })
+
+        const { id, firstname, lastname, email } = user;
+        return {
+            status: this.status,
+            data: {
+                token: token,
+                id: id,
+                firstName: firstname,
+                lastName: lastname,
+                email: email
+            }
+        };
+    }
 
 };
 
