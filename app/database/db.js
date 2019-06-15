@@ -1,59 +1,29 @@
-import pool from "./migration"
-import Debug from "debug";
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
 
-let debug = Debug('http');
+dotenv.config();
 
-export const createTables = () => {
-    try {
-        const users = `
-        CREATE TABLE IF NOT EXISTS
-            users (
-                id UUID PRIMARY KEY,      
-                email VARCHAR(128) UNIQUE NOT NULL,
-                first_name VARCHAR(128) NOT NULL,
-                last_name VARCHAR(128) NOT NULL,
-                password VARCHAR(128) NOT NULL,
-                address VARCHAR (128),
-                is_admin BOOLEAN
-            )`;
-        const cars = `
-        CREATE TABLE IF NOT EXISTS
-            cars (
-                id UUID PRIMARY KEY,
-                created_on VARCHAR(200) NOT NULL,
-                state VARCHAR(20) NOT NULL,
-                status VARCHAR(20) NOT NULL,
-                price  NOT NULL,
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL
+});
 
-            )`;
-        const orders = `
-            CREATE TABLE IF NOT EXISTS
-                orders (
-                    car VARCHAR(128) NOT NULL,
-                    id SERIAL PRIMARY KEY,      
-                    model VARCHAR(128) UNIQUE NOT NULL,
-                    type VARCHAR(128) NOT NULL
-                )`;
-
-        // const queries = `${users};${cars};${orders}`;
-
-        pool.query(users, (err, res) => {
-            console.log(err, res);
-            // pool.end();
-        });
-
-        pool.query(cars, (err, res) => {
-            console.log(err, res);
-            // pool.end();
-        });
-
-        pool.query(orders, (err, res) => {
-            console.log(err, res);
-            // pool.end();
-        });
-    } catch (err) {
-        console.log("Couldn't connect to the database");
+export default {
+    /**
+     * DB Query
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} object 
+     */
+    query(text, params) {
+        return new Promise((resolve, reject) => {
+            pool.query(text, params)
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((err) => {
+                    reject(err);
+                    console.log(err);
+                })
+        })
     }
 }
-
-require("make-runnable");

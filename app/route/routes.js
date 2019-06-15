@@ -2,18 +2,16 @@ import express from 'express';
 // import CarController from '../controller/carController';
 // import OrderController from '../controller/orderController';
 // import FlagController from '../controller/flagController';
-// import userController from '../controller/userController';
+import userController from '../controller/userController';
+import asyncWrapper from "../middleware/asyncMiddleware";
 // import { imageUploader, postCarValidator, deleteImage } from '../middleware/middlewares';
 
 const route = express.Router();
 
-route.get('/', (req, res) => {
-    return res.status(200).send("Welcome to auto-mart");
-});
-// route.post('/api/v1/auth/signup', (req, res) => {
-//   const user = userController.signup(req.body);
-//   return res.status(userController.status).send(user);
-// });
+route.post('/api/v1/auth/signup', asyncWrapper(async(req, res, next) => {
+    const user = await userController.signup(req.body);
+    return res.status(userController.status).send(user);
+}));
 
 // route.post('/api/v1/auth/signin', (req, res) => {
 //   const user = userController.login(req.body);

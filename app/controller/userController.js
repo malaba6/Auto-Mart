@@ -1,6 +1,10 @@
 import User from '../model/users';
 import Validator from '../validation/validation';
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
+dotenv.config();
+const secret = process.env.JWT_SECRET;
 
 const UserController = {
     /**
@@ -14,7 +18,7 @@ const UserController = {
      * @param {object} data
      * @returns {object} user object and status code
      */
-    signup(data) {
+    async signup(data) {
         if ((data.firstName === undefined && data.firstName !== '') ||
             (data.lastName === undefined && data.lastName !== '') ||
             (data.email === undefined && data.email !== '') ||
@@ -62,7 +66,8 @@ const UserController = {
                 };
             }
         }
-        if (User.isExistingUser(data.email)) {
+        const user = await User.isExistingUser(data.email);
+        if (user) {
             this.status = 409;
             return {
                 status: 409,
@@ -70,11 +75,23 @@ const UserController = {
             };
         }
 
-        const user = User.signUp(data);
+        const signup = await User.signUp(data);
+
+        const token = jwt.sign(signup, secret, {
+            expiresIn: '24h', //expires in 24 Hrs
+        })
+
         this.status = 201;
+        const { id, firstname, lastname, email } = signup;
         return {
             status: this.status,
-            data: user,
+            data: {
+                token: token,
+                id: id,
+                firstName: firstname,
+                lastName: lastname,
+                email: email
+            }
         };
     },
 
@@ -83,44 +100,44 @@ const UserController = {
      * @param {data} object
      * @returns {object} user object
      */
-    login(data) {
-        if ((data.email === undefined && data.email !== '') ||
-            (data.password === undefined && data.password !== '')) {
-            this.status = 400;
-            return {
-                status: this.status,
-                error: 'email and password are required',
-            };
-        }
-        if (Validator.isValidEmail(data.email) !== 'valid') {
-            this.status = 422;
-            return {
-                status: this.status,
-                error: Validator.isValidEmail(data.email),
-            };
-        }
-        if (Validator.isValidPassword(data.password) !== 'valid') {
-            this.status = 422;
-            return {
-                status: this.status,
-                error: Validator.isValidPassword(data.password),
-            };
-        }
+    // login(data) {
+    //     if ((data.email === undefined && data.email !== '') ||
+    //         (data.password === undefined && data.password !== '')) {
+    //         this.status = 400;
+    //         return {
+    //             status: this.status,
+    //             error: 'email and password are required',
+    //         };
+    //     }
+    //     if (Validator.isValidEmail(data.email) !== 'valid') {
+    //         this.status = 422;
+    //         return {
+    //             status: this.status,
+    //             error: Validator.isValidEmail(data.email),
+    //         };
+    //     }
+    //     if (Validator.isValidPassword(data.password) !== 'valid') {
+    //         this.status = 422;
+    //         return {
+    //             status: this.status,
+    //             error: Validator.isValidPassword(data.password),
+    //         };
+    //     }
 
-        const user = User.login(data);
-        if (!user) {
-            this.status = 401;
-            return {
-                status: this.status,
-                error: 'Email or password Incorrect',
-            };
-        }
-        this.status = 200;
-        return {
-            status: this.status,
-            data: user,
-        };
-    },
+    //     const user = User.login(data);
+    //     if (!user) {
+    //         this.status = 401;
+    //         return {
+    //             status: this.status,
+    //             error: 'Email or password Incorrect',
+    //         };
+    //     }
+    //     this.status = 200;
+    //     return {
+    //         status: this.status,
+    //         data: user,
+    //     };
+    // },
 
 };
 
