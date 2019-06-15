@@ -40,19 +40,13 @@ class User {
      * @returns {object} the logged in user object
      */
     async login(data) {
-        const text = `SELECT * FROM users WHERE email = $1 AND password = $2`;
-        const values = [
-            data.email,
-            data.password
-        ];
-        try {
-            const result = await db.query(text, values);
-            if (result) {
-                return result.rows[0];
+        const user = await this.isExistingUser(data.email);
+        if (user) {
+            const isValidPass = bcrypt.compareSync(data.password, user.password);
+            if (isValidPass) {
+                return user;
             }
             return;
-        } catch (error) {
-            return err;
         }
     }
 
