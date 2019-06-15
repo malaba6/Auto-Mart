@@ -1,10 +1,10 @@
 import express from 'express';
-// import CarController from '../controller/carController';
+import CarController from '../controller/carController';
 // import OrderController from '../controller/orderController';
 // import FlagController from '../controller/flagController';
 import userController from '../controller/userController';
 import asyncWrapper from "../middleware/asyncMiddleware";
-// import { imageUploader, postCarValidator, deleteImage } from '../middleware/middlewares';
+import { imageUploader, postCarValidator, deleteImage, authencate } from '../middleware/middlewares';
 
 const route = express.Router();
 
@@ -18,10 +18,10 @@ route.post('/api/v2/auth/signin', asyncWrapper(async(req, res, next) => {
     return res.status(userController.status).send(user);
 }));
 
-// route.post('/api/v1/car', postCarValidator, imageUploader, (req, res) => {
-//   const car = CarController.postCar(req.body);
-//   return res.status(CarController.status).send(car);
-// });
+route.post('/api/v2/car', authencate, postCarValidator, imageUploader, asyncWrapper(async(req, res, next) => {
+    const car = await CarController.postCar(req.body);
+    return res.status(CarController.status).send(car);
+}));
 
 // route.post('/api/v1/order', (req, res) => {
 //   const order = OrderController.createOrder(req.body);

@@ -8,9 +8,9 @@ const CarController = {
     /**
      *
      * @params {object} data
-     * @returns {object} car object
+     * @returns {object} car promise
      */
-    postCar(data) {
+    async postCar(data) {
         if (Validator.isValidPrice(data.price) !== 'valid') {
             this.status = 422;
             return {
@@ -51,15 +51,15 @@ const CarController = {
             this.status = 422;
             return {
                 error: Validator.isImageFound(data.photo),
-                status: this.status,
+                status: this.status
             };
         }
 
-        const car = Car.postCar(data);
+        const car = await Car.postCar(data);
         this.status = 201;
         return {
             status: this.status,
-            data: car,
+            data: car
         };
     },
 

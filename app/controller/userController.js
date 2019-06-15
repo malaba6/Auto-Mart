@@ -77,7 +77,15 @@ const UserController = {
 
         const signup = await User.signUp(data);
 
-        const token = jwt.sign(signup, secret, {
+        const dataToken = {
+            id: signup.id,
+            firstName: signup.firstname,
+            lastName: signup.lastname,
+            email: signup.email,
+            isAdmin: signup.isadmin,
+        };
+
+        const token = jwt.sign(dataToken, secret, {
             expiresIn: '24h', //expires in 24 Hrs
         })
 
@@ -133,7 +141,16 @@ const UserController = {
             };
         }
         this.status = 200;
-        const token = jwt.sign(user, secret, {
+
+        const dataToken = {
+            id: user.id,
+            firstName: user.firstname,
+            lastName: user.lastname,
+            email: user.email,
+            isAdmin: user.isadmin,
+        };
+
+        const token = jwt.sign(dataToken, secret, {
             expiresIn: '24h', //expires in 24 Hrs
         })
 

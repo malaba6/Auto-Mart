@@ -47,7 +47,7 @@ const Validator = {
     },
 
     isValidPrice(price) {
-        if (+price !== price || price < 1) {
+        if (isNaN(price) || price < 1) {
             return 'Price must be a number greater than 0';
         }
         return 'valid';
