@@ -10,8 +10,8 @@ class Car {
      */
     async postCar(data, owner) {
         const text = `INSERT INTO
-          cars(id, ownerid, createdon, state, status, manufacturer, model, price, photo)
-          VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+          cars(id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+          VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
 
         const values = [
             uuid.v4(),
@@ -19,6 +19,7 @@ class Car {
             moment().format('llll'),
             data.state,
             "available",
+            data.type,
             data.manufacturer,
             data.model,
             data.price,
@@ -132,9 +133,22 @@ class Car {
      * @param {object} object
      * @returns {object} unsold cars with specific manufacturer
      */
-    viewCarsWithManufacturer(query) {
-        return this.cars.filter(car => car.status === query.status &&
-            car.manufacturer.toLowerCase() === query.manufacturer.toLowerCase());
+    async viewCarsWithManufacturer(query) {
+        const text = `SELECT * FROM
+         cars WHERE status = $1 AND manufacturer = $2`;
+        const values = [
+            query.status,
+            query.manufacturer
+        ];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows;
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
     }
 
     /**
@@ -142,9 +156,22 @@ class Car {
      * @param {object} object
      * @returns {object} unsold cars with specific type
      */
-    viewCarsWithType(query) {
-        return this.cars.filter(car => car.status === query.status &&
-            car.type.toLowerCase().includes(query.type.toLowerCase()));
+    async viewCarsWithType(query) {
+        const text = `SELECT * FROM
+         cars WHERE status = $1 AND type LIKE $2`;
+        const values = [
+            query.status,
+            query.type
+        ];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows;
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
     }
 
     /**

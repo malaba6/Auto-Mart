@@ -24,83 +24,61 @@ pool.on('connect', () => {
 });
 
 
-export const createTables = () => {
-    const users = `
+export const createTables = async() => {
+    try {
+        const users = `
         CREATE TABLE IF NOT EXISTS
             users (
-                id TEXT PRIMARY KEY,
+                id UUID PRIMARY KEY,
                 firstname VARCHAR(120) NOT NULL,
                 lastname VARCHAR(120) NOT NULL,
                 email VARCHAR(120) UNIQUE NOT NULL,
                 password VARCHAR(120) NOT NULL,
                 address VARCHAR(120),
                 isadmin BOOLEAN
-            )`;
-    const cars = `
+            );
         CREATE TABLE IF NOT EXISTS
             cars (
                 id UUID PRIMARY KEY,
-                ownerid UUID NOT NULL REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                ownerid UUID NOT NULL,
                 createdon VARCHAR(120) NOT NULL,
                 state VARCHAR(120) NOT NULL,
                 status VARCHAR(120) NOT NULL,
+                type VARCHAR(120) NOT NULL,
                 manufacturer VARCHAR(120) NOT NULL,
                 model VARCHAR(120) NOT NULL,
                 price  float8 NOT NULL,
-                photo VARCHAR(120) NOT NULL
-            )`;
-    const orders = `
+                photo VARCHAR(120) NOT NULL,
+                FOREIGN KEY(ownerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+            );
         CREATE TABLE IF NOT EXISTS
             orders (
                 id UUID PRIMARY KEY,
                 ownerid UUID NOT NULL REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
                 createdon TEXT NOT NULL,
                 carid UUID NOT NULL REFERENCES cars(id) ON UPDATE CASCADE ON DELETE CASCADE,
-                status TEXT NOT NULL REFERENCES cars(status) ON UPDATE CASCADE ON DELETE CASCADE,
-                price float8 NOT NULL REFERENCES cars(price) ON UPDATE CASCADE ON DELETE CASCADE,
+                status VARCHAR(120) NOT NULL,
+                price float8 NOT NULL,
                 offeredprice float8 NOT NULL
-            )`;
-    const flags = `
+            );
         CREATE TABLE IF NOT EXISTS
             flags (
                 id UUID PRIMARY KEY,
+                ownerid UUID NOT NULL,
                 carid UUID NOT NULL,
-                reason TEXT NOT NULL,
-                description TEXT NOT NULL
-            )`;
+                reason VARCHAR(200) NOT NULL,
+                description TEXT NOT NULL,
+                FOREIGN KEY(ownerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+            );`;
 
-    pool.query(users)
-        .then((res) => {
-            debug(res);
-        })
-        .catch((err) => {
-            debug(err);
-        });
-
-    pool.query(cars)
-        .then((res) => {
-            debug(res);
-        })
-        .catch((err) => {
-            debug(err);
-        });
-
-    pool.query(orders)
-        .then((res) => {
-            debug(res);
-        })
-        .catch((err) => {
-            debug(err);
-        });
-
-    pool.query(flags)
-        .then((res) => {
-            debug(res);
-        })
-        .catch((err) => {
-            debug(err);
-            pool.end();
-        });
+        const tables = await pool.query(users);
+        debug(tables);
+        pool.end();
+    } catch (err) {
+        debug(err);
+        await pool.end()
+    }
 }
 
-require("make-runnable");
+// require("make-runnable");
+createTables();
