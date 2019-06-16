@@ -277,7 +277,7 @@ const CarController = {
      * @param {uuid} id
      * @returns {oblect} update car price
      */
-    updatePrice(id, data) {
+    async updatePrice(id, data, user) {
         if (data.price === undefined && data.price !== 0) {
             this.status = 400;
             return {
@@ -292,18 +292,29 @@ const CarController = {
                 error: Validator.isValidPrice(data.price),
             };
         }
-        if (!Car.viewSpecificCar(id)) {
+        const car = await Car.viewSpecificCar(id);
+
+        if (!car) {
             this.status = 404;
             return {
                 status: this.status,
-                error: `Car with id ${id} not found`,
+                error: `Car with id ${id} not found`
             };
         }
+        if (user.id !== car.ownerid) {
+            this.status = 403;
+            return {
+                status: this.status,
+                message: 'You cannot update a car Ad you do not own'
+            };
+        }
+
+        const updated = await Car.updatePrice(id, data);
 
         this.status = 200;
         return {
             status: this.status,
-            data: Car.updatePrice(id, data),
+            data: updated
         };
     },
 
