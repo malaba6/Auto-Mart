@@ -68,7 +68,7 @@ const CarController = {
      * @param {status} unsold cars
      * @returns {object} cars array
      */
-    viewCars(query) {
+    async viewCars(query, usr) {
         const { length } = Object.entries(query);
 
         // If no query parameters, fetch all cars
@@ -98,7 +98,7 @@ const CarController = {
                 };
             }
 
-            const cars = Car.viewUnsoldCars(query.status);
+            const cars = await Car.viewUnsoldCars(query.status);
             this.status = 200;
             if (cars.length === 0) {
                 this.status = 404;

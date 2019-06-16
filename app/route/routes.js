@@ -54,10 +54,10 @@ route.get('/api/v2/car/:id', authencate, asyncWrapper(async(req, res, next) => {
     return res.status(CarController.status).send(car);
 }));
 
-// route.get('/api/v1/car', (req, res) => {
-//   const car = CarController.viewCars(req.query);
-//   return res.status(CarController.status).send(car);
-// });
+route.get('/api/v2/car', authencate, asyncWrapper(async(req, res, next) => {
+    const car = await CarController.viewCars(req.query);
+    return res.status(CarController.status).send(car);
+}));
 
 // route.delete('/api/v1/car/:id', deleteImage, (req, res) => {
 //   const car = CarController.deleteCar(req.params.id);
