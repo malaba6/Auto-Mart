@@ -76,6 +76,7 @@ const OrderController = {
         }
 
         const order = await Order.isExistingOrder(id);
+
         if (!order) {
             this.status = 404;
             return {
@@ -83,7 +84,8 @@ const OrderController = {
                 error: `Order with id ${id} not found`,
             };
         }
-        if (order.status === 'sold') {
+        const car = await Car.viewSpecificCar(order.carid);
+        if (car.status === 'sold') {
             this.status = 404;
             return {
                 status: this.status,
