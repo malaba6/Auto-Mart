@@ -109,9 +109,22 @@ class Car {
      * @param {object} object
      * @returns {object} unsold cars with specific state
      */
-    viewCarsWithState(query) {
-        return this.cars.filter(car => car.status === query.status &&
-            car.state === query.state);
+    async viewCarsWithState(query) {
+        const text = `SELECT * FROM
+         cars WHERE status = $1 AND state = $2`;
+        const values = [
+            "available",
+            query.state
+        ];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows;
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
     }
 
     /**

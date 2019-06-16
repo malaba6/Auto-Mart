@@ -114,7 +114,8 @@ const CarController = {
         }
 
         // Check if status min_price and max_price are icluded in the query params
-        if (query.status === 'available' && (query.min_price || query.min_price === 0) &&
+        if (query.status === 'available' &&
+            (query.min_price || query.min_price === 0) &&
             (query.max_price || query.max_price === 0) && length === 3) {
             if (Validator.isValidMaxMInPrice(query.min_price) !== 'valid') {
                 this.status = 422;
@@ -144,6 +145,7 @@ const CarController = {
 
             const cars = await Car.viewCarsWithinRange(query);
             this.status = 200;
+
             if (cars.length === 0) {
                 this.status = 404;
                 return {
@@ -159,6 +161,7 @@ const CarController = {
 
         // Check if status and state (new/used) are included in the query
         if (query.status === 'available' && query.state && length === 2) {
+
             if (Validator.isValidState(query.state) !== 'valid') {
                 this.status = 422;
                 return {
@@ -167,7 +170,8 @@ const CarController = {
                 };
             }
 
-            const cars = Car.viewCarsWithState(query);
+            const cars = await Car.viewCarsWithState(query);
+
             this.status = 200;
             if (cars.length === 0) {
                 this.status = 404;
@@ -178,7 +182,7 @@ const CarController = {
             }
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 
