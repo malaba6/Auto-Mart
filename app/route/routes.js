@@ -34,10 +34,10 @@ route.post('/api/v2/order', authencate, asyncWrapper(async(req, res, next) => {
 //   return res.status(FlagController.status).send(flag);
 // });
 
-// route.patch('/api/v1/order/:id/price', (req, res) => {
-//   const patchedOrder = OrderController.updatePrice(req.params.id, req.body);
-//   return res.status(OrderController.status).send(patchedOrder);
-// });
+route.patch('/api/v2/order/:id/price', authencate, asyncWrapper(async(req, res, next) => {
+    const patchedOrder = await OrderController.updatePrice(req.params.id, req.body, req.decoded);
+    return res.status(OrderController.status).send(patchedOrder);
+}));
 
 // route.patch('/api/v1/car/:id/status', (req, res) => {
 //   const sold = CarController.updateStatus(req.params.id, req.body);

@@ -59,7 +59,7 @@ const OrderController = {
      * @param {uuid} id
      * @returns {object} update order price
      */
-    updatePrice(id, data) {
+    async updatePrice(id, data, user) {
         if (data.offered_price === undefined && data.offered_price !== 0) {
             this.status = 400;
             return {
@@ -74,25 +74,37 @@ const OrderController = {
                 error: Validator.isValidPrice(data.offered_price),
             };
         }
-        if (!Order.isExistingOrder(id)) {
+
+        const order = await Order.isExistingOrder(id);
+        if (!order) {
             this.status = 404;
             return {
                 status: this.status,
                 error: `Order with id ${id} not found`,
             };
         }
-        if (Order.isExistingOrder(id).status === 'sold') {
+        if (order.status === 'sold') {
             this.status = 404;
             return {
                 status: this.status,
-                message: 'This car Ad is no longer available',
+                message: 'This car Ad is no longer available'
+            };
+        }
+
+        if (user.id !== order.ownerid) {
+            this.status = 403;
+            return {
+                status: this.status,
+                message: 'You cannot update a purchase order you do not own'
             };
         }
 
         this.status = 200;
+
+        const update = await Order.updatePrice(id, data);
         return {
             status: this.status,
-            data: Order.updatePrice(id, data),
+            data: update
         };
     },
 
