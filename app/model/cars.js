@@ -8,16 +8,17 @@ class Car {
      * @param {object} data
      * @returns {object} car object
      */
-    async postCar(data) {
+    async postCar(data, owner) {
         const text = `INSERT INTO
-          cars(id, createdon, state, status, manufacturer, model, price, photo)
-          VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+          cars(id, ownerid, createdon, state, status, manufacturer, model, price, photo)
+          VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
 
         const values = [
             uuid.v4(),
+            owner.id,
             moment().format('llll'),
             data.state,
-            "new",
+            "available",
             data.manufacturer,
             data.model,
             data.price,
@@ -38,8 +39,18 @@ class Car {
      * @param {uuid} id
      * @returns {object} car object
      */
-    viewSpecificCar(id) {
-        return this.cars.find(car => car.id === id);
+    async viewSpecificCar(id) {
+        const text = `SELECT * FROM cars WHERE id = $1`;
+        const values = [id];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows[0];
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
     }
 
     /**

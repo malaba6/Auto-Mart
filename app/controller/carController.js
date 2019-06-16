@@ -10,7 +10,7 @@ const CarController = {
      * @params {object} data
      * @returns {object} car promise
      */
-    async postCar(data) {
+    async postCar(data, owner) {
         if (Validator.isValidPrice(data.price) !== 'valid') {
             this.status = 422;
             return {
@@ -55,7 +55,7 @@ const CarController = {
             };
         }
 
-        const car = await Car.postCar(data);
+        const car = await Car.postCar(data, owner);
         this.status = 201;
         return {
             status: this.status,
