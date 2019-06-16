@@ -40,8 +40,19 @@ class Order {
      * @param {uuid} id
      * @returns {object} order object
      */
-    isExistingOrder(id) {
-        return this.orders.find(order => order.id === id);
+    async isExistingOrder(id) {
+        const text = `SELECT * FROM orders WHERE id=$1`;
+        const values = [id];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows[0];
+            }
+            return;
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
     }
 
     /**
@@ -49,19 +60,21 @@ class Order {
      * @params {uuid} id
      * @returns {object} order object
      */
-    updatePrice(id, data) {
-        const order = this.isExistingOrder(id);
-        const oldPrice = order.offered_price;
-        order.offered_price = data.offered_price;
-        return {
-            id: order.id,
-            createdOn: order.createdOn,
-            car_id: order.car_id,
-            status: order.status,
-            price: order.price,
-            old_price_offered: oldPrice,
-            offered_price: order.offered_price,
-        };
+    async updatePrice(id, data) {
+        const text = `UPDATE orders SET offeredprice=$1
+            WHERE id=$2 RETURNING *`;
+        const values = [
+            data.offered_price,
+            id
+        ];
+
+        try {
+            const result = await db.query(text, values);
+            return result.rows[0];
+        } catch (err) {
+            console.log(err);
+            return error;
+        }
     }
 }
 

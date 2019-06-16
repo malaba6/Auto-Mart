@@ -40,7 +40,7 @@ export const createTables = () => {
         CREATE TABLE IF NOT EXISTS
             cars (
                 id UUID PRIMARY KEY,
-                ownerid UUID NOT NULL,
+                ownerid UUID NOT NULL REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
                 createdon VARCHAR(120) NOT NULL,
                 state VARCHAR(120) NOT NULL,
                 status VARCHAR(120) NOT NULL,
@@ -53,11 +53,11 @@ export const createTables = () => {
         CREATE TABLE IF NOT EXISTS
             orders (
                 id UUID PRIMARY KEY,
-                ownerid UUID NOT NULL,
+                ownerid UUID NOT NULL REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
                 createdon TEXT NOT NULL,
-                carid UUID NOT NULL,
-                status TEXT NOT NULL,
-                price float8 NOT NULL,
+                carid UUID NOT NULL REFERENCES cars(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                status TEXT NOT NULL REFERENCES cars(status) ON UPDATE CASCADE ON DELETE CASCADE,
+                price float8 NOT NULL REFERENCES cars(price) ON UPDATE CASCADE ON DELETE CASCADE,
                 offeredprice float8 NOT NULL
             )`;
     const flags = `
