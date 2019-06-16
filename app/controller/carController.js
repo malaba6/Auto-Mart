@@ -323,8 +323,8 @@ const CarController = {
      * @param {uuid} id
      * @returns {object} car object
      */
-    viewSpecificCar(id) {
-        const car = Car.viewSpecificCar(id);
+    async viewSpecificCar(id) {
+        const car = await Car.viewSpecificCar(id);
         if (!car) {
             this.status = 404;
             return {

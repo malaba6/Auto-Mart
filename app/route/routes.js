@@ -49,10 +49,10 @@ route.patch('/api/v2/car/:id/price', authencate, asyncWrapper(async(req, res, ne
     return res.status(CarController.status).send(price);
 }));
 
-// route.get('/api/v1/car/:id', (req, res) => {
-//   const car = CarController.viewSpecificCar(req.params.id);
-//   return res.status(CarController.status).send(car);
-// });
+route.get('/api/v2/car/:id', authencate, asyncWrapper(async(req, res, next) => {
+    const car = await CarController.viewSpecificCar(req.params.id);
+    return res.status(CarController.status).send(car);
+}));
 
 // route.get('/api/v1/car', (req, res) => {
 //   const car = CarController.viewCars(req.query);
