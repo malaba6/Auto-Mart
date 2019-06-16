@@ -66,8 +66,18 @@ class Car {
      * @param {status} car object status
      * @returns {object} all unsold cars
      */
-    viewUnsoldCars(status) {
-        return this.cars.filter(car => car.status == status);
+    async viewUnsoldCars(status) {
+        const text = `SELECT * FROM cars WHERE status = $1`;
+        const values = [status];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows;
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
     }
 
     /**
