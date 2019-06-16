@@ -116,19 +116,21 @@ class Car {
      * @params {uuid} id
      * @returns {object} update car status
      */
-    updateStatus(id, data) {
-        const car = this.viewSpecificCar(id);
-        car.status = data.status;
-        return {
-            id: car.id,
-            createdOn: car.createdOn,
-            state: car.state,
-            status: car.status,
-            price: car.price,
-            manufacturer: car.manufacturer,
-            model: car.model,
-            type: car.type,
-        };
+    async updateStatus(id, data) {
+        const text = `UPDATE cars SET status=$1
+            WHERE id=$2 RETURNING *`;
+        const values = [
+            data.status,
+            id
+        ];
+
+        try {
+            const result = await db.query(text, values);
+            return result.rows[0];
+        } catch (err) {
+            console.log(err);
+            return error;
+        }
     }
 
     /**
