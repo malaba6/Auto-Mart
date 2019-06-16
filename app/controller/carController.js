@@ -142,7 +142,7 @@ const CarController = {
                 };
             }
 
-            const cars = Car.viewCarsWithinRange(query);
+            const cars = await Car.viewCarsWithinRange(query);
             this.status = 200;
             if (cars.length === 0) {
                 this.status = 404;
@@ -153,7 +153,7 @@ const CarController = {
             }
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 

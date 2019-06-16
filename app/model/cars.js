@@ -85,10 +85,23 @@ class Car {
      * @param {object} object
      * @returns {object} unsold cars within a price range
      */
-    viewCarsWithinRange(query) {
-        return this.cars.filter(car => car.status === query.status &&
-            car.price >= query.min_price &&
-            car.price <= query.max_price);
+    async viewCarsWithinRange(query) {
+        const text = `SELECT * FROM
+         cars WHERE status = $1 AND price BETWEEN $2 AND $3`;
+        const values = [
+            "available",
+            query.min_price,
+            query.max_price
+        ];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows;
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
     }
 
     /**
