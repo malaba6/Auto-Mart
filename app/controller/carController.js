@@ -73,18 +73,27 @@ const CarController = {
 
         // If no query parameters, fetch all cars
         if (length === 0) {
-            const cars = Car.viewAllCars();
+
+            if (!usr.isAdmin) { //
+                this.status = 403;
+                return {
+                    status: this.status,
+                    message: 'You are not authorized to view this'
+                };
+            }
+
+            const cars = await Car.viewAllCars();
             this.status = 200;
 
             if (cars.length === 0) {
                 return {
                     status: this.status,
-                    message: 'Oops! It is lonely here!',
+                    message: 'Oops! It is lonely here!'
                 };
             }
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 

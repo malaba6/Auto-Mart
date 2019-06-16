@@ -58,8 +58,17 @@ class Car {
      *
      * @returns {object} all cars
      */
-    viewAllCars() {
-        return this.cars;
+    async viewAllCars() {
+        const text = `SELECT * FROM cars`;
+        try {
+            const result = await db.query(text);
+            if (result) {
+                return result.rows;
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
     }
 
     /**
