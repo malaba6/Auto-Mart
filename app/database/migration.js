@@ -40,30 +40,31 @@ export const createTables = () => {
         CREATE TABLE IF NOT EXISTS
             cars (
                 id UUID PRIMARY KEY,
+                ownerid UUID NOT NULL,
                 createdon VARCHAR(120) NOT NULL,
                 state VARCHAR(120) NOT NULL,
-                status VARCHAR(120),
+                status VARCHAR(120) NOT NULL,
                 manufacturer VARCHAR(120) NOT NULL,
                 model VARCHAR(120) NOT NULL,
                 price  float8 NOT NULL,
                 photo VARCHAR(120) NOT NULL
-
             )`;
     const orders = `
         CREATE TABLE IF NOT EXISTS
             orders (
                 id UUID PRIMARY KEY,
-                created_on TEXT NOT NULL,
-                car_id UUID NOT NULL,
+                ownerid UUID NOT NULL,
+                createdon TEXT NOT NULL,
+                carid UUID NOT NULL,
                 status TEXT NOT NULL,
                 price float8 NOT NULL,
-                offered_price float8 NOT NULL
+                offeredprice float8 NOT NULL
             )`;
     const flags = `
         CREATE TABLE IF NOT EXISTS
             flags (
                 id UUID PRIMARY KEY,
-                car_id UUID NOT NULL,
+                carid UUID NOT NULL,
                 reason TEXT NOT NULL,
                 description TEXT NOT NULL
             )`;

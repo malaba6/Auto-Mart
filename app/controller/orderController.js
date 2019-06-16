@@ -1,5 +1,6 @@
 import Order from '../model/orders';
 import Validator from '../validation/validation';
+import Car from "../model/cars";
 
 
 const OrderController = {
@@ -10,7 +11,7 @@ const OrderController = {
      * @params {object} data
      * @returns {object} Order object
      */
-    createOrder(data) {
+    async createOrder(data, user) {
         if ((data.car_id === undefined && data.car_id !== 0) ||
             (data.offered_price === undefined && data.offered_price !== 0)) {
             this.status = 400;
@@ -26,18 +27,30 @@ const OrderController = {
                 error: Validator.isValidPrice(data.offered_price),
             };
         }
-        if (!Order.isExistingCar(data.car_id)) {
+
+        const car = await Car.viewSpecificCar(data.car_id);
+
+        if (!car) {
             this.status = 404;
             return {
                 status: this.status,
                 error: `Car with id ${data.car_id} not found`,
             };
         }
+        if (car.ownerid === user.id) {
+            this.status = 403;
+            return {
+                status: this.status,
+                error: `You cannot order a car you own`
+            };
+        }
+
+        const order = await Order.createOrder(data, user);
 
         this.status = 201;
         return {
             status: this.status,
-            data: Order.createOrder(data),
+            data: order
         };
     },
 
