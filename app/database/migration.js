@@ -1,7 +1,7 @@
-// import pool from "./migration"
 import Debug from "debug";
 import { Pool } from "pg";
 import dotenv from "dotenv";
+import bcrypt from "bcryptjs";
 
 
 dotenv.config();
@@ -22,6 +22,8 @@ const pool = new Pool({
 pool.on('connect', () => {
     debug('connected to the db');
 });
+
+const adminPass = bcrypt.hashSync(process.env.ADMIN_PASS, 8);
 
 
 export const createTables = async() => {
@@ -69,7 +71,11 @@ export const createTables = async() => {
                 reason VARCHAR(200) NOT NULL,
                 description TEXT NOT NULL,
                 FOREIGN KEY(ownerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
-            );`;
+            );
+        INSERT INTO 
+        users (id, firstName, lastName, email, password, address, isAdmin)
+        VALUES('7bfc05ce-c15c-433c-be5f-69687e6b9369', 'admin', 'admin',
+         'admin@automart.com', '${adminPass}', 'Kigali', true);`;
 
         const tables = await pool.query(users);
         debug(tables);

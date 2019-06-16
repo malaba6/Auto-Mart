@@ -1,7 +1,6 @@
 import express from 'express';
 import CarController from '../controller/carController';
-// import OrderController from '../controller/orderController';
-// import FlagController from '../controller/flagController';
+import FlagController from '../controller/flagController';
 import userController from '../controller/userController';
 import asyncWrapper from "../middleware/asyncMiddleware";
 import { imageUploader, postCarValidator, deleteImage, authencate } from '../middleware/middlewares';
@@ -55,7 +54,7 @@ route.get('/api/v2/car/:id', authencate, asyncWrapper(async(req, res, next) => {
 }));
 
 route.get('/api/v2/car', authencate, asyncWrapper(async(req, res, next) => {
-    const car = await CarController.viewCars(req.query);
+    const car = await CarController.viewCars(req.query, req.decoded);
     return res.status(CarController.status).send(car);
 }));
 
