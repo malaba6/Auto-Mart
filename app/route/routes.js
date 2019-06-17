@@ -58,9 +58,9 @@ route.get('/api/v2/car', authencate, asyncWrapper(async(req, res, next) => {
     return res.status(CarController.status).send(car);
 }));
 
-// route.delete('/api/v1/car/:id', deleteImage, (req, res) => {
-//   const car = CarController.deleteCar(req.params.id);
-//   return res.status(CarController.status).send(car);
-// });
+route.delete('/api/v2/car/:id', authencate, asyncWrapper(deleteImage), asyncWrapper(async(req, res, next) => {
+    const car = await CarController.deleteCar(req.params.id, req.decoded);
+    return res.status(CarController.status).send(car);
+}));
 
 export default route;

@@ -74,7 +74,7 @@ const CarController = {
         // If no query parameters, fetch all cars
         if (length === 0) {
 
-            if (!usr.isAdmin) { //
+            if (!usr.isAdmin) { // Check if the user is admin or not
                 this.status = 403;
                 return {
                     status: this.status,
@@ -374,8 +374,17 @@ const CarController = {
      * @param {uuid} id
      * @returns {object} delete message
      */
-    deleteCar(id) {
-        const car = Car.viewSpecificCar(id);
+    async deleteCar(id, user) {
+
+        if (!user.isAdmin) {
+            this.status = 403;
+            return {
+                status: this.status,
+                error: `You are not authorized to parform this action`
+            };
+        }
+
+        const car = await Car.viewSpecificCar(id);
 
         if (!car) {
             this.status = 404;
@@ -385,8 +394,7 @@ const CarController = {
             };
         }
 
-        const index = Car.cars.indexOf(car);
-        Car.cars.splice(index, 1);
+        await Car.deleteCar(id);
 
         this.status = 200;
         return {
