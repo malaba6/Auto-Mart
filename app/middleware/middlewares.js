@@ -47,14 +47,16 @@ export const imageUploader = (req, res, next) => {
  * @param {object} res response
  * @param {object} next 
  */
-export const deleteImage = (req, res, next) => {
+export const deleteImage = async(req, res, next) => {
     const { id } = req.params;
-    const car = Car.viewSpecificCar(id);
+    const car = await Car.viewSpecificCar(id);
     if (car) {
         const carUrl = car.photo;
         let name = carUrl.split('/');
         name = name[name.length - 1].split('.')[0];
-        cloudinary.v2.uploader.destroy(name, (result, error) => {});
+        cloudinary.v2.uploader.destroy(name, (error, result) => {
+            console.log(result);
+        });
         return next();
     }
     return res.status(404).send({

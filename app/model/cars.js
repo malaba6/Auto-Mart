@@ -227,6 +227,22 @@ class Car {
         }
     }
 
+    async deleteCar(id) {
+        const text = `DELETE FROM cars
+            WHERE id = $1 RETURNING *`;
+        const values = [
+            id
+        ];
+
+        try {
+            const result = await db.query(text, values);
+            return result.rows[0];
+        } catch (err) {
+            console.log(err);
+            return error;
+        }
+    }
+
     /**
      *
      * clears the cars list
