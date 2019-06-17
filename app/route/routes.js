@@ -28,10 +28,10 @@ route.post('/api/v2/order', authencate, asyncWrapper(async(req, res, next) => {
     return res.status(OrderController.status).send(order);
 }));
 
-// route.post('/api/v1/flag', (req, res) => {
-//   const flag = FlagController.createFlag(req.body);
-//   return res.status(FlagController.status).send(flag);
-// });
+route.post('/api/v2/flag', authencate, asyncWrapper(async(req, res, next) => {
+    const flag = await FlagController.createFlag(req.body, req.decoded);
+    return res.status(FlagController.status).send(flag);
+}));
 
 route.patch('/api/v2/order/:id/price', authencate, asyncWrapper(async(req, res, next) => {
     const patchedOrder = await OrderController.updatePrice(req.params.id, req.body, req.decoded);

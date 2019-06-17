@@ -67,7 +67,7 @@ export const createTables = async() => {
             flags (
                 id UUID PRIMARY KEY,
                 ownerid UUID NOT NULL,
-                carid UUID NOT NULL,
+                carid UUID NOT NULL REFERENCES cars(id) ON UPDATE CASCADE ON DELETE CASCADE,
                 reason VARCHAR(200) NOT NULL,
                 description TEXT NOT NULL,
                 FOREIGN KEY(ownerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -75,7 +75,7 @@ export const createTables = async() => {
         INSERT INTO 
         users (id, firstName, lastName, email, password, address, isAdmin)
         VALUES('7bfc05ce-c15c-433c-be5f-69687e6b9369', 'admin', 'admin',
-         'admin@automart.com', '${adminPass}', 'Kigali', true);`;
+         'admin@automart.com', '${adminPass}', 'Kigali', true) ON CONFLICT DO NOTHING;`;
 
         const tables = await pool.query(users);
         debug(tables);
