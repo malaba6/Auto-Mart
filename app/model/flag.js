@@ -1,36 +1,35 @@
 import uuid from 'uuid';
-import Car from './cars';
+// import Car from './cars';
+import db from "../database/db";
 
 
 class Flag {
-  /**
-     *
-     * class constructor
-     */
-  constructor() {
-    this.flags = [{
-      id: uuid.v4(),
-      car_id: 'b8aa4d11-baa4-4d6a',
-      reason: 'Wierd price',
-      description: 'The price is twice the normal price',
-    }];
-  }
 
-  /**
+    /**
      *
      * @param {object} data
      * @returns {object} flag object
      */
-  createFlag(data) {
-    const newFlag = {
-      id: uuid.v4(),
-      car_id: data.car_id,
-      reason: data.reason,
-      description: data.description,
-    };
-    this.flags.push(newFlag);
-    return newFlag;
-  }
+    async createFlag(data, owner) {
+        const text = `INSERT INTO
+          flags(id, ownerid, carid, reason, description)
+          VALUES($1, $2, $3, $4, $5) RETURNING *`;
+
+        const values = [
+            uuid.v4(),
+            owner.id,
+            data.car_id,
+            data.reason,
+            data.description
+        ];
+
+        try {
+            const result = await db.query(text, values);
+            return result.rows[0];
+        } catch (err) {
+            return error;
+        }
+    }
 }
 
 export default new Flag();
