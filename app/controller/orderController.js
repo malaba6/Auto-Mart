@@ -50,6 +50,7 @@ const OrderController = {
         this.status = 201;
         return {
             status: this.status,
+            message: "order successfully created",
             data: order
         };
     },
@@ -85,7 +86,7 @@ const OrderController = {
             };
         }
         const car = await Car.viewSpecificCar(order.carid);
-        if (car.status === 'sold') {
+        if (!car || car.status === 'sold') {
             this.status = 404;
             return {
                 status: this.status,
@@ -97,7 +98,7 @@ const OrderController = {
             this.status = 403;
             return {
                 status: this.status,
-                message: 'You cannot update a purchase order you do not own'
+                error: 'You cannot update a purchase order you do not own'
             };
         }
 
@@ -106,6 +107,7 @@ const OrderController = {
         const update = await Order.updatePrice(id, data);
         return {
             status: this.status,
+            message: "Price successfully updated",
             data: update
         };
     },

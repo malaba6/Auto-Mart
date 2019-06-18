@@ -17,6 +17,7 @@ class Order {
           VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
 
         const car = await Car.viewSpecificCar(data.car_id);
+        console.log(car);
         const values = [
             uuid.v4(),
             owner.id,
@@ -50,7 +51,6 @@ class Order {
             }
             return;
         } catch (err) {
-            console.log(err);
             return err;
         }
     }
@@ -72,7 +72,6 @@ class Order {
             const result = await db.query(text, values);
             return result.rows[0];
         } catch (err) {
-            console.log(err);
             return error;
         }
     }

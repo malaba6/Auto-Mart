@@ -1,15 +1,14 @@
-import Debug from "debug";
+// import console.log from "console.log";
 import { Pool } from "pg";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 
 
 dotenv.config();
-let debug = Debug('postgres');
 
 let DATABASE_URL;
 
-if (process.env.NODE_ENV === "TEST") {
+if (process.env.NODE_ENV === "test") {
     DATABASE_URL = process.env.DATABASE_URL_TEST;
 } else {
     DATABASE_URL = process.env.DATABASE_URL;
@@ -19,19 +18,17 @@ const pool = new Pool({
     connectionString: DATABASE_URL
 });
 
-pool.on('connect', () => {
-    debug('connected to the db');
-});
+pool.on('connect', () => {});
 
 const adminPass = bcrypt.hashSync(process.env.ADMIN_PASS, 8);
 
 
 export const createTables = async() => {
     try {
-        const users = `
+        const queries = `
         CREATE TABLE IF NOT EXISTS
             users (
-                id UUID PRIMARY KEY,
+                id TEXT PRIMARY KEY,
                 firstname VARCHAR(120) NOT NULL,
                 lastname VARCHAR(120) NOT NULL,
                 email VARCHAR(120) UNIQUE NOT NULL,
@@ -41,8 +38,8 @@ export const createTables = async() => {
             );
         CREATE TABLE IF NOT EXISTS
             cars (
-                id UUID PRIMARY KEY,
-                ownerid UUID NOT NULL,
+                id TEXT PRIMARY KEY,
+                ownerid TEXT NOT NULL,
                 createdon VARCHAR(120) NOT NULL,
                 state VARCHAR(120) NOT NULL,
                 status VARCHAR(120) NOT NULL,
@@ -50,41 +47,71 @@ export const createTables = async() => {
                 manufacturer VARCHAR(120) NOT NULL,
                 model VARCHAR(120) NOT NULL,
                 price  float8 NOT NULL,
-                photo VARCHAR(120) NOT NULL,
-                FOREIGN KEY(ownerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+                photo VARCHAR(120) NOT NULL
             );
         CREATE TABLE IF NOT EXISTS
             orders (
-                id UUID PRIMARY KEY,
-                ownerid UUID NOT NULL REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                id TEXT PRIMARY KEY,
+                ownerid TEXT NOT NULL,
                 createdon TEXT NOT NULL,
-                carid UUID NOT NULL REFERENCES cars(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                carid TEXT NOT NULL,
                 status VARCHAR(120) NOT NULL,
                 price float8 NOT NULL,
                 offeredprice float8 NOT NULL
             );
         CREATE TABLE IF NOT EXISTS
             flags (
-                id UUID PRIMARY KEY,
-                ownerid UUID NOT NULL,
-                carid UUID NOT NULL REFERENCES cars(id) ON UPDATE CASCADE ON DELETE CASCADE,
+                id TEXT PRIMARY KEY,
+                ownerid TEXT NOT NULL,
+                carid TEXT NOT NULL,
                 reason VARCHAR(200) NOT NULL,
-                description TEXT NOT NULL,
-                FOREIGN KEY(ownerid) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+                description TEXT NOT NULL
             );
         INSERT INTO 
         users (id, firstName, lastName, email, password, address, isAdmin)
         VALUES('7bfc05ce-c15c-433c-be5f-69687e6b9369', 'admin', 'admin',
-         'admin@automart.com', '${adminPass}', 'Kigali', true) ON CONFLICT DO NOTHING;`;
+         'admin@automart.com', '${adminPass}', 'Kigali', true) ON CONFLICT DO NOTHING;
+         INSERT INTO 
+         users (id, firstName, lastName, email, password, address, isAdmin)
+         VALUES('7bfc05ce-c15c-433c', 'user', 'user',
+          'user@automart.com', '${adminPass}', 'Kigali', false) ON CONFLICT DO NOTHING;
+         INSERT INTO 
+        cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+        VALUES('7bfc05ce-c15c', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
+         'new', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
+          ON CONFLICT DO NOTHING;
+        INSERT INTO 
+          cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+          VALUES('7bfc05ce-c15ccc', '7bfc05ce-c15ccc', 'Tue, Jun 18, 2019 5:03 AM',
+           'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
+            ON CONFLICT DO NOTHING;
+        INSERT INTO 
+        cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+        VALUES('7bfc05ce', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
+            'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
+            ON CONFLICT DO NOTHING;
+        INSERT INTO 
+            cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+            VALUES('7bfc05ce-rudi', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
+            'Buildozor', 'sold', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
+            ON CONFLICT DO NOTHING;
+        INSERT INTO 
+            orders (id, ownerid, createdon, carid, status, price, offeredprice)
+            VALUES('7bfc05ce-c15aar', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
+           '7bfc05ce-c15ccc', 'available', 12000, 10000)
+            ON CONFLICT DO NOTHING;;
+        INSERT INTO 
+            orders (id, ownerid, createdon, carid, status, price, offeredprice)
+            VALUES('7bfc05ce-c15vbr', '7bfc05ce-c15c-433c', 'Tue, Jun 18, 2019 5:03 AM',
+            '7bfc05ce-rud', 'sold', 12000, 10000)
+            ON CONFLICT DO NOTHING;`;
 
-        const tables = await pool.query(users);
-        debug(tables);
+
+        const tables = await pool.query(queries);
         pool.end();
     } catch (err) {
-        debug(err);
         await pool.end()
     }
 }
 
-// require("make-runnable");
 createTables();

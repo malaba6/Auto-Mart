@@ -93,6 +93,7 @@ const UserController = {
         const { id, firstname, lastname, email } = signup;
         return {
             status: this.status,
+            message: "User successfully created",
             data: {
                 token: token,
                 id: id,
@@ -157,6 +158,7 @@ const UserController = {
         const { id, firstname, lastname, email } = user;
         return {
             status: this.status,
+            message: "User successfully loged in",
             data: {
                 token: token,
                 id: id,
