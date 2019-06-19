@@ -52,12 +52,9 @@ export const deleteImage = async(req, res, next) => {
     const car = await Car.viewSpecificCar(id);
     if (car) {
         const carUrl = car.photo;
-        console.log(carUrl);
         let name = carUrl.split('/');
         name = name[name.length - 1].split('.')[0];
-        cloudinary.v2.uploader.destroy(name, (error, result) => {
-            console.log(result);
-        });
+        cloudinary.v2.uploader.destroy(name, (error, result) => {});
         return next();
     }
     return res.status(404).send({
