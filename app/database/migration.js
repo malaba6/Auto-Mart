@@ -70,41 +70,35 @@ export const createTables = async() => {
         INSERT INTO 
         users (id, firstName, lastName, email, password, address, isAdmin)
         VALUES('7bfc05ce-c15c-433c-be5f-69687e6b9369', 'admin', 'admin',
-         'admin@automart.com', '${adminPass}', 'Kigali', true) ON CONFLICT DO NOTHING;
-         INSERT INTO 
-         users (id, firstName, lastName, email, password, address, isAdmin)
-         VALUES('7bfc05ce-c15c-433c', 'user', 'user',
-          'user@automart.com', '${adminPass}', 'Kigali', false) ON CONFLICT DO NOTHING;
+         'admin@automart.com', '${adminPass}', 'Kigali', true);
+        INSERT INTO 
+          users (id, firstName, lastName, email, password, address, isAdmin)
+          VALUES('7bfc05ce-c15c-433c', 'user', 'user',
+          'user@automart.com', '${adminPass}', 'Kigali', false);
          INSERT INTO 
         cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
         VALUES('7bfc05ce-c15c', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-         'new', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
-          ON CONFLICT DO NOTHING;
+         'new', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
         INSERT INTO 
           cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
           VALUES('7bfc05ce-c15ccc', '7bfc05ce-c15ccc', 'Tue, Jun 18, 2019 5:03 AM',
-           'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
-            ON CONFLICT DO NOTHING;
+           'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
         INSERT INTO 
         cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
         VALUES('7bfc05ce', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-            'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
-            ON CONFLICT DO NOTHING;
+            'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
         INSERT INTO 
             cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
             VALUES('7bfc05ce-rudi', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-            'Buildozor', 'sold', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg')
-            ON CONFLICT DO NOTHING;
+            'Buildozor', 'sold', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
         INSERT INTO 
             orders (id, ownerid, createdon, carid, status, price, offeredprice)
             VALUES('7bfc05ce-c15aar', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-           '7bfc05ce-c15ccc', 'available', 12000, 10000)
-            ON CONFLICT DO NOTHING;;
+           '7bfc05ce-c15ccc', 'available', 12000, 10000);
         INSERT INTO 
             orders (id, ownerid, createdon, carid, status, price, offeredprice)
             VALUES('7bfc05ce-c15vbr', '7bfc05ce-c15c-433c', 'Tue, Jun 18, 2019 5:03 AM',
-            '7bfc05ce-rud', 'sold', 12000, 10000)
-            ON CONFLICT DO NOTHING;`;
+            '7bfc05ce-rud', 'sold', 12000, 10000);`;
 
 
         const tables = await pool.query(queries);
