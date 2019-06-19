@@ -1,6 +1,3 @@
-import url from 'url';
-
-
 const Validator = {
     isValidName(name) {
         if (typeof name !== 'string' || name.trim().length < 3) {
@@ -47,7 +44,8 @@ const Validator = {
     },
 
     isValidPrice(price) {
-        if (isNaN(price) || price < 1) {
+
+        if (isNaN(price) || price < 0) {
             return 'Price must be a number greater than 0';
         }
         return 'valid';

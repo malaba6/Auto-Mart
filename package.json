@@ -10,7 +10,7 @@
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "dev-start": "nodemon --exec babel-node --presets @babel/preset-env app.js",
         "dev": "npm run drop && cross-env npm run migration && nodemon --exec babel-node --presets @babel/preset-env app.js",
-        "start": "babel-node app.js",
+        "start": "npm run drop && npm run migrate && babel-node app.js",
         "lint": "eslint --fix app/"
     },
     "repository": {
