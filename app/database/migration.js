@@ -27,7 +27,7 @@ export const createTables = async() => {
         const queries = `
         CREATE TABLE IF NOT EXISTS
             users (
-                id TEXT PRIMARY KEY,
+                id TEXT NOT NULL,
                 firstname VARCHAR(120) NOT NULL,
                 lastname VARCHAR(120) NOT NULL,
                 email VARCHAR(120) UNIQUE NOT NULL,
@@ -37,7 +37,7 @@ export const createTables = async() => {
             );
         CREATE TABLE IF NOT EXISTS
             cars (
-                id TEXT PRIMARY KEY,
+                id TEXT NOT NULL,
                 ownerid TEXT NOT NULL,
                 createdon VARCHAR(120) NOT NULL,
                 state VARCHAR(120) NOT NULL,
@@ -50,7 +50,7 @@ export const createTables = async() => {
             );
         CREATE TABLE IF NOT EXISTS
             orders (
-                id TEXT PRIMARY KEY,
+                id TEXT NOT NULL,
                 ownerid TEXT NOT NULL,
                 createdon TEXT NOT NULL,
                 carid TEXT NOT NULL,
@@ -60,7 +60,7 @@ export const createTables = async() => {
             );
         CREATE TABLE IF NOT EXISTS
             flags (
-                id TEXT PRIMARY KEY,
+                id TEXT NOT NULL,
                 ownerid TEXT NOT NULL,
                 carid TEXT NOT NULL,
                 reason VARCHAR(200) NOT NULL,
