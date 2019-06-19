@@ -171,7 +171,7 @@ describe('POST /api/v2/order', () => {
                 expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
-                expect(res.body.error).to.deep.equal('Price must be a number greater than 0');
+                expect(res.body.error).to.deep.equal('Price must be a number greater than 1');
                 expect(res.body.status).to.deep.equal(422);
                 done();
             });
@@ -310,7 +310,7 @@ describe('PATCH /api/v2/order/b8aa4d11/price', () => {
                 expect(res).to.have.status(422);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
-                expect(res.body.error).to.deep.equal('Price must be a number greater than 0');
+                expect(res.body.error).to.deep.equal('Price must be a number greater than 1');
                 expect(res.body.status).to.deep.equal(422);
                 done();
             });
