@@ -1,6 +1,10 @@
 import User from '../model/users';
 import Validator from '../validation/validation';
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
+dotenv.config();
+const secret = process.env.JWT_SECRET;
 
 const UserController = {
     /**
@@ -14,7 +18,7 @@ const UserController = {
      * @param {object} data
      * @returns {object} user object and status code
      */
-    signup(data) {
+    async signup(data) {
         if ((data.firstName === undefined && data.firstName !== '') ||
             (data.lastName === undefined && data.lastName !== '') ||
             (data.email === undefined && data.email !== '') ||
@@ -62,7 +66,8 @@ const UserController = {
                 };
             }
         }
-        if (User.isExistingUser(data.email)) {
+        const user = await User.isExistingUser(data.email);
+        if (user) {
             this.status = 409;
             return {
                 status: 409,
@@ -70,11 +75,32 @@ const UserController = {
             };
         }
 
-        const user = User.signUp(data);
+        const signup = await User.signUp(data);
+
+        const dataToken = {
+            id: signup.id,
+            firstName: signup.firstname,
+            lastName: signup.lastname,
+            email: signup.email,
+            isAdmin: signup.isadmin,
+        };
+
+        const token = jwt.sign(dataToken, secret, {
+            expiresIn: '24h', //expires in 24 Hrs
+        })
+
         this.status = 201;
+        const { id, firstname, lastname, email } = signup;
         return {
             status: this.status,
-            data: user,
+            message: "User successfully created",
+            data: {
+                token: token,
+                id: id,
+                firstName: firstname,
+                lastName: lastname,
+                email: email
+            }
         };
     },
 
@@ -83,7 +109,7 @@ const UserController = {
      * @param {data} object
      * @returns {object} user object
      */
-    login(data) {
+    async login(data) {
         if ((data.email === undefined && data.email !== '') ||
             (data.password === undefined && data.password !== '')) {
             this.status = 400;
@@ -107,20 +133,41 @@ const UserController = {
             };
         }
 
-        const user = User.login(data);
+        const user = await User.login(data);
         if (!user) {
             this.status = 401;
             return {
                 status: this.status,
-                error: 'Email or password Incorrect',
+                error: 'Email or password Incorrect'
             };
         }
         this.status = 200;
+
+        const dataToken = {
+            id: user.id,
+            firstName: user.firstname,
+            lastName: user.lastname,
+            email: user.email,
+            isAdmin: user.isadmin,
+        };
+
+        const token = jwt.sign(dataToken, secret, {
+            expiresIn: '24h', //expires in 24 Hrs
+        })
+
+        const { id, firstname, lastname, email } = user;
         return {
             status: this.status,
-            data: user,
+            message: "User successfully loged in",
+            data: {
+                token: token,
+                id: id,
+                firstName: firstname,
+                lastName: lastname,
+                email: email
+            }
         };
-    },
+    }
 
 };
 

@@ -1,24 +1,87 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
-import Car from '../model/cars';
 
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('POST /api/v1/flag', () => {
-    it('Should return a 400 error message if required fields are not provided', (done) => {
-        const flag = {
+let userToken;
 
-            // car_id: Car.cars[0].id,
+before(done => {
+    const user = {
+        firstName: 'zahara',
+        lastName: 'Mashauri',
+        email: 'zahara@gmail.com',
+        password: 'zahara12',
+        address: 'Canada'
+    };
+    chai.request(app)
+        .post('/api/v2/auth/signup')
+        .send(user)
+        .end((err, res) => {
+            userToken = res.body.data.token;
+            done();
+        });
+
+});
+
+describe('POST /api/v2/flag', () => {
+    it('Should return a 403 error if user does not authonticate', (done) => {
+        const flag = {
             reason: 'Wierd price',
-            description: 'A brand new car of the same model is much cheaper',
-
+            description: 'A brand new car of the same model is much cheaper'
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .send(flag)
+            .end((err, res) => {
+                if (err) done(err);
+                expect(res).to.have.status(403);
+                expect(res.body).to.be.an('object');
+                expect(res.body).to.have.keys('status', 'error');
+                expect(res.body.error).to.deep
+                    .equal('You must login to access this resource');
+                expect(res.body.status).to.deep.equal(403);
+                done();
+            });
+    });
+});
+
+describe('POST /api/v2/flag', () => {
+    it('Should return a 403 error if user provide a wrong token', (done) => {
+        const flag = {
+            reason: 'Wierd price',
+            description: 'A brand new car of the same model is much cheaper'
+        };
+
+        chai.request(app)
+            .post('/api/v2/flag')
+            .set('x-access-token', 'fake-token')
+            .send(flag)
+            .end((err, res) => {
+                if (err) done(err);
+                expect(res).to.have.status(401);
+                expect(res.body).to.be.an('object');
+                expect(res.body).to.have.keys('status', 'error');
+                expect(res.body.error).to.deep.equal('Token is invalid');
+                expect(res.body.status).to.deep.equal(401);
+                done();
+            });
+    });
+});
+
+describe('POST /api/v2/flag', () => {
+    it('Should return a 400 error message if required fields are not provided', (done) => {
+        const flag = {
+            reason: 'Wierd price',
+            description: 'A brand new car of the same model is much cheaper'
+        };
+
+        chai.request(app)
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -32,18 +95,16 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 400 error message if required fields are not provided', (done) => {
         const flag = {
-
-            car_id: Car.cars[0].id,
-            // reason: "Wierd price",
+            car_id: '7bfc05ce-c15ccc',
             description: 'A brand new car of the same model is much cheaper',
-
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -57,18 +118,17 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 400 error message if required fields are not provided', (done) => {
         const flag = {
-
-            car_id: Car.cars[0].id,
+            car_id: '7bfc05ce-c15ccc',
             reason: 'Wierd price',
             descriptions: 'A brand new car of the same model is much cheaper',
-
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -82,16 +142,17 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 422 error message if user provides invalid reason', (done) => {
         const flag = {
-            car_id: Car.cars[0].id,
+            car_id: '7bfc05ce-c15ccc',
             reason: '',
             description: 'A brand new car of the same model is much cheaper',
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -106,16 +167,17 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 422 error message if user provides invalid reason', (done) => {
         const flag = {
-            car_id: Car.cars[0].id,
+            car_id: '7bfc05ce-c15ccc',
             reason: 1,
             description: 'A brand new car of the same model is much cheaper',
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -130,16 +192,17 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 422 error message if user provides invalid description', (done) => {
         const flag = {
-            car_id: Car.cars[0].id,
+            car_id: '7bfc05ce-c15ccc',
             reason: 'Wierd price',
             description: 'Expensive',
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -154,16 +217,17 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 422 error message if user provides invalid description', (done) => {
         const flag = {
-            car_id: Car.cars[0].id,
+            car_id: '7bfc05ce-c15ccc',
             reason: 'Wierd price',
             description: 1,
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -178,7 +242,7 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 422 error message if user provides invalid price', (done) => {
         const flag = {
             car_id: '',
@@ -187,7 +251,8 @@ describe('POST /api/v1/flag', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -201,7 +266,7 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return a 404 error if Car id is not found', (done) => {
         const flag = {
             car_id: 'car-id123',
@@ -210,7 +275,8 @@ describe('POST /api/v1/flag', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
@@ -224,24 +290,26 @@ describe('POST /api/v1/flag', () => {
     });
 });
 
-describe('POST /api/v1/flag', () => {
+describe('POST /api/v2/flag', () => {
     it('Should return the flag object if successfully created', (done) => {
         const flag = {
-            car_id: Car.cars[0].id,
+            car_id: '7bfc05ce-c15ccc',
             reason: 'Wierd price',
             description: 'A brand new car of the same model is much cheaper',
         };
 
         chai.request(app)
-            .post('/api/v1/flag')
+            .post('/api/v2/flag')
+            .set('x-access-token', userToken)
             .send(flag)
             .end((err, res) => {
                 if (err) done(err);
                 expect(res).to.have.status(201);
                 expect(res.body).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'data');
+                expect(res.body).to.have.keys('status', 'message', 'data');
+                expect(res.body.message).to.deep.equal('Car Ad successfully flagged');
                 expect(res.body.data).to.have
-                    .keys('id', 'reason', 'car_id', 'description');
+                    .keys('id', 'reason', 'carid', 'ownerid', 'description');
                 expect(res.body.status).to.deep.equal(201);
                 done();
             });

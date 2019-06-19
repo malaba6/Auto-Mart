@@ -6,17 +6,17 @@ import app from '../../app';
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error if user tries to signup with missing fields', (done) => {
         const user = {
             firstName: 'Malaba',
             lastName: 'Mashauri',
             email: 'eric@gmail.com',
-            address: 'Kigali',
+            address: 'Kigali'
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -30,7 +30,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error if user tries to signup with missing fields', (done) => {
         const user = {
             lastName: 'Mashauri',
@@ -40,7 +40,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -54,7 +54,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error if user tries to signup with missing fields', (done) => {
         const user = {
             firstName: 'eric',
@@ -64,7 +64,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -78,7 +78,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error if user tries to signup with missing fields', (done) => {
         const user = {
             firstName: 'eric',
@@ -88,7 +88,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -102,7 +102,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if user enters less than 3 characters for first name', (done) => {
         const user = {
             firstName: 'M',
@@ -113,7 +113,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -127,7 +127,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if user includes symbols in first name', (done) => {
         const user = {
             firstName: 'eri^',
@@ -138,7 +138,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -152,7 +152,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if user enters less than 3 characters for last name', (done) => {
         const user = {
             firstName: 'Eric',
@@ -163,7 +163,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -177,7 +177,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if user includes symbols in last name', (done) => {
         const user = {
             firstName: 'eric',
@@ -188,7 +188,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -202,7 +202,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if passwords length is not 6 charaters', (done) => {
         const user = {
             firstName: 'eric',
@@ -213,7 +213,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -227,7 +227,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if email is not of right format', (done) => {
         const user = {
             firstName: 'eric',
@@ -238,7 +238,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -252,7 +252,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if email is not of string type', (done) => {
         const user = {
             firstName: 'eric',
@@ -263,7 +263,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -277,7 +277,7 @@ describe('POST /api/v1/auth/signup', () => {
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return error message if addres is not of string type', (done) => {
         const user = {
             firstName: 'eric',
@@ -288,7 +288,7 @@ describe('POST /api/v1/auth/signup', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -303,83 +303,84 @@ describe('POST /api/v1/auth/signup', () => {
 });
 
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return a 409 error message if user tries uses an existing email', (done) => {
         const user = {
             firstName: 'eric',
             lastName: 'eubule',
-            email: 'eric@gmail.com',
+            email: 'admin@automart.com',
             password: 'eric123',
-            address: 'Kampala',
+            address: 'Kampala'
         };
-
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
                 expect(res).have.status(409);
                 expect(res).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
-                expect(res.body.error).to.deep.equal('Email eric@gmail.com already taken');
+                expect(res.body.error).to.deep.equal('Email admin@automart.com already taken');
                 expect(res.body.status).to.deep.equal(409);
                 done();
             });
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return user details if user successfully signed up', (done) => {
         const user = {
             firstName: 'mashauri',
-            lastName: 'eubule',
-            email: 'mashauri@gmail.com',
+            lastName: 'malaba',
+            email: 'roho@gmail.com',
             password: 'mashauri123',
             address: 'Kampala',
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
+
                 expect(res).have.status(201);
                 expect(res).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'data');
-                expect(res.body.data).to.have.keys('id', 'firstName', 'lastName',
-                    'email', 'password', 'address', 'isAdmin');
+                expect(res.body).to.have.keys('status', 'message', 'data');
+                expect(res.body.data).to.have.keys('token', 'id', 'firstName', 'lastName',
+                    'email');
                 expect(res.body.status).to.deep.equal(201);
                 done();
             });
     });
 });
 
-describe('POST /api/v1/auth/signup', () => {
+describe('POST /api/v2/auth/signup', () => {
     it('Should return user details if user successfully signed up with no address', (done) => {
         const user = {
-            firstName: 'erin',
-            lastName: 'eubule',
-            email: 'erin@gmail.com',
-            password: 'erin123',
+            firstName: 'eric',
+            lastName: 'malaba',
+            email: 'eric@gmail.com',
+            password: 'eric12',
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signup')
+            .post('/api/v2/auth/signup')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
                 expect(res).have.status(201);
                 expect(res).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'data');
-                expect(res.body.data).to.have.keys('id', 'firstName', 'lastName',
-                    'email', 'password', 'address', 'isAdmin');
+                expect(res.body).to.have.keys('status', 'data', 'message');
+                expect(res.body.data).to.have.keys('token', 'id', 'firstName',
+                    'lastName', 'email');
+                expect(res.body.message).to.deep.equal('User successfully created');
                 expect(res.body.status).to.deep.equal(201);
                 done();
             });
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 400 error message if user tries to login with missing fields', (done) => {
         const user = {
 
@@ -388,7 +389,7 @@ describe('POST /api/v1/auth/signin', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -402,14 +403,14 @@ describe('POST /api/v1/auth/signin', () => {
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 400 error message if user tries to login with missing fields', (done) => {
         const user = {
-            password: 'eric123',
+            password: 'eric123'
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -423,7 +424,7 @@ describe('POST /api/v1/auth/signin', () => {
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 422 error message if user tries to login with invalid email', (done) => {
         const user = {
 
@@ -432,7 +433,7 @@ describe('POST /api/v1/auth/signin', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -446,7 +447,7 @@ describe('POST /api/v1/auth/signin', () => {
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 422 error message if user tries to login with wrong type for email', (done) => {
         const user = {
 
@@ -455,7 +456,7 @@ describe('POST /api/v1/auth/signin', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -469,7 +470,7 @@ describe('POST /api/v1/auth/signin', () => {
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 422 error message if user tries to login with short password', (done) => {
         const user = {
 
@@ -478,7 +479,7 @@ describe('POST /api/v1/auth/signin', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -492,7 +493,7 @@ describe('POST /api/v1/auth/signin', () => {
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 401 error message if user tries to login with wrong email', (done) => {
         const user = {
 
@@ -501,7 +502,7 @@ describe('POST /api/v1/auth/signin', () => {
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -515,16 +516,16 @@ describe('POST /api/v1/auth/signin', () => {
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 401 error message if user tries to login with wrong password', (done) => {
         const user = {
 
-            email: 'eric@gmail.com',
+            email: 'admin@automart.com',
             password: 'ericy123',
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
@@ -538,25 +539,49 @@ describe('POST /api/v1/auth/signin', () => {
     });
 });
 
-describe('POST /api/v1/auth/signin', () => {
+describe('POST /api/v2/auth/signin', () => {
     it('Should return 200 code and user details if user successfully logs in', (done) => {
         const user = {
 
-            email: 'eric@gmail.com',
+            email: 'admin@automart.com',
             password: 'admin12',
         };
 
         chai.request(app)
-            .post('/api/v1/auth/signin')
+            .post('/api/v2/auth/signin')
             .send(user)
             .end((err, res) => {
                 if (err) done(err);
                 expect(res).have.status(200);
                 expect(res).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'data');
-                expect(res.body.data).to.have.keys('id', 'firstName', 'lastName',
-                    'email', 'password', 'address', 'isAdmin');
-                expect(res.body.data.isAdmin).to.deep.equal(true);
+                expect(res.body).to.have.keys('status', 'message', 'data');
+                expect(res.body.data).to.have.keys('token', 'id', 'firstName',
+                    'lastName', 'email');
+                expect(res.body.message).to.deep.equal('User successfully loged in');
+                expect(res.body.status).to.deep.equal(200);
+                done();
+            });
+    });
+});
+describe('POST /api/v2/auth/signin', () => {
+    it('Should return 200 code and user details if user successfully logs in', (done) => {
+        const user = {
+
+            email: 'user@automart.com',
+            password: 'admin12',
+        };
+
+        chai.request(app)
+            .post('/api/v2/auth/signin')
+            .send(user)
+            .end((err, res) => {
+                if (err) done(err);
+                expect(res).have.status(200);
+                expect(res).to.be.an('object');
+                expect(res.body).to.have.keys('status', 'message', 'data');
+                expect(res.body.data).to.have.keys('token', 'id', 'firstName',
+                    'lastName', 'email');
+                expect(res.body.message).to.deep.equal('User successfully loged in');
                 expect(res.body.status).to.deep.equal(200);
                 done();
             });

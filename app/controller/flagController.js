@@ -11,7 +11,7 @@ const FlagController = {
      * @params {object} data
      * @returns {object} Flag object
      */
-    createFlag(data) {
+    async createFlag(data, user) {
         if ((data.car_id === undefined && data.car_id !== 0) ||
             (data.reason === undefined && data.reason !== '') ||
             (data.description === undefined && data.description !== '')) {
@@ -42,7 +42,10 @@ const FlagController = {
                 error: Validator.isValidId(data.car_id),
             };
         }
-        if (!Car.viewSpecificCar(data.car_id)) {
+
+        const car = await Car.viewSpecificCar(data.car_id);
+
+        if (!car) {
             this.status = 404;
             return {
                 status: this.status,
@@ -50,10 +53,13 @@ const FlagController = {
             };
         }
 
+        const flag = await Flag.createFlag(data, user);
+
         this.status = 201;
         return {
             status: this.status,
-            data: Flag.createFlag(data),
+            message: "Car Ad successfully flagged",
+            data: flag
         };
     },
 

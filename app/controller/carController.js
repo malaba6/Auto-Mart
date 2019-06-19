@@ -8,9 +8,9 @@ const CarController = {
     /**
      *
      * @params {object} data
-     * @returns {object} car object
+     * @returns {object} car promise
      */
-    postCar(data) {
+    async postCar(data, owner) {
         if (Validator.isValidPrice(data.price) !== 'valid') {
             this.status = 422;
             return {
@@ -51,15 +51,16 @@ const CarController = {
             this.status = 422;
             return {
                 error: Validator.isImageFound(data.photo),
-                status: this.status,
+                status: this.status
             };
         }
 
-        const car = Car.postCar(data);
+        const car = await Car.postCar(data, owner);
         this.status = 201;
         return {
             status: this.status,
-            data: car,
+            message: "Car successfully posted",
+            data: car
         };
     },
 
@@ -68,23 +69,25 @@ const CarController = {
      * @param {status} unsold cars
      * @returns {object} cars array
      */
-    viewCars(query) {
+    async viewCars(query, usr) {
         const { length } = Object.entries(query);
 
         // If no query parameters, fetch all cars
         if (length === 0) {
-            const cars = Car.viewAllCars();
-            this.status = 200;
 
-            if (cars.length === 0) {
+            if (!usr.isAdmin) { // Check if the user is admin or not
+                this.status = 403;
                 return {
                     status: this.status,
-                    message: 'Oops! It is lonely here!',
+                    message: 'You are not authorized to view this'
                 };
             }
+
+            const cars = await Car.viewAllCars();
+            this.status = 200;
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 
@@ -98,15 +101,15 @@ const CarController = {
                 };
             }
 
-            const cars = Car.viewUnsoldCars(query.status);
+            const cars = await Car.viewUnsoldCars(query.status);
             this.status = 200;
-            if (cars.length === 0) {
-                this.status = 404;
-                return {
-                    status: this.status,
-                    message: 'Oh oh! No cars Posted here yet!',
-                };
-            }
+            // if (cars.length === 0) {
+            //     this.status = 404;
+            //     return {
+            //         status: this.status,
+            //         message: 'Oh oh! No cars Posted here yet!',
+            //     };
+            // }
             return {
                 status: this.status,
                 data: cars,
@@ -114,7 +117,8 @@ const CarController = {
         }
 
         // Check if status min_price and max_price are icluded in the query params
-        if (query.status === 'available' && (query.min_price || query.min_price === 0) &&
+        if (query.status === 'available' &&
+            (query.min_price || query.min_price === 0) &&
             (query.max_price || query.max_price === 0) && length === 3) {
             if (Validator.isValidMaxMInPrice(query.min_price) !== 'valid') {
                 this.status = 422;
@@ -142,8 +146,9 @@ const CarController = {
                 };
             }
 
-            const cars = Car.viewCarsWithinRange(query);
+            const cars = await Car.viewCarsWithinRange(query);
             this.status = 200;
+
             if (cars.length === 0) {
                 this.status = 404;
                 return {
@@ -153,12 +158,13 @@ const CarController = {
             }
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 
         // Check if status and state (new/used) are included in the query
         if (query.status === 'available' && query.state && length === 2) {
+
             if (Validator.isValidState(query.state) !== 'valid') {
                 this.status = 422;
                 return {
@@ -167,7 +173,8 @@ const CarController = {
                 };
             }
 
-            const cars = Car.viewCarsWithState(query);
+            const cars = await Car.viewCarsWithState(query);
+
             this.status = 200;
             if (cars.length === 0) {
                 this.status = 404;
@@ -178,13 +185,14 @@ const CarController = {
             }
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 
         // Check if status and manufacturer are included in the query
         if (query.status === 'available' && query.manufacturer && length === 2) {
-            const cars = Car.viewCarsWithManufacturer(query);
+
+            const cars = await Car.viewCarsWithManufacturer(query);
             this.status = 200;
 
             if (cars.length === 0) {
@@ -196,25 +204,26 @@ const CarController = {
             }
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 
         // Check if status and type are included the query param
-        if (query.status && query.type && length === 2) {
-            const cars = Car.viewCarsWithType(query);
+        if (query.status === 'available' && query.type && length === 2) {
+
+            const cars = await Car.viewCarsWithType(query);
             this.status = 200;
 
             if (cars.length === 0) {
                 this.status = 404;
                 return {
                     status: this.status,
-                    message: `Oh oh! No ${query.type} cars here yet`,
+                    message: `Oh oh! No ${query.type} cars here yet`
                 };
             }
             return {
                 status: this.status,
-                data: cars,
+                data: cars
             };
         }
 
@@ -230,7 +239,7 @@ const CarController = {
      * @param {uuid} id
      * @returns {oblect} update car status
      */
-    updateStatus(id, data) {
+    async updateStatus(id, data, user) {
         if (data.status === undefined && data.status !== 0) {
             this.status = 400;
             return {
@@ -245,18 +254,31 @@ const CarController = {
                 error: Validator.isValidStatus(data.status),
             };
         }
-        if (!Car.viewSpecificCar(id)) {
+
+        const car = await Car.viewSpecificCar(id);
+
+        if (!car) {
             this.status = 404;
             return {
                 status: this.status,
-                error: `Car with id ${id} not found`,
+                error: `Car with id ${id} not found`
             };
         }
+        if (user.id !== car.ownerid) {
+            this.status = 403;
+            return {
+                status: this.status,
+                error: 'You cannot update a car Ad you do not own'
+            };
+        }
+
+        const updated = await Car.updateStatus(id, data);
 
         this.status = 200;
         return {
             status: this.status,
-            data: Car.updateStatus(id, data),
+            message: "Status successfully updated",
+            data: updated
         };
     },
 
@@ -265,7 +287,7 @@ const CarController = {
      * @param {uuid} id
      * @returns {oblect} update car price
      */
-    updatePrice(id, data) {
+    async updatePrice(id, data, user) {
         if (data.price === undefined && data.price !== 0) {
             this.status = 400;
             return {
@@ -280,18 +302,30 @@ const CarController = {
                 error: Validator.isValidPrice(data.price),
             };
         }
-        if (!Car.viewSpecificCar(id)) {
+        const car = await Car.viewSpecificCar(id);
+
+        if (!car) {
             this.status = 404;
             return {
                 status: this.status,
-                error: `Car with id ${id} not found`,
+                error: `Car with id ${id} not found`
             };
         }
+        if (user.id !== car.ownerid) {
+            this.status = 403;
+            return {
+                status: this.status,
+                error: 'You cannot update a car Ad you do not own'
+            };
+        }
+
+        const updated = await Car.updatePrice(id, data);
 
         this.status = 200;
         return {
             status: this.status,
-            data: Car.updatePrice(id, data),
+            message: "Price successfully updated",
+            data: updated
         };
     },
 
@@ -300,8 +334,8 @@ const CarController = {
      * @param {uuid} id
      * @returns {object} car object
      */
-    viewSpecificCar(id) {
-        const car = Car.viewSpecificCar(id);
+    async viewSpecificCar(id) {
+        const car = await Car.viewSpecificCar(id);
         if (!car) {
             this.status = 404;
             return {
@@ -322,19 +356,18 @@ const CarController = {
      * @param {uuid} id
      * @returns {object} delete message
      */
-    deleteCar(id) {
-        const car = Car.viewSpecificCar(id);
+    async deleteCar(id, user) {
 
-        if (!car) {
-            this.status = 404;
+        if (!user.isAdmin) {
+            this.status = 403;
             return {
                 status: this.status,
-                error: `Car with id ${id} not found`,
+                error: `You are not authorized to parform this action`
             };
         }
 
-        const index = Car.cars.indexOf(car);
-        Car.cars.splice(index, 1);
+        const car = await Car.viewSpecificCar(id);
+        await Car.deleteCar(id);
 
         this.status = 200;
         return {

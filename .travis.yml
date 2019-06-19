@@ -5,8 +5,15 @@ language: node_js
 node_js:
   - "lts/*"
 
-script:
+install: npm install
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database test_automart;' -U postgres
+
+script: 
   - npm test
 
-after_success:
-  - npm run coverage
+after_script: npm run coverage

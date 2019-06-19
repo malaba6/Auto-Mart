@@ -1,89 +1,79 @@
 import uuid from 'uuid';
 import moment from 'moment';
 import Car from './cars';
+import db from "../database/db";
 
 
 class Order {
-  /**
-     *
-     * class constructor
-     */
-  constructor() {
-    this.orders = [{
-      id: 'b8aa4d11',
-      createdOn: moment().format('llll'),
-      car_id: Car.cars[0].id,
-      status: 'available',
-      price: 63000,
-      offered_price: 60000,
-    },
-    {
-      id: 'b8aa4d22',
-      createdOn: moment().format('llll'),
-      car_id: Car.cars[0].id,
-      status: 'sold',
-      price: 63000,
-      offered_price: 60000,
-    },
-    ];
-  }
-
-  /**
+    /**
      *
      * @param {object} data
      * @returns {object} order object
      */
-  createOrder(data) {
-    const car = Car.viewSpecificCar(data.car_id);
-    const newOrder = {
-      id: uuid.v4(),
-      createdOn: moment().format('llll'),
-      car_id: data.car_id,
-      status: car.status,
-      price: car.price,
-      offered_price: data.offered_price,
-    };
-    this.orders.push(newOrder);
-    return newOrder;
-  }
+    async createOrder(data, owner) {
 
-  /**
+        const text = `INSERT INTO
+          orders(id, ownerid, createdon, carid, status, price, offeredprice)
+          VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+
+        const car = await Car.viewSpecificCar(data.car_id);
+        const values = [
+            uuid.v4(),
+            owner.id,
+            moment().format('llll'),
+            data.car_id,
+            car.status,
+            car.price,
+            data.offered_price
+        ];
+
+        try {
+            const result = await db.query(text, values);
+            return result.rows[0];
+        } catch (err) {
+            return error;
+        }
+    }
+
+    /**
      *
      * @param {uuid} id
      * @returns {object} order object
      */
-  isExistingOrder(id) {
-    return this.orders.find(order => order.id === id);
-  }
+    async isExistingOrder(id) {
+        const text = `SELECT * FROM orders WHERE id=$1`;
+        const values = [id];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows[0];
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
+    }
 
-  /**
-     *
-     * @param {uuid} id
-     * @param {object} car object
-     */
-  isExistingCar(id) {
-    return Car.viewSpecificCar(id);
-  }
-
-  /**
+    /**
      *
      * @params {uuid} id
      * @returns {object} order object
      */
-  updatePrice(id, data) {
-    const order = this.isExistingOrder(id);
-    const oldPrice = order.offered_price;
-    order.offered_price = data.offered_price;
-    return {
-      id: order.id,
-      createdOn: order.createdOn,
-      car_id: order.car_id,
-      status: order.status,
-      price: order.price,
-      old_price_offered: oldPrice,
-      offered_price: order.offered_price,
-    };
-  }
+    async updatePrice(id, data) {
+        const text = `UPDATE orders SET offeredprice=$1
+            WHERE id=$2 RETURNING *`;
+        const values = [
+            data.offered_price,
+            id
+        ];
+
+        try {
+            const result = await db.query(text, values);
+            return result.rows[0];
+        } catch (err) {
+            return error;
+        }
+    }
 }
 
 export default new Order();

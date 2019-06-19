@@ -1,70 +1,73 @@
 import uuid from 'uuid';
+import db from "../database/db";
+import bcrypt from "bcryptjs";
 
 
 class User {
-  /**
-     *
-     * class constructor
-     */
-  constructor() {
-    this.users = [{
-      id: '7854ghtes-teyrrii',
-      firstName: 'Eric',
-      lastName: 'Malaba',
-      address: 'Biryogo',
-      email: 'eric@gmail.com',
-      password: 'admin12',
-      isAdmin: true,
-    },
-    {
-      id: '7854ghtes-teyrrie',
-      firstName: 'Rick',
-      lastName: 'Oburu',
-      address: 'Kampala',
-      email: 'rick@gmail.com',
-      password: 'rick123',
-      isAdmin: false,
-    },
-    ];
-  }
-
-  /**
+    /**
      *
      * @param {object} data
      * @returns {object} the user
      */
-  signUp(data) {
-    const newUser = {
-      id: uuid.v4(),
-      firstName: data.firstName,
-      lastName: data.lastName,
-      address: data.address || '',
-      email: data.email,
-      password: data.password,
-      isAdmin: false,
-    };
-    this.users.push(newUser);
+    async signUp(data) {
+        const text = `INSERT INTO
+          users(id, firstname, lastname, email, password, address, isadmin)
+          VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
 
-    return newUser;
-  }
+        const password = bcrypt.hashSync(data.password, 8);
 
-  /**
+        const values = [
+            uuid.v4(),
+            data.firstName,
+            data.lastName,
+            data.email,
+            password,
+            data.address || "",
+            false
+        ];
+
+        try {
+            const result = await db.query(text, values);
+            return result.rows[0];
+        } catch (err) {
+            return error;
+        }
+    }
+
+    /**
      *
      * @params {object} data
      * @returns {object} the logged in user object
      */
-  login(data) {
-    return this.users.find(user => user.email === data.email && user.password === data.password);
-  }
+    async login(data) {
+        const user = await this.isExistingUser(data.email);
+        if (user) {
+            const isValidPass = bcrypt.compareSync(data.password, user.password);
+            if (isValidPass) {
+                return user;
+            }
+            return;
+        }
+    }
 
-  /**
+    /**
      *
      * @param {email} user email
      * @returns {boolean} user object
      */
-  isExistingUser(email) {
-    return this.users.find(user => user.email === email);
-  }
+    async isExistingUser(email) {
+        const text = `SELECT * FROM users WHERE email = $1`;
+        const values = [email];
+        try {
+            const result = await db.query(text, values);
+            if (result) {
+                return result.rows[0];
+            }
+            return;
+        } catch (err) {
+            return err;
+        }
+    }
 }
 
 export default new User();
