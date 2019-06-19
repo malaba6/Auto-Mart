@@ -59,6 +59,7 @@ const CarController = {
         this.status = 201;
         return {
             status: this.status,
+            message: "Car successfully posted",
             data: car
         };
     },
@@ -84,13 +85,6 @@ const CarController = {
 
             const cars = await Car.viewAllCars();
             this.status = 200;
-
-            if (cars.length === 0) {
-                return {
-                    status: this.status,
-                    message: 'Oops! It is lonely here!'
-                };
-            }
             return {
                 status: this.status,
                 data: cars
@@ -109,13 +103,13 @@ const CarController = {
 
             const cars = await Car.viewUnsoldCars(query.status);
             this.status = 200;
-            if (cars.length === 0) {
-                this.status = 404;
-                return {
-                    status: this.status,
-                    message: 'Oh oh! No cars Posted here yet!',
-                };
-            }
+            // if (cars.length === 0) {
+            //     this.status = 404;
+            //     return {
+            //         status: this.status,
+            //         message: 'Oh oh! No cars Posted here yet!',
+            //     };
+            // }
             return {
                 status: this.status,
                 data: cars,
@@ -198,14 +192,6 @@ const CarController = {
         // Check if status and manufacturer are included in the query
         if (query.status === 'available' && query.manufacturer && length === 2) {
 
-            if (Validator.isValidManufacturer(query.manufacturer) !== 'valid') {
-                this.status = 422;
-                return {
-                    status: this.status,
-                    error: Validator.isValidManufacturer(query.manufacturer),
-                };
-            }
-
             const cars = await Car.viewCarsWithManufacturer(query);
             this.status = 200;
 
@@ -224,13 +210,7 @@ const CarController = {
 
         // Check if status and type are included the query param
         if (query.status === 'available' && query.type && length === 2) {
-            if (Validator.isValidType(query.type) !== 'valid') {
-                this.status = 422;
-                return {
-                    status: this.status,
-                    error: Validator.isValidType(query.type)
-                };
-            }
+
             const cars = await Car.viewCarsWithType(query);
             this.status = 200;
 
@@ -288,7 +268,7 @@ const CarController = {
             this.status = 403;
             return {
                 status: this.status,
-                message: 'You cannot update a car Ad you do not own'
+                error: 'You cannot update a car Ad you do not own'
             };
         }
 
@@ -297,6 +277,7 @@ const CarController = {
         this.status = 200;
         return {
             status: this.status,
+            message: "Status successfully updated",
             data: updated
         };
     },
@@ -334,7 +315,7 @@ const CarController = {
             this.status = 403;
             return {
                 status: this.status,
-                message: 'You cannot update a car Ad you do not own'
+                error: 'You cannot update a car Ad you do not own'
             };
         }
 
@@ -343,6 +324,7 @@ const CarController = {
         this.status = 200;
         return {
             status: this.status,
+            message: "Price successfully updated",
             data: updated
         };
     },
@@ -385,15 +367,6 @@ const CarController = {
         }
 
         const car = await Car.viewSpecificCar(id);
-
-        if (!car) {
-            this.status = 404;
-            return {
-                status: this.status,
-                error: `Car with id ${id} not found`,
-            };
-        }
-
         await Car.deleteCar(id);
 
         this.status = 200;

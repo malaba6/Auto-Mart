@@ -50,7 +50,6 @@ class Order {
             }
             return;
         } catch (err) {
-            console.log(err);
             return err;
         }
     }
@@ -72,7 +71,6 @@ class Order {
             const result = await db.query(text, values);
             return result.rows[0];
         } catch (err) {
-            console.log(err);
             return error;
         }
     }

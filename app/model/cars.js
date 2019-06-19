@@ -30,7 +30,6 @@ class Car {
             const result = await db.query(text, values);
             return result.rows[0];
         } catch (err) {
-            console.log(err);
             return error;
         }
     }
@@ -200,7 +199,6 @@ class Car {
             const result = await db.query(text, values);
             return result.rows[0];
         } catch (err) {
-            console.log(err);
             return error;
         }
     }
@@ -222,7 +220,6 @@ class Car {
             const result = await db.query(text, values);
             return result.rows[0];
         } catch (err) {
-            console.log(err);
             return error;
         }
     }
@@ -238,7 +235,6 @@ class Car {
             const result = await db.query(text, values);
             return result.rows[0];
         } catch (err) {
-            console.log(err);
             return error;
         }
     }

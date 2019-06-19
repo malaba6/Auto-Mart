@@ -58,6 +58,7 @@ const FlagController = {
         this.status = 201;
         return {
             status: this.status,
+            message: "Car Ad successfully flagged",
             data: flag
         };
     },
