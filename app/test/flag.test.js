@@ -8,23 +8,6 @@ const { expect } = chai;
 
 let userToken;
 
-
-before(done => {
-    const user = {
-        email: 'admin@automart.com',
-        password: 'admin12',
-    };
-    chai.request(app)
-        .post('/api/v2/auth/signin')
-        .send(user)
-        .end((err, res) => {
-            if (err) done(err);
-            adminToken = res.body.data.token;
-            done();
-        });
-
-});
-
 before(done => {
     const user = {
         firstName: 'zahara',
