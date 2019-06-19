@@ -10,7 +10,7 @@
         }
     },
     "host": "malaba-auto-mart.herokuapp.com",
-    "basePath": "/api/v1",
+    "basePath": "/api/v2",
     "tags": [{
             "name": "Users",
             "description": "API for users in the system"
@@ -85,6 +85,9 @@
                                 "status": {
                                     "type": "integer"
                                 },
+                                "mesage": {
+                                    "type": "integer"
+                                },
                                 "data": {
                                     "$ref": "#/definitions/User"
                                 }
@@ -146,6 +149,9 @@
                         "schema": {
                             "properties": {
                                 "status": {
+                                    "type": "integer"
+                                },
+                                "message": {
                                     "type": "integer"
                                 },
                                 "data": {
@@ -227,6 +233,9 @@
                                 "status": {
                                     "type": "integer"
                                 },
+                                "message": {
+                                    "type": "integer"
+                                },
                                 "data": {
                                     "$ref": "#/definitions/Car"
                                 }
@@ -241,6 +250,18 @@
                     },
                     "417": {
                         "description": "Invalid field value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "403": {
+                        "description": "You have not used a token",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid token",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -759,6 +780,9 @@
     "definitions": {
         "User": {
             "properties": {
+                "token": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
