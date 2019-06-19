@@ -10,7 +10,8 @@ class Car {
      */
     async postCar(data, owner) {
         const text = `INSERT INTO
-          cars(id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+          cars(id, ownerid, createdon, state, status, type,
+            manufacturer, model, price, photo)
           VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
 
         const values = [

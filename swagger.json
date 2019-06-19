@@ -29,6 +29,7 @@
         }
     ],
     "schemes": [
+        "http",
         "https"
     ],
     "consumes": [
@@ -188,40 +189,47 @@
                 ],
                 "description": "Creates a new car sale Ad",
                 "parameters": [{
-                    "name": "car",
-                    "in": "body",
-                    "description": "Creates a new car sale Ad",
-                    "schema": {
-                        "required": [
-                            "manufacturer",
-                            "model",
-                            "type",
-                            "state",
-                            "price",
-                            "photo"
-                        ],
-                        "properties": {
-                            "manufacturer": {
-                                "type": "string"
-                            },
-                            "model": {
-                                "type": "string"
-                            },
-                            "type": {
-                                "type": "string"
-                            },
-                            "state": {
-                                "type": "string"
-                            },
-                            "price": {
-                                "type": "number"
-                            },
-                            "photo": {
-                                "type": "string"
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "User token",
+                        "required": false
+                    },
+                    {
+                        "name": "car",
+                        "in": "body",
+                        "description": "Creates a new car sale Ad",
+                        "schema": {
+                            "required": [
+                                "manufacturer",
+                                "model",
+                                "type",
+                                "state",
+                                "price",
+                                "photo"
+                            ],
+                            "properties": {
+                                "manufacturer": {
+                                    "type": "string"
+                                },
+                                "model": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "state": {
+                                    "type": "string"
+                                },
+                                "price": {
+                                    "type": "number"
+                                },
+                                "photo": {
+                                    "type": "string"
+                                }
                             }
                         }
                     }
-                }],
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -270,6 +278,12 @@
             },
             "get": {
                 "parameters": [{
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "User token",
+                        "required": false
+                    },
+                    {
                         "name": "status",
                         "in": "query",
                         "description": "The car status",
@@ -388,12 +402,19 @@
         },
         "/car/{carId}": {
             "parameters": [{
-                "name": "carId",
-                "in": "path",
-                "required": true,
-                "description": "ID of the car sale Ad that we want to find",
-                "type": "string"
-            }],
+                    "name": "x-access-token",
+                    "in": "header",
+                    "description": "User token",
+                    "required": false
+                },
+                {
+                    "name": "carId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the car sale Ad that we want to find",
+                    "type": "string"
+                }
+            ],
             "get": {
                 "tags": [
                     "Cars"
@@ -453,12 +474,19 @@
         },
         "/car/{carId}/price": {
             "parameters": [{
-                "name": "carId",
-                "in": "path",
-                "required": true,
-                "description": "ID of the car sale Ad that we want to update",
-                "type": "string"
-            }],
+                    "name": "x-access-token",
+                    "in": "header",
+                    "description": "User token",
+                    "required": false
+                },
+                {
+                    "name": "carId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the car sale Ad that we want to update",
+                    "type": "string"
+                }
+            ],
             "patch": {
                 "tags": [
                     "Cars"
@@ -519,12 +547,19 @@
         },
         "/car/{carId}/status": {
             "parameters": [{
-                "name": "carId",
-                "in": "path",
-                "required": true,
-                "description": "ID of the car sale Ad that we want to update",
-                "type": "string"
-            }],
+                    "name": "x-access-token",
+                    "in": "header",
+                    "description": "User token",
+                    "required": false
+                },
+                {
+                    "name": "carId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the car sale Ad that we want to update",
+                    "type": "string"
+                }
+            ],
             "patch": {
                 "tags": [
                     "Cars"
@@ -587,24 +622,31 @@
                 ],
                 "description": "Creates a new car sale Ad",
                 "parameters": [{
-                    "name": "order",
-                    "in": "body",
-                    "description": "Creates a purchase order",
-                    "schema": {
-                        "required": [
-                            "car_id",
-                            "offered_price"
-                        ],
-                        "properties": {
-                            "car_id": {
-                                "type": "string"
-                            },
-                            "offered_price": {
-                                "type": "integer"
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "User token",
+                        "required": false
+                    },
+                    {
+                        "name": "order",
+                        "in": "body",
+                        "description": "Creates a purchase order",
+                        "schema": {
+                            "required": [
+                                "car_id",
+                                "offered_price"
+                            ],
+                            "properties": {
+                                "car_id": {
+                                    "type": "string"
+                                },
+                                "offered_price": {
+                                    "type": "integer"
+                                }
                             }
                         }
                     }
-                }],
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -645,12 +687,19 @@
         },
         "/order/{orderId}/price": {
             "parameters": [{
-                "name": "orderId",
-                "in": "path",
-                "required": true,
-                "description": "ID of the purchase order that we want to find",
-                "type": "string"
-            }],
+                    "name": "x-access-token",
+                    "in": "header",
+                    "description": "User token",
+                    "required": false
+                },
+                {
+                    "name": "orderId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the purchase order that we want to find",
+                    "type": "string"
+                }
+            ],
             "patch": {
                 "tags": [
                     "Orders"
@@ -716,28 +765,35 @@
                 ],
                 "description": "Flag a car Ad as fraudulent",
                 "parameters": [{
-                    "name": "flag",
-                    "in": "body",
-                    "description": "Flag a car Ad as fraudulent",
-                    "schema": {
-                        "required": [
-                            "car_id",
-                            "reason",
-                            "description"
-                        ],
-                        "properties": {
-                            "car_id": {
-                                "type": "string"
-                            },
-                            "reason": {
-                                "type": "string"
-                            },
-                            "description": {
-                                "type": "string"
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "User token",
+                        "required": false
+                    },
+                    {
+                        "name": "flag",
+                        "in": "body",
+                        "description": "Flag a car Ad as fraudulent",
+                        "schema": {
+                            "required": [
+                                "car_id",
+                                "reason",
+                                "description"
+                            ],
+                            "properties": {
+                                "car_id": {
+                                    "type": "string"
+                                },
+                                "reason": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                }
                             }
                         }
                     }
-                }],
+                ],
                 "produces": [
                     "application/json"
                 ],
