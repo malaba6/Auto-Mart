@@ -1,7 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
-import Car from '../model/orders';
 
 
 chai.use(chaiHttp);
@@ -65,10 +64,8 @@ before(done => {
 describe('POST /api/v2/order', () => {
     it('Should return a 403 error if no token is provided', (done) => {
         const order = {
-
             car_id: 'b8aa4d11-baa4-4d6a',
             proposed_price: 8000,
-
         };
 
         chai.request(app)
@@ -90,10 +87,8 @@ describe('POST /api/v2/order', () => {
 describe('POST /api/v2/order', () => {
     it('Should return a 401 error message if user provided wrong token', (done) => {
         const order = {
-
             car_id: 'b8aa4d11-baa4-4d6a',
             proposed_price: 8000
-
         };
 
         chai.request(app)
@@ -142,7 +137,6 @@ describe('POST /api/v2/order', () => {
     it('Should return a 400 error message if required fields are not provided', (done) => {
         const order = {
             offered_price: 8000,
-
         };
 
         chai.request(app)

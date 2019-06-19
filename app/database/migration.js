@@ -101,10 +101,8 @@ export const createTables = async() => {
 
 
         const tables = await pool.query(queries);
-        console.log(tables);
         pool.end();
     } catch (err) {
-        console.log(err);
         await pool.end()
     }
 }

@@ -17,7 +17,6 @@ class Order {
           VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
 
         const car = await Car.viewSpecificCar(data.car_id);
-        console.log(car);
         const values = [
             uuid.v4(),
             owner.id,

@@ -1,7 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
-import dropTables from "../database/migration";
 
 
 chai.use(chaiHttp);

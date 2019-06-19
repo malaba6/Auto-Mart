@@ -6,7 +6,6 @@ import app from '../../app';
 chai.use(chaiHttp);
 const { expect } = chai;
 
-let adminToken;
 let userToken;
 
 
