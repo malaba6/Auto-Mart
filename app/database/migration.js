@@ -1,4 +1,3 @@
-// import console.log from "console.log";
 import { Pool } from "pg";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
@@ -68,37 +67,37 @@ export const createTables = async() => {
                 description TEXT NOT NULL
             );
         INSERT INTO 
-        users (id, firstName, lastName, email, password, address, isAdmin)
-        VALUES('7bfc05ce-c15c-433c-be5f-69687e6b9369', 'admin', 'admin',
-         'admin@automart.com', '${adminPass}', 'Kigali', true);
+            users (id, firstName, lastName, email, password, address, isAdmin)
+            VALUES('7bfc05ce-c15c-433c-be5f-69687e6b9369', 'admin', 'admin',
+            'admin@automart.com', '${adminPass}', 'Kigali', true) ON CONFLICT DO NOTHING;
         INSERT INTO 
-          users (id, firstName, lastName, email, password, address, isAdmin)
-          VALUES('7bfc05ce-c15c-433c', 'user', 'user',
-          'user@automart.com', '${adminPass}', 'Kigali', false);
-         INSERT INTO 
-        cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
-        VALUES('7bfc05ce-c15c', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-         'new', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
+            users (id, firstName, lastName, email, password, address, isAdmin)
+            VALUES('7bfc05ce-c15c-433c', 'user', 'user',
+            'user@automart.com', '${adminPass}', 'Kigali', false) ON CONFLICT DO NOTHING;
+        INSERT INTO 
+            cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+            VALUES('7bfc05ce-c15c', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
+            'new', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg') ON CONFLICT DO NOTHING;
         INSERT INTO 
           cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
           VALUES('7bfc05ce-c15ccc', '7bfc05ce-c15ccc', 'Tue, Jun 18, 2019 5:03 AM',
-           'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
+           'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg') ON CONFLICT DO NOTHING;
         INSERT INTO 
-        cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
-        VALUES('7bfc05ce', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-            'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
+            cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
+            VALUES('7bfc05ce', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
+            'Buildozor', 'available', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg') ON CONFLICT DO NOTHING;
         INSERT INTO 
             cars (id, ownerid, createdon, state, status, type, manufacturer, model, price, photo)
             VALUES('7bfc05ce-rudi', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-            'Buildozor', 'sold', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg');
+            'Buildozor', 'sold', 'car', 'ford', 'CS', 23000, 'https://res.cloudinary.com/eubule/image/upload/v1560760824/ford.jpg') ON CONFLICT DO NOTHING;
         INSERT INTO 
             orders (id, ownerid, createdon, carid, status, price, offeredprice)
             VALUES('7bfc05ce-c15aar', '7bfc05ce-c15c-433c-be5f-69687e6b9369', 'Tue, Jun 18, 2019 5:03 AM',
-           '7bfc05ce-c15ccc', 'available', 12000, 10000);
+           '7bfc05ce-c15ccc', 'available', 12000, 10000) ON CONFLICT DO NOTHING;
         INSERT INTO 
             orders (id, ownerid, createdon, carid, status, price, offeredprice)
             VALUES('7bfc05ce-c15vbr', '7bfc05ce-c15c-433c', 'Tue, Jun 18, 2019 5:03 AM',
-            '7bfc05ce-rud', 'sold', 12000, 10000);`;
+            '7bfc05ce-rud', 'sold', 12000, 10000) ON CONFLICT DO NOTHING;`;
 
 
         const tables = await pool.query(queries);
