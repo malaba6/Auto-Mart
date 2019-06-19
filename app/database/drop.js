@@ -15,7 +15,7 @@ const pool = new Pool({
     connectionString: DATABASE_URL
 });
 
-pool.on('connect', () => {});
+pool.on('connect', () => { console.log(DATABASE_URL) });
 
 export const dropTables = async() => {
     const queries = `
@@ -27,6 +27,7 @@ export const dropTables = async() => {
     return drop;
 }
 
-dropTables().then((result) => {}).catch((error) => {
-    return err;
+dropTables().then((result) => { console.log(result) }).catch((error) => {
+    console.log(error);
+    return error;
 });

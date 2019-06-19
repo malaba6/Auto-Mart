@@ -17,7 +17,7 @@ const pool = new Pool({
     connectionString: DATABASE_URL
 });
 
-pool.on('connect', () => {});
+pool.on('connect', () => { console.log(DATABASE_URL) });
 
 const adminPass = bcrypt.hashSync(process.env.ADMIN_PASS, 8);
 
@@ -101,8 +101,10 @@ export const createTables = async() => {
 
 
         const tables = await pool.query(queries);
+        console.log(tables);
         pool.end();
     } catch (err) {
+        console.log(err)
         await pool.end()
     }
 }
