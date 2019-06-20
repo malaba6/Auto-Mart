@@ -46,7 +46,7 @@ export const createTables = async() => {
                 manufacturer VARCHAR(120) NOT NULL,
                 model VARCHAR(120) NOT NULL,
                 price  float8 NOT NULL,
-                photo VARCHAR(120) NOT NULL
+                photo TEXT NOT NULL
             );
         CREATE TABLE IF NOT EXISTS
             orders (
@@ -112,7 +112,7 @@ export const createTables = async() => {
             '7bfc05ce-rud', 'sold', 12000, 10000);`;
 
 
-        await pool.query(queries);
+        const p = await pool.query(queries);
         pool.end();
     } catch (err) {
         await pool.end()

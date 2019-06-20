@@ -24,14 +24,14 @@ class Car {
             data.manufacturer,
             data.model,
             data.price,
-            data.photo
+            data.photo.toString()
         ];
 
         try {
             const result = await db.query(text, values);
             return result.rows[0];
         } catch (err) {
-            return error;
+            return err;
         }
     }
 

@@ -8,7 +8,6 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 const cloudinary_url = URL.parse(process.env.CLOUDINARY_URL);
-
 cloudinary.config({
     cloud_name: cloudinary_url.host,
     api_key: cloudinary_url.auth.split(':')[0],
@@ -23,22 +22,18 @@ cloudinary.config({
  * @param {object} next 
  */
 
-export const imageUploader = (req, res, next) => {
-    if (Validator.isValidImageUrl(req.body.photo) !== 'valid') {
-        return res.status(422).send({
-            error: Validator.isValidImageUrl(req.body.photo),
-            status: 422,
-        });
-    }
-    let name = req.body.photo.split('/');
-    name = name[name.length - 1].split('.')[0];
-    cloudinary.v2.uploader.upload(req.body.photo, { public_id: name }, (error, result) => {
-        if (result) {
-            req.body.photo = result.secure_url;
-        }
-        return next();
-    });
-};
+// export const imageUploader = (req, res, next) => {
+
+//     let name = req.body.photo.split('/');
+//     name = name[name.length - 1].split('.')[0];
+//     cloudinary.v2.uploader.upload(req.body.photo, 
+//         { public_id: name }, (error, result) => {
+//         if (result) {
+//             req.body.photo = result.secure_url;
+//         }
+//         return next();
+//     });
+// };
 
 /**
  * 
@@ -50,13 +45,25 @@ export const imageUploader = (req, res, next) => {
 export const deleteImage = async(req, res, next) => {
     const { id } = req.params;
     const car = await Car.viewSpecificCar(id);
+
+    // if (car) {
+    //     const carUrl = car.photo;
+    //     let name = carUrl.split('/');
+    //     name = name[name.length - 1].split('.')[0];
+    //     cloudinary.v2.uploader.destroy(name, (error, result) => {});
+    //     return next();
+    // }
     if (car) {
         const carUrl = car.photo;
-        let name = carUrl.split('/');
-        name = name[name.length - 1].split('.')[0];
-        cloudinary.v2.uploader.destroy(name, (error, result) => {});
+        const pic = carUrl.split(',');
+        for (let i = 0; i < pic.length; i++) {
+            let name = pic[i].split('/');
+            name = name[name.length - 1].split('.')[0];
+            cloudinary.v2.uploader.destroy(name, (error, result) => {});
+        }
         return next();
     }
+
     return res.status(404).send({
         status: 404,
         error: `Car with id ${id} not found`,
@@ -104,4 +111,38 @@ export const authencate = (req, res, next) => {
         req.decoded = decoded;
         return next();
     });
+}
+
+
+export const imageUploader = async(req, res, next) => {
+    if (Validator.isValidPic(req.body.photo) !== 'valid') {
+        return res.status(422).send({
+            error: Validator.isValidPic(req.body.photo),
+            status: 422,
+        });
+    }
+    const pts = req.body.photo.split(';');
+    pts.forEach(element => {
+        if (Validator.isValidImageUrl(element) !== 'valid') {
+            return res.status(422).send({
+                error: Validator.isValidImageUrl(element),
+                status: 422,
+            });
+        }
+    });
+
+    let res_promises = pts.map(file => new Promise((resolve, reject) => {
+        cloudinary.v2.uploader.upload(
+            file, { use_filename: true, unique_filename: false }, (err, result) => {
+                if (err) reject(err)
+                else resolve(result.secure_url)
+            })
+    }))
+
+    Promise.all(res_promises)
+        .then(result => {
+            req.body.photo = result;
+            return next();
+        })
+        .catch((error) => { next() })
 }
