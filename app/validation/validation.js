@@ -72,18 +72,24 @@ const Validator = {
     },
 
     isImageFound(photo) {
-        if (!photo.includes('https://res.cloudinary.com')) {
+        if (!photo[0].includes('https://res.cloudinary.com')) {
             return `Could not find image ${photo}`;
         }
         return 'found';
     },
 
     isValidImageUrl(photo) {
-        if (typeof photo !== 'string' || photo.length === 0) {
+        if (photo.length === 0) {
             return 'The Photo Url must be a string of characters not null';
         }
         if (!photo.match(/(.jpg|.png|.jpeg)$/g)) {
             return 'Image must be one of these formats .jpg .png .jpeg';
+        }
+        return 'valid';
+    },
+    isValidPic(pic) {
+        if (typeof pic !== 'string' || pic.length === 0) {
+            return 'The Photo Url must be a string of characters not null';
         }
         return 'valid';
     },

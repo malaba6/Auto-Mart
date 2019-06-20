@@ -46,7 +46,7 @@ export const createTables = async() => {
                 manufacturer VARCHAR(120) NOT NULL,
                 model VARCHAR(120) NOT NULL,
                 price  float8 NOT NULL,
-                photo VARCHAR(120) NOT NULL
+                photo TEXT NOT NULL
             );
         CREATE TABLE IF NOT EXISTS
             orders (
