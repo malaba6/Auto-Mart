@@ -112,7 +112,7 @@ export const createTables = async() => {
             '7bfc05ce-rud', 'sold', 12000, 10000);`;
 
 
-        await pool.query(queries);
+        const p = await pool.query(queries);
         pool.end();
     } catch (err) {
         await pool.end()
