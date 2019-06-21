@@ -12,9 +12,9 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 
 [Auto-Mart](https://malaba6.github.io/Auto-Mart/)
 
-## Link to Auto-Mart using data stuctures on Heroku
+## Link to Auto-Mart on Heroku
 
-[Auto-Mart](https://malaba-auto-mart.herokuapp.com/api/v1/car)
+[Auto-Mart](https://malaba-auto-mart.herokuapp.com/api-docs/)
 
 ## Routes captured by Auto-Mart
 
@@ -38,6 +38,7 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
  **PATCH** | /api/v1/order/:order-id/price | Updates purchase offered price
  **POST** | /api/v1/flag | Flags a posted car Ad as fraudulent
 
+For more details about endpoints [check the documentation here](https://github.com/Malaba6/Auto-Mart)
 
 
 
@@ -70,6 +71,12 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
  3. Then
 
     **`$ npm install`**   To install all the application dependencies
+
+ 4. And make sure postgresql is install in your system
+
+    * Make sure database name is automart
+    * Test db is test_automart
+    * User name is postgres 
 
 
  ### RUN THE APP

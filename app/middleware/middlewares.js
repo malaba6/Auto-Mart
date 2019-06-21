@@ -14,26 +14,6 @@ cloudinary.config({
     api_secret: cloudinary_url.auth.split(':')[1],
 });
 
-/**
- * 
- * @description Uploads image to cloudinary
- * @param {object} req request
- * @param {object} res response
- * @param {object} next 
- */
-
-// export const imageUploader = (req, res, next) => {
-
-//     let name = req.body.photo.split('/');
-//     name = name[name.length - 1].split('.')[0];
-//     cloudinary.v2.uploader.upload(req.body.photo, 
-//         { public_id: name }, (error, result) => {
-//         if (result) {
-//             req.body.photo = result.secure_url;
-//         }
-//         return next();
-//     });
-// };
 
 /**
  * 
@@ -46,13 +26,6 @@ export const deleteImage = async(req, res, next) => {
     const { id } = req.params;
     const car = await Car.viewSpecificCar(id);
 
-    // if (car) {
-    //     const carUrl = car.photo;
-    //     let name = carUrl.split('/');
-    //     name = name[name.length - 1].split('.')[0];
-    //     cloudinary.v2.uploader.destroy(name, (error, result) => {});
-    //     return next();
-    // }
     if (car) {
         const carUrl = car.photo;
         const pic = carUrl.split(',');
@@ -113,7 +86,13 @@ export const authencate = (req, res, next) => {
     });
 }
 
-
+/**
+ * 
+ * @description Uploads images to cloudinary
+ * @param {object} req request
+ * @param {object} res response
+ * @param {object} next 
+ */
 export const imageUploader = async(req, res, next) => {
     if (Validator.isValidPic(req.body.photo) !== 'valid') {
         return res.status(422).send({
