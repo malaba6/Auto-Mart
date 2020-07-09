@@ -5,6 +5,7 @@ import router from "./app/route/routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json";
 import dotenv from "dotenv";
+import cors from 'cors';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use('/api-docs',
     swaggerUi.serve, swaggerUi.setup(swaggerDocument));
