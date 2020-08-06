@@ -107,32 +107,6 @@ describe('POST /api/v2/order', () => {
     });
 });
 
-
-describe('POST /api/v2/order', () => {
-    it('Should return a 400 error message if required fields are not provided', (done) => {
-        const order = {
-
-            car_id: 'b8aa4d11-baa4-4d6a',
-            proposed_price: 8000
-
-        };
-
-        chai.request(app)
-            .post('/api/v2/order')
-            .set('x-access-token', userToken)
-            .send(order)
-            .end((err, res) => {
-                if (err) done(err);
-                expect(res).to.have.status(400);
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'error');
-                expect(res.body.error).to.deep.equal('Car_id and offered_price are required');
-                expect(res.body.status).to.deep.equal(400);
-                done();
-            });
-    });
-});
-
 describe('POST /api/v2/order', () => {
     it('Should return a 400 error message if required fields are not provided', (done) => {
         const order = {
@@ -148,31 +122,8 @@ describe('POST /api/v2/order', () => {
                 expect(res).to.have.status(400);
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'error');
-                expect(res.body.error).to.deep.equal('Car_id and offered_price are required');
+                expect(res.body.error).to.deep.equal('Car_id is required');
                 expect(res.body.status).to.deep.equal(400);
-                done();
-            });
-    });
-});
-
-describe('POST /api/v2/order', () => {
-    it('Should return a 422 error message if user provides wrong value for offered_price', (done) => {
-        const order = {
-            car_id: 'b8aa4d11-baa4-4d6b',
-            offered_price: 0,
-        };
-
-        chai.request(app)
-            .post('/api/v2/order')
-            .set('x-access-token', userToken)
-            .send(order)
-            .end((err, res) => {
-                if (err) done(err);
-                expect(res).to.have.status(422);
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'error');
-                expect(res.body.error).to.deep.equal('Price must be a number greater than 1');
-                expect(res.body.status).to.deep.equal(422);
                 done();
             });
     });
@@ -202,7 +153,7 @@ describe('POST /api/v2/order', () => {
 });
 
 describe('POST /api/v2/order', () => {
-    it('Should return error message if ser tries to ordera car he owns', (done) => {
+    it('Should return error message if user tries to order car they owns', (done) => {
         const order = {
             car_id: '7bfc05ce',
             offered_price: 6000
@@ -242,7 +193,7 @@ describe('POST /api/v2/order', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'message', 'data');
                 expect(res.body.data).to.have
-                    .keys('price', 'ownerid', 'offeredprice', 'carid', 'id', 'createdon', 'status');
+                    .keys('price', 'ownerid', 'carid', 'id', 'createdon', 'status');
                 expect(res.body.status).to.deep.equal(201);
                 done();
             });
@@ -266,7 +217,7 @@ describe('POST /api/v2/order', () => {
                 expect(res.body).to.be.an('object');
                 expect(res.body).to.have.keys('status', 'message', 'data');
                 expect(res.body.data).to.have
-                    .keys('price', 'ownerid', 'offeredprice', 'carid', 'id', 'createdon', 'status');
+                    .keys('price', 'ownerid', 'carid', 'id', 'createdon', 'status');
                 expect(res.body.status).to.deep.equal(201);
                 done();
             });
@@ -339,38 +290,38 @@ describe('PATCH /api/v2/order/b8aa4d1/price', () => {
     });
 });
 
-describe('PATCH /api/v2/order/b8aa4d22/price', () => {
-    it('Should return the order object if successfully apdated the price', (done) => {
-        const order = {
-            offered_price: 9000,
-        };
-        const car = {
-            status: 'available',
-        }
+// describe('PATCH /api/v2/order/b8aa4d22/price', () => {
+//     it('Should return the order object if successfully apdated the price', (done) => {
+//         const order = {
+//             offered_price: 9000,
+//         };
+//         const car = {
+//             status: 'available',
+//         }
 
-        chai.request(app)
-            .patch('/api/v2/car/7bfc05ce-c15ccc/status')
-            .set('x-access-token', userToken2) //             
-            .send(car)
+//         chai.request(app)
+//             .patch('/api/v2/car/7bfc05ce-c15ccc/status')
+//             .set('x-access-token', userToken2) //             
+//             .send(car)
 
-        chai.request(app)
-            .patch('/api/v2/order/7bfc05ce-c15aar/price')
-            .set('x-access-token', adminToken) //             
-            .send(order)
-            .end((err, res) => {
-                if (err) done(err);
-                expect(res).to.have.status(200);
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'message', 'data');
-                expect(res.body.message).to.deep.equal('Price successfully updated');
-                expect(res.body.data).to.have.keys('offeredprice', 'price',
-                    'carid', 'id', 'createdon',
-                    'status', 'ownerid');
-                expect(res.body.status).to.deep.equal(200);
-                done();
-            });
-    });
-});
+//         chai.request(app)
+//             .patch('/api/v2/order/7bfc05ce-c15aar/price')
+//             .set('x-access-token', adminToken) //             
+//             .send(order)
+//             .end((err, res) => {
+//                 if (err) done(err);
+//                 expect(res).to.have.status(200);
+//                 expect(res.body).to.be.an('object');
+//                 expect(res.body).to.have.keys('status', 'message', 'data');
+//                 expect(res.body.message).to.deep.equal('Price successfully updated');
+//                 expect(res.body.data).to.have.keys('offeredprice', 'price',
+//                     'carid', 'id', 'createdon',
+//                     'status', 'ownerid');
+//                 expect(res.body.status).to.deep.equal(200);
+//                 done();
+//             });
+//     });
+// });
 
 describe('PATCH /api/v2/order/b8aa4d22/price', () => {
     it('Should return error if user tries to update an order they do not own', (done) => {

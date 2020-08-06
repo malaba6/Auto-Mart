@@ -880,23 +880,6 @@ describe('GET /api/v2/car?status=available&state=use', () => {
     });
 });
 
-describe('GET /api/v2/car?status=available&state=used', () => {
-    it('Should return 404 error if user queried state is not found ', (done) => {
-        chai.request(app)
-            .get('/api/v2/car?status=available&state=used')
-            .set('x-access-token', userToken)
-            .end((err, res) => {
-                if (err) done(err);
-                expect(res).to.have.status(404);
-                expect(res.body).to.be.an('object');
-                expect(res.body).to.have.keys('status', 'message');
-                expect(res.body.message).to.deep.equal('Oh oh! No used cars here yet');
-                expect(res.body.status).to.deep.equal(404);
-                done();
-            });
-    });
-});
-
 describe('GET /api/v2/car?status=available&state=new', () => {
     it('Should return all the cars when user query matches the state ', (done) => {
         chai.request(app)

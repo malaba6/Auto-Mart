@@ -13,8 +13,8 @@ class Order {
     async createOrder(data, owner) {
 
         const text = `INSERT INTO
-          orders(id, ownerid, createdon, carid, status, price, offeredprice)
-          VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+          orders(id, ownerid, createdon, carid, status, price)
+          VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
 
         const car = await Car.viewSpecificCar(data.car_id);
         const values = [
@@ -24,7 +24,7 @@ class Order {
             data.car_id,
             car.status,
             car.price,
-            data.offered_price
+            // data.offered_price
         ];
 
         try {

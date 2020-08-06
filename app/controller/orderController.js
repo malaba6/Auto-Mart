@@ -12,19 +12,11 @@ const OrderController = {
      * @returns {object} Order object
      */
     async createOrder(data, user) {
-        if ((data.car_id === undefined && data.car_id !== 0) ||
-            (data.offered_price === undefined && data.offered_price !== 0)) {
+        if ((data.car_id === undefined && data.car_id !== 0)) {
             this.status = 400;
             return {
                 status: this.status,
-                error: 'Car_id and offered_price are required',
-            };
-        }
-        if (Validator.isValidPrice(data.offered_price) !== 'valid') {
-            this.status = 422;
-            return {
-                status: this.status,
-                error: Validator.isValidPrice(data.offered_price),
+                error: 'Car_id is required',
             };
         }
 
